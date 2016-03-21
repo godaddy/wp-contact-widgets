@@ -125,7 +125,7 @@ class AdminTestCest {
 
 		$I->amOnPage( admin_url( 'widgets.php' ) );
 
-		$I->canSee( 'Social', [ 'css' => '.widget h3' ] );
+		$I->canSee( 'Social Profiles', [ 'css' => '.widget h3' ] );
 
 		$selector = '#widget-list div[id$=wpcw_social-__i__]';
 

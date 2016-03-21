@@ -22,7 +22,7 @@ final class Social extends Base_Widget {
 
 		parent::__construct(
 			'wpcw_social',
-			__( 'Social', 'contact-widgets' ),
+			__( 'Social Profiles', 'contact-widgets' ),
 			$widget_options
 		);
 
