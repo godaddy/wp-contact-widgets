@@ -22,7 +22,7 @@ final class Contact extends Base_Widget {
 
 		parent::__construct(
 			'wpcw_contact',
-			__( 'Contact', 'contact-widgets' ),
+			__( 'Contact Details', 'contact-widgets' ),
 			$widget_options
 		);
 
