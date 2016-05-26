@@ -13,7 +13,6 @@ $board    = esc_attr_x( 'board', 'Must be lowercase and use url-safe characters'
 
 $fields = [
 	'500px'    => [
-		//'icon'    => 'facebook-official',
 		'label'   => __( '500px', 'contact-widgets' ),
 		'default' => "https://www.500px.com/{$username}",
 		'select'  => $username,
