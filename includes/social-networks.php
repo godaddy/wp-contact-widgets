@@ -12,11 +12,6 @@ $company  = esc_attr_x( 'company', 'Must be lowercase and use url-safe character
 $board    = esc_attr_x( 'board', 'Must be lowercase and use url-safe characters', 'contact-widgets' );
 
 $fields = [
-	'500px'    => [
-		'label'   => __( '500px', 'contact-widgets' ),
-		'default' => "https://www.500px.com/{$username}",
-		'select'  => $username,
-	],
 	'facebook'    => [
 		'icon'    => 'facebook-official',
 		'label'   => __( 'Facebook', 'contact-widgets' ),
@@ -58,6 +53,11 @@ $fields = [
 	'flickr'      => [
 		'label'   => __( 'Flickr', 'contact-widgets' ),
 		'default' => "https://www.flickr.com/photos/{$username}",
+		'select'  => $username,
+	],
+	'500px'    => [
+		'label'   => __( '500px', 'contact-widgets' ),
+		'default' => "https://www.500px.com/{$username}",
 		'select'  => $username,
 	],
 	'foursquare'  => [
