@@ -32,6 +32,7 @@ class Plugin {
 	public static function register_widgets() {
 
 		register_widget( __NAMESPACE__ . '\Contact' );
+		register_widget( __NAMESPACE__ . '\Hours' );
 		register_widget( __NAMESPACE__ . '\Social' );
 
 	}

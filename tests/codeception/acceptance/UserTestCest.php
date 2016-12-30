@@ -127,7 +127,7 @@ class AdminTestCest {
 
 		$I->canSee( 'Social Profiles', [ 'css' => '.widget h3' ] );
 
-		$selector = '#widget-list div[id$=wpcw_social-__i__]';
+		$selector = '#widget-list div[id$=_wpcw_social-__i__]';
 
 		$I->click( [ 'css' => "$selector .widget-title" ] );
 
@@ -199,6 +199,70 @@ class AdminTestCest {
 	}
 
 	/**
+	 * Validate that we can see the hours of operation widget
+	 *
+	 * @before login
+	 * @param \AcceptanceTester $I
+	 */
+	public function validateWidgetHoursOfOperationForm( AcceptanceTester $I ) {
+
+		$I->wantTo( 'Validate hours of operation form in widgets.php' );
+
+		$I->amOnPage( admin_url( 'widgets.php' ) );
+
+		$I->canSee( 'Hours of Operation', [ 'css' => '.widget h3' ] );
+
+		$selector = '#widget-list div[id$=wpcw_hours-__i__]';
+
+		$I->click( [ 'css' => "$selector .widget-title" ] );
+
+		$I->waitForElementVisible( [ 'css' => "$selector .widgets-chooser-actions .button-primary" ] );
+
+		$I->click( [ 'css' => "$selector .widgets-chooser-actions .button-primary" ] );
+
+		$selector = '#sidebar-1 div[id*=wpcw_hours]';
+
+		$I->waitForElementVisible( [ 'css' => "{$selector} .widget-inside" ], 3 );
+
+		/**
+		 * Fill all fields
+		 */
+		$I->fillField( [ 'css' => "{$selector} form .title input" ], 'Acceptance tests hours' );
+
+		$I->click( [ 'css' => "{$selector} form .day-container:nth-child(3) .js_wpcw_closed_checkbox" ] );
+
+		$I->click( [ 'css' => "{$selector} form .day-container:nth-child(4) .js_wpcw_custom_text_checkbox" ] );
+
+		$I->waitForElementVisible( [ 'css' => "{$selector} form .day-container:nth-child(4) .custom_text_field" ], 3 );
+
+		$I->fillField( [ 'css' => "{$selector} form .day-container:nth-child(4) .custom_text_field" ], 'Custom text' );
+
+		$I->click( [ 'css' => "{$selector} form input.button-primary" ] );
+
+	}
+
+	/**
+	 * Validate hours output
+	 *
+	 * @param \AcceptanceTester $I
+	 */
+	public function validateWidgetHoursOutput( AcceptanceTester $I ) {
+
+		$I->wantTo( 'Validate hours front-end output' );
+
+		$I->amOnPage( home_url() );
+
+		$I->canSeeElementInDOM( [ 'css' => '.wpcw-widget-hours' ] );
+
+		$I->canSee( 'Acceptance tests hours', [ 'css' => '.wpcw-widget-hours .widget-title' ] );
+
+		// Check that facebook is indeed the first element return in the list
+		$I->canSeeElementInDOM( [ 'css' => 'li[datetime="Mo 00:00-00:00"]' ] );
+		$I->canSeeElementInDOM( [ 'css' => 'li[datetime="Fr 00:00-00:00"]' ] );
+
+	}
+
+	/**
 	 * Validate that the edit link redirects to the customizer correctly
 	 *
 	 * @param AcceptanceTester $I
@@ -223,7 +287,7 @@ class AdminTestCest {
 
 		$I->canSeeInCurrentUrl( 'wp-admin/customize.php' );
 
-		$I->wait(1); // The animation takes a little bit of time
+		$I->wait( 3 ); // The animation takes a little bit of time
 
 		$I->canSeeElement( [ 'class' => 'wpcw-widget-social' ] );
 

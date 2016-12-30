@@ -48,8 +48,8 @@ final class TestContact extends TestCase {
 				'value' => 'yes',
 			],
 			'address' => [
-				'value' => '<br>123 Santa Monica<br>'
-			]
+				'value' => '<br>123 Santa Monica<br>',
+			],
 		];
 		$args = [
 			'before_widget' => '<div class="widget wpcw-widget-contact"><div class="widget-content">',
@@ -76,4 +76,3 @@ final class TestContact extends TestCase {
 	}
 
 }
-

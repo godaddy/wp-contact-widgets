@@ -40,15 +40,18 @@ final class Social extends Base_Widget {
 
 		parent::form( $instance );
 
-		$fields      = $this->get_fields( $instance );
-		$title_field = array_shift( $fields );
+		// Unsorted fields
+		$fields = array_merge(
+			array_flip( array_keys( $this->get_fields( [] ) ) ),
+			$this->get_fields( $instance )
+		);
 
 		echo '<div class="wpcw-widget wpcw-widget-social">';
 
 		echo '<div class="title">';
 
 		// Title field
-		$this->render_form_input( $title_field );
+		$this->render_form_input( array_shift( $fields ) );
 
 		echo '</div>';
 
@@ -91,6 +94,7 @@ final class Social extends Base_Widget {
 
 		echo '<div class="form">';
 
+		// Sorted fields
 		$fields = $this->order_field( $fields );
 
 		foreach ( $fields as $key => $field ) {
@@ -100,7 +104,7 @@ final class Social extends Base_Widget {
 			if (
 				is_callable( [ $this, $method ] )
 				&&
-				( ! empty( $field['value'] ) || $field['show_empty'] )
+				( ! empty( $field['value'] ) || ! $field['hide_empty'] )
 			) {
 
 				$this->$method( $field );
@@ -133,7 +137,7 @@ final class Social extends Base_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		$fields = $this->get_fields( $instance, [], true );
+		$fields = $this->get_fields( $instance );
 
 		if ( $this->is_widget_empty( $fields ) ) {
 
@@ -143,7 +147,7 @@ final class Social extends Base_Widget {
 
 		$this->before_widget( $args, $fields );
 
-		$display_labels = ( 'yes' === $instance['labels']['value'] );
+		$display_labels = ( 'yes' === $this->get_field_value( $instance, 'labels[value]', 'no' ) );
 
 		foreach ( $fields as $field ) {
 
@@ -157,13 +161,13 @@ final class Social extends Base_Widget {
 
 			printf(
 				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="fa fa-%s fa-%s"></span>%s</a></li>',
-				$display_labels ? 'has-label' : 'no-label',
+				( $display_labels ) ? 'has-label' : 'no-label',
 				$escape_callback( $field['value'] ),
 				esc_attr( $field['target'] ),
 				sprintf( esc_attr_x( 'Visit %1$s on %2$s', '1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. Facebook)', 'contact-widgets' ), get_bloginfo( 'name' ), $field['label'] ),
 				isset( $fields['icon_size']['value'] ) ? esc_attr( $fields['icon_size']['value'] ) : '2x',
 				esc_attr( $field['icon'] ),
-				$display_labels ? esc_html( $field['label'] ) : ''
+				( $display_labels ) ? esc_html( $field['label'] ) : ''
 			);
 
 		}
@@ -194,18 +198,20 @@ final class Social extends Base_Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = [], $ordered = false ) {
+	protected function get_fields( array $instance, array $fields = [], $ordered = true ) {
 
 		include 'social-networks.php';
 
 		foreach ( $fields as $key => &$field ) {
 
 			$default = [
-				'sanitizer' => 'esc_url_raw',
-				'escaper'   => 'esc_url',
-				'select'    => '',
-				'social'    => true,
-				'target'    => '_blank',
+				'icon'         => $key,
+				'sanitizer'    => 'esc_url_raw',
+				'escaper'      => 'esc_url',
+				'select'       => '',
+				'social'       => true,
+				'save_default' => false,
+				'target'       => '_blank',
 			];
 
 			$field = wp_parse_args( $field, $default );
@@ -216,8 +222,6 @@ final class Social extends Base_Widget {
 			'title' => [
 				'label'       => __( 'Title:', 'contact-widgets' ),
 				'description' => __( 'The title of widget. Leave empty for no title.', 'contact-widgets' ),
-				'value'       => ! empty( $instance['title'] ) ? $instance['title'] : '',
-				'sortable'    => false,
 			],
 		];
 
@@ -230,8 +234,9 @@ final class Social extends Base_Widget {
 			'label_after'    => true,
 			'type'           => 'checkbox',
 			'sortable'       => false,
+			'default'        => 'no',
 			'value'          => 'yes',
-			'atts'           => $this->checked( 'yes', isset( $instance['labels']['value'] ) ? $instance['labels']['value'] : 'no' ),
+			'atts'           => $this->checked( 'yes', $this->get_field_value( $instance, 'labels[value]', 'no' ) ),
 			'show_front_end' => false,
 		];
 

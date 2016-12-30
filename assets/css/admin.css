@@ -2,7 +2,6 @@
  * Form fields
  */
 .wpcw-widget .form {
-	overflow: auto;
 	margin-bottom: 1em;
 }
 .wpcw-widget .title {
@@ -92,4 +91,105 @@
 }
 .wpcw-widget-social .icons a.inactive:not(:hover) {
 	color: #ccc;
+}
+
+/**
+ * Hours of Operation Widget
+ */
+.wpcw-widget-hours .day-row {
+	display: inline-block;
+	width: 100%;
+	padding: 6px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.wpcw-widget-hours [class~='day-row']:last-of-type {
+	margin-bottom: 1em;
+	border-bottom: none;
+}
+
+.wpcw-widget-hours .day-row-top {
+	padding: 6px 0;
+}
+
+.wpcw-widget-hours .day-row-top:hover {
+	cursor: pointer;
+}
+
+.wpcw-widget-hours .day-row-top strong {
+	font-weight: 500;
+}
+
+.wpcw-widget-hours .toggle-icon {
+	float: right;
+	margin-top: -3px;
+}
+
+.wpcw-widget-hours .status-open-label,
+.wpcw-widget-hours .status-closed-label {
+	float: right;
+	width: 40%;
+	margin-right: 5px;
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.wpcw-widget-hours .status-open-label {
+	color: #59CE45;
+}
+
+.wpcw-widget-hours .status-closed-label {
+	opacity: 0.5;
+}
+
+.wpcw-widget-hours .day-row.status-open .status-open-label,
+.wpcw-widget-hours .day-row.status-closed .status-closed-label {
+	display: block;
+}
+
+.wpcw-widget-hours .day-row.status-open .status-closed-label,
+.wpcw-widget-hours .day-row.status-closed .status-open-label {
+	display: none;
+}
+
+.wpcw-widget-hours .day-row-container {
+	display: none;
+	float: left;
+	width: 100%;
+	margin: 10px 0 6px;
+}
+
+.wpcw-widget-hours .time-block {
+	width: 100%;
+	float: left;
+	margin-bottom: 10px;
+}
+
+.wpcw-widget-hours .day-row-container div:last-of-type {
+	margin-bottom: 15px;
+}
+
+.wpcw-widget-hours .time-block select {
+	width: calc(40% - 5px);
+	margin-right: 5px;
+}
+
+.wpcw-widget-hours .time-block .button {
+	width: calc(20% - 5px);
+	font-size: 18px;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.wpcw-widget-hours .apply-to-all {
+	float: left;
+}
+
+.wpcw-widget-hours .status-closed-checkbox {
+	float: right;
+}
+
+.wpcw-widget-hours .status-closed-checkbox input {
+	margin: 0px 0 0 5px;
 }

@@ -92,7 +92,8 @@ final class Contact extends Base_Widget {
 
 		$this->before_widget( $args, $fields );
 
-		$display_labels = ( 'yes' === $instance['labels']['value'] );
+		$display_labels = ( 'yes' === $this->get_field_value( $instance, 'labels[value]', 'yes' ) );
+		$display_map    = ( 'yes' === $this->get_field_value( $instance, 'map[value]', 'yes' ) );
 
 		foreach ( $fields as $field ) {
 
@@ -114,11 +115,13 @@ final class Contact extends Base_Widget {
 
 		}
 
-		if ( 'yes' === $instance['map']['value'] && ! empty( $fields['address']['value'] ) ) {
+		$address = $this->get_field_value( $instance, 'address[value]' );
+
+		if ( $display_map && ! empty( $address ) ) {
 
 			printf(
 				'<li class="has-map"><iframe src="//www.google.com/maps?q=%s&output=embed&hl=%s"></iframe></li>',
-				urlencode( trim( strip_tags( $fields['address']['value'] ) ) ),
+				urlencode( trim( strip_tags( $address ) ) ),
 				urlencode( $this->get_google_maps_locale() )
 			);
 
@@ -143,8 +146,6 @@ final class Contact extends Base_Widget {
 			'title'   => [
 				'label'       => __( 'Title:', 'contact-widgets' ),
 				'description' => __( 'The title of widget. Leave empty for no title.', 'contact-widgets' ),
-				'value'       => ! empty( $instance['title'] ) ? $instance['title'] : '',
-				'sortable'    => false,
 			],
 			'email'   => [
 				'label'       => __( 'Email:', 'contact-widgets' ),
@@ -180,8 +181,9 @@ final class Contact extends Base_Widget {
 				'label_after'    => true,
 				'type'           => 'checkbox',
 				'sortable'       => false,
+				'default'        => 'no',
 				'value'          => 'yes',
-				'atts'           => $this->checked( 'yes', isset( $instance['labels']['value'] ) ? $instance['labels']['value'] : 'yes' ),
+				'atts'           => $this->checked( 'yes', $this->get_field_value( $instance, 'labels[value]', 'yes' ) ),
 				'show_front_end' => false,
 			],
 			'map'  => [
@@ -190,14 +192,15 @@ final class Contact extends Base_Widget {
 				'label_after'    => true,
 				'type'           => 'checkbox',
 				'sortable'       => false,
+				'default'        => 'no',
 				'value'          => 'yes',
-				'atts'           => $this->checked( 'yes', isset( $instance['map']['value'] ) ? $instance['map']['value'] : 'yes' ),
+				'atts'           => $this->checked( 'yes', $this->get_field_value( $instance, 'map[value]', 'yes' ) ),
 				'show_front_end' => false,
 			],
 		];
 
 		$fields = apply_filters( 'wpcw_widget_contact_custom_fields', $fields, $instance );
-		$fields = parent::get_fields( $instance, $fields );
+		$fields = parent::get_fields( $instance, $fields, $ordered );
 
 		/**
 		 * Filter the contact fields
