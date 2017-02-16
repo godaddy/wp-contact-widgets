@@ -556,7 +556,22 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function front_end_enqueue_scripts() {
 
+		$rtl    = is_rtl() ? '-rtl' : '';
+		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
+		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
+
+		if ( is_customize_preview() ) {
+
+			if ( ! wp_script_is( 'jquery', 'enqueued' ) ) {
+
+				wp_enqueue_script( 'jquery' );
+
+			}
+
+			wp_enqueue_script( 'wpcw-helper', \Contact_Widgets::$assets_url . "js/customize-preview-helper{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
+
+		}
 
 	}
 

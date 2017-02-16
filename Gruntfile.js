@@ -171,6 +171,24 @@ module.exports = function( grunt ) {
 						to: '$1Stable tag:$2$3<%= pkg.version %>$4'
 					}
 				]
+			},
+			font_awesome: {
+				src: [
+					pkg.name + '.php',
+					'includes/class-base-widget.php',
+					'includes/class-social.php'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: /\/font-awesome\/(\s*?)[a-zA-Z0-9.-]+(\s*?)\/css\//mi,
+						to: '/font-awesome/<%= pkg.fa_version %>/css/'
+					},
+					{
+						from: /wp_enqueue_style\( 'font-awesome', \\Contact_Widgets::\$fa_url, \[], '(\s*?)[a-zA-Z0-9.-]+(\s*?)' \);/mi,
+						to: 'wp_enqueue_style( \'font-awesome\', \\Contact_Widgets::$fa_url, [], \'<%= pkg.fa_version %>\' );'
+					}
+				]
 			}
 		},
 
@@ -267,6 +285,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'readme',     [ 'wp_readme_to_markdown' ] );
 	grunt.registerTask( 'update-pot', [ 'makepot' ] );
 	grunt.registerTask( 'update-mo',  [ 'potomo' ] );
-	grunt.registerTask( 'version',    [ 'replace', 'readme' ] );
+	grunt.registerTask( 'version',    [ 'replace:php', 'replace:readme', 'readme' ] );
+	grunt.registerTask( 'update-fa',  [ 'replace:font_awesome' ] );
 
 };
