@@ -38,6 +38,13 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public static $assets_url;
 
 		/**
+		 * Font Awesome CSS location
+		 *
+		 * @var string
+		 */
+		public static $fa_url;
+
+		/**
 		 * Class constructor
 		 *
 		 * @param string $cur_php_version
@@ -45,6 +52,8 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public function __construct( $cur_php_version = PHP_VERSION ) {
 
 			static::$assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
+
+			static::$fa_url = $this->font_awesome_url();
 
 			$composer_autoloader = __DIR__ . '/vendor/autoload.php';
 
@@ -66,6 +75,19 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			}
 
 			require_once __DIR__ . '/includes/autoload.php';
+
+		}
+
+		/**
+		 * Setup the Front Awesome assets URL
+		 *
+		 * @return string Returns URL from where Font Awesome should load from.
+		 *
+		 * @since NEXT
+		 */
+		public function font_awesome_url() {
+
+			return ! apply_filters( 'wpcw_widget_social_icons_use_cdn', false ) ? static::$assets_url . 'css/font-awesome.min.css' : apply_filters( 'wpcw_widget_social_icons_cdn_url', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
 
 		}
 

@@ -179,7 +179,7 @@ final class Social extends Base_Widget {
 	 */
 	public function front_end_enqueue_scripts() {
 
-		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', [], '4.7.0' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
 		parent::front_end_enqueue_scripts();
 
