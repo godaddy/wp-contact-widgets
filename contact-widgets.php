@@ -85,7 +85,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		 *
 		 * @since NEXT
 		 */
-		public function font_awesome_url() {
+		private function font_awesome_url() {
 
 			return ! apply_filters( 'wpcw_widget_social_icons_use_cdn', false ) ? static::$assets_url . 'css/font-awesome.min.css' : apply_filters( 'wpcw_widget_social_icons_cdn_url', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
 
