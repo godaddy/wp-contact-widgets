@@ -128,7 +128,8 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			printf(
 				'<div class="error"><p>%s</p></div>',
 				sprintf(
-					__( 'Contact widgets requires PHP version %s or higher. Please deactivate the plugin and contact your system administrator.', 'contact-widgets' ),
+					/* translators: 1. Plugin PHP minimum version. */
+					esc_html__( 'Contact widgets requires PHP version %1$s or higher. Please deactivate the plugin and contact your system administrator.', 'contact-widgets' ),
 					esc_html( $this->php_min_version )
 				)
 			);
