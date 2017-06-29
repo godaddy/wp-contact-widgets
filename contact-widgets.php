@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Contact Widgets
  * Description: Beautifully display social media and contact information on your website with these simple widgets.
- * Version: 1.4.1
+ * Version: 1.4.0
  * Author: GoDaddy
  * Author URI: https://godaddy.com
  * Text Domain: contact-widgets
@@ -112,7 +112,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			printf(
 				'<div class="error"><p>%s</p></div>',
 				sprintf(
-					esc_html__( 'Contact widgets requires PHP version %s or higher. Please deactivate the plugin and contact your system administrator.', 'contact-widgets' ),
+					__( 'Contact widgets requires PHP version %s or higher. Please deactivate the plugin and contact your system administrator.', 'contact-widgets' ),
 					esc_html( $this->php_min_version )
 				)
 			);

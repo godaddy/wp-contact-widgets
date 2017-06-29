@@ -43,7 +43,7 @@ module.exports = function( grunt ) {
 					{
 						expand: true,
 						cwd: 'assets/css/',
-						src: [ '*.css', '!*-rtl.css', '!*.min.css', '!*-rtl.min.css' ],
+						src: [ '*.css', '!*-rtl.css', '!*.min.css', '!*-rtl.min.css', '!font-awesome.css' ],
 						dest: 'assets/css/',
 						ext: '-rtl.css'
 					}
