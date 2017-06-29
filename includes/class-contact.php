@@ -126,10 +126,10 @@ final class Contact extends Base_Widget {
 			$escape_callback = $field['escaper'];
 			$label           = str_replace( ':', '', $field['label'] );
 
-			printf(
+			printf( // xss ok.
 				'<li class="%s">%s<div>%s</div></li>',
-				$display_labels ? 'has-label' : 'no-label',
-				$display_labels ? sprintf( '<strong>%s</strong><br>', esc_html( $label ) ) : '',
+				( $display_labels ) ? 'has-label' : 'no-label',
+				( $display_labels ) ? sprintf( '<strong>%s</strong><br>', esc_html( $label ) ) : '',
 				$escape_callback( $field['value'] )
 			);
 

@@ -1,21 +1,19 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (c) 2017 GoDaddy Operating Company, LLC. All Rights Reserved.
 msgid ""
 msgstr ""
-"Project-Id-Version: contact-widgets 1.3.1\n"
+"Project-Id-Version: Contact Widgets 1.4.0\n"
 "Report-Msgid-Bugs-To: https://github.com/godaddy/wp-contact-widgets/issues\n"
-"POT-Creation-Date: 2017-02-13 16:46:23+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2017-02-13 16:46:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Generator: grunt-wp-i18n1.0.0\n"
 
 #: contact-widgets.php:93
 msgid ""
@@ -51,9 +49,7 @@ msgstr "Email:"
 
 #: includes/class-contact.php:186
 msgid "An email address where website vistors can contact you."
-msgstr ""
-"Isang email address kung saan ang mga bisita ng website ay maaaring makipag-"
-"ugnayan sa iyo."
+msgstr "Isang email address kung saan ang mga bisita ng website ay maaaring makipag-ugnayan sa iyo."
 
 #: includes/class-contact.php:189
 msgid "Phone:"
@@ -61,9 +57,7 @@ msgstr "Telepono:"
 
 #: includes/class-contact.php:191
 msgid "A phone number that website vistors can call if they have questions."
-msgstr ""
-"Isang numero ng teepono na matatawagan ng mga bisita ng website kung may mga "
-"tanong sila."
+msgstr "Isang numero ng teepono na matatawagan ng mga bisita ng website kung may mga tanong sila."
 
 #: includes/class-contact.php:194
 msgid "Fax:"
@@ -71,9 +65,7 @@ msgstr "Fax:"
 
 #: includes/class-contact.php:196
 msgid "A fax number that website vistors can use to send important documents."
-msgstr ""
-"Ang numero ng fax na magagamit ng mga bisita ng website para makapagpadala "
-"ng mga importanteng dokumento."
+msgstr "Ang numero ng fax na magagamit ng mga bisita ng website para makapagpadala ng mga importanteng dokumento."
 
 #: includes/class-contact.php:199
 msgid "Address:"
@@ -81,9 +73,7 @@ msgstr "Address:"
 
 #: includes/class-contact.php:204
 msgid "A physical address where website vistors can go to visit you in person."
-msgstr ""
-"Isang pisikal na address kung saan makakapunta ang mga bisita ng website "
-"para makilala kayo nang personal."
+msgstr "Isang pisikal na address kung saan makakapunta ang mga bisita ng website para makilala kayo nang personal."
 
 #: includes/class-contact.php:207 includes/class-social.php:228
 msgid "Display labels?"
@@ -119,7 +109,7 @@ msgstr "LinkedIn"
 
 #: includes/social-networks.php:39
 msgid "RSS feed"
-msgstr ""
+msgstr "RSS feed"
 
 #: includes/social-networks.php:43
 msgid "Pinterest"
@@ -226,23 +216,24 @@ msgid "Trello"
 msgstr "Trello"
 
 #. Plugin Name of the plugin/theme
-#, fuzzy
 msgid "Contact Widgets"
-msgstr "Mga Detalye para sa Pakikipag-ugnayan."
+msgstr "Contact Widgets"
 
 #. Description of the plugin/theme
 msgid ""
 "Beautifully display social media and contact information on your website "
 "with these simple widgets."
 msgstr ""
+"Beautifully display social media and contact information on your website with "
+"these simple widgets."
 
 #. Author of the plugin/theme
 msgid "GoDaddy"
-msgstr ""
+msgstr "GoDaddy"
 
 #. Author URI of the plugin/theme
 msgid "https://godaddy.com"
-msgstr ""
+msgstr "https://godaddy.com"
 
 #: includes/class-social.php:163
 msgctxt ""

@@ -155,15 +155,15 @@ final class Social extends Base_Widget {
 
 			$escape_callback = $field['escaper'];
 
-			printf(
+			printf( // xss ok.
 				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="fa fa-%s fa-%s"></span>%s</a></li>',
-				$display_labels ? 'has-label' : 'no-label',
+				( $display_labels ) ? 'has-label' : 'no-label',
 				$escape_callback( $field['value'] ),
 				esc_attr( $field['target'] ),
 				sprintf( esc_attr_x( 'Visit %1$s on %2$s', '1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. Facebook)', 'contact-widgets' ), get_bloginfo( 'name' ), $field['label'] ),
 				isset( $fields['icon_size']['value'] ) ? esc_attr( $fields['icon_size']['value'] ) : '2x',
 				esc_attr( $field['icon'] ),
-				$display_labels ? esc_html( $field['label'] ) : ''
+				( $display_labels ) ? esc_html( $field['label'] ) : ''
 			);
 
 		}

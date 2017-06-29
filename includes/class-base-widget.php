@@ -171,7 +171,9 @@ abstract class Base_Widget extends \WP_Widget {
 			$common_properties = wp_parse_args( $common_properties, $this->field_defaults );
 			$field             = wp_parse_args( $field, $common_properties );
 
-			$default_closure = function( $value ) { return $value; };
+			$default_closure = function( $value ) {
+				return $value;
+			};
 
 			foreach ( [ 'escaper', 'sanitizer' ] as $key ) {
 
@@ -293,7 +295,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		}
 
-		printf(
+		printf( // xss ok.
 			'<p class="%s">',
 			implode( ' ', $classes )
 		);
@@ -360,7 +362,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		foreach ( $field['select_options'] as $value => $name ) {
 
-			printf(
+			printf( // xss ok.
 				'<option value="%s" %s>%s</option>',
 				$value,
 				$field['value'] === $value ? 'selected' : '',
@@ -429,7 +431,8 @@ abstract class Base_Widget extends \WP_Widget {
 	protected function before_widget( array $args, array &$fields ) {
 
 		$title = array_shift( $fields );
-		echo $args['before_widget'];
+
+		echo $args['before_widget']; // xss ok.
 
 		if ( ! empty( $title['value'] ) ) {
 
@@ -442,7 +445,7 @@ abstract class Base_Widget extends \WP_Widget {
 			 */
 			$title = (string) apply_filters( 'widget_title', $title['value'] );
 
-			echo $args['before_title'] . $title . $args['after_title'];
+			echo $args['before_title'] . $title . $args['after_title']; // xss ok.
 
 		}
 
@@ -485,12 +488,12 @@ abstract class Base_Widget extends \WP_Widget {
 				'<a class="post-edit-link" data-widget-id="%s" href="%s">%s</a>',
 				esc_attr( $args['widget_id'] ),
 				esc_url( $edit_url ),
-				__( 'Edit' )
+				esc_html__( 'Edit' ) // Use translations from core.
 			);
 
 		}
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // xss ok.
 
 	}
 
@@ -509,7 +512,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		if ( $echo ) {
 
-			echo $result;
+			echo $result; // xss ok.
 
 		}
 

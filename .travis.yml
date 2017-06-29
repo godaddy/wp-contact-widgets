@@ -9,6 +9,7 @@ notifications:
 
 branches:
   only:
+    - /^v\d.*$/
     - master
     - develop
 
@@ -20,7 +21,6 @@ env:
   - WP_VERSION=4.4 WP_MULTISITE=0
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=0
-
 
 matrix:
   fast_finish: true

@@ -1,29 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Copyright (c) 2017 GoDaddy Operating Company, LLC. All Rights Reserved.
 msgid ""
 msgstr ""
-"Project-Id-Version: contact-widgets 1.3.1\n"
+"Project-Id-Version: Contact Widgets 1.4.0\n"
 "Report-Msgid-Bugs-To: https://github.com/godaddy/wp-contact-widgets/issues\n"
-"POT-Creation-Date: 2017-02-13 16:46:23+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2017-02-13 16:46:55+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Generator: grunt-wp-i18n1.0.0\n"
 
 #: contact-widgets.php:93
 msgid ""
 "Contact widgets requires PHP version %s or higher. Please deactivate the "
 "plugin and contact your system administrator."
 msgstr ""
-"Contact widget ต้องมี PHP เวอร์ชัน %s หรือที่สูงกว่า "
-"โปรดปิดใช้งานปลั๊กอินและติดต่อผู้ดูแลระบบของคุณ"
+"Contact widget ต้องมี PHP เวอร์ชัน %s หรือที่สูงกว่า โปรดปิดใช้งานปลั๊กอินและติดต่อผู้ดูแลระบบของคุณ"
 
 #: includes/class-base-widget.php:488
 msgid "Edit"
@@ -111,7 +108,7 @@ msgstr "LinkedIn"
 
 #: includes/social-networks.php:39
 msgid "RSS feed"
-msgstr ""
+msgstr "พีด RSS"
 
 #: includes/social-networks.php:43
 msgid "Pinterest"
@@ -218,49 +215,48 @@ msgid "Trello"
 msgstr "Trello"
 
 #. Plugin Name of the plugin/theme
-#, fuzzy
 msgid "Contact Widgets"
-msgstr "รายละเอียดผู้ติดต่อ"
+msgstr "วิดเจ็ทข้อมูลติดต่อ"
 
 #. Description of the plugin/theme
 msgid ""
 "Beautifully display social media and contact information on your website "
 "with these simple widgets."
 msgstr ""
-"Contact widget ต้องมี PHP เวอร์ชัน %s หรือที่สูงกว่า "
-"โปรดปิดใช้งานปลั๊กอินและติดต่อผู้ดูแลระบบของคุณ"
+"ตกแต่งการแสดงผลโซเชียลมีเดียและข้อมูลติดต่อบนเว็บไซต์ของคุณให้สวยงามด้วยวิดเจ็ทง่ายๆ "
+"นี้"
 
 #. Author of the plugin/theme
 msgid "GoDaddy"
-msgstr ""
+msgstr "GoDaddy"
 
 #. Author URI of the plugin/theme
 msgid "https://godaddy.com"
-msgstr ""
+msgstr "https://godaddy.com"
 
 #: includes/class-social.php:163
 msgctxt ""
 "1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. "
 "Facebook)"
 msgid "Visit %1$s on %2$s"
-msgstr ""
+msgstr "เยี่ยมชม %1$s ได้ที่ %2$s"
 
 #: includes/social-networks.php:9
 msgctxt "Must be lowercase and use url-safe characters"
 msgid "username"
-msgstr ""
+msgstr "ชื่อผู้ใช้"
 
 #: includes/social-networks.php:10
 msgctxt "Must be lowercase and use url-safe characters"
 msgid "channel"
-msgstr ""
+msgstr "ช่องทาง"
 
 #: includes/social-networks.php:11
 msgctxt "Must be lowercase and use url-safe characters"
 msgid "company"
-msgstr ""
+msgstr "บริษัท"
 
 #: includes/social-networks.php:12
 msgctxt "Must be lowercase and use url-safe characters"
 msgid "board"
-msgstr ""
+msgstr "บอร์ด"
