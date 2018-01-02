@@ -183,17 +183,17 @@ final class Contact extends Base_Widget {
 					// Work around until https://core.trac.wordpress.org/ticket/32787
 					return sprintf( '<a href="mailto:%1$s">%1$s</a>', antispambot( $value ) );
 				},
-				'description' => __( 'An email address where website vistors can contact you.', 'contact-widgets' ),
+				'description' => __( 'An email address where website visitors can contact you.', 'contact-widgets' ),
 			],
 			'phone'   => [
 				'label'       => __( 'Phone:', 'contact-widgets' ),
 				'type'        => 'text',
-				'description' => __( 'A phone number that website vistors can call if they have questions.', 'contact-widgets' ),
+				'description' => __( 'A phone number that website visitors can call if they have questions.', 'contact-widgets' ),
 			],
 			'fax'   => [
 				'label'       => __( 'Fax:', 'contact-widgets' ),
 				'type'        => 'text',
-				'description' => __( 'A fax number that website vistors can use to send important documents.', 'contact-widgets' ),
+				'description' => __( 'A fax number that website visitors can use to send important documents.', 'contact-widgets' ),
 			],
 			'address' => [
 				'label'         => __( 'Address:', 'contact-widgets' ),
@@ -201,7 +201,7 @@ final class Contact extends Base_Widget {
 				'sanitizer'     => function( $value ) { return current_user_can( 'unfiltered_html' ) ? $value : wp_kses_post( stripslashes( $value ) ); },
 				'escaper'       => function( $value ) { return nl2br( apply_filters( 'widget_text', $value ) ); },
 				'form_callback' => 'render_form_textarea',
-				'description'   => __( 'A physical address where website vistors can go to visit you in person.', 'contact-widgets' ),
+				'description'   => __( 'A physical address where website visitors can go to visit you in person.', 'contact-widgets' ),
 			],
 			'labels'  => [
 				'label'          => __( 'Display labels?', 'contact-widgets' ),
