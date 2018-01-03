@@ -22,6 +22,12 @@ env:
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=0
 
+addons:
+  apt:
+    packages:
+      # Needed for `xmllint`.
+      - libxml2-utils
+
 matrix:
   fast_finish: true
   exclude:
