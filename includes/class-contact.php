@@ -146,8 +146,8 @@ final class Contact extends Base_Widget {
 			printf(
 				'<li class="has-map"><iframe %s="https://www.google.com/maps?q=%s&output=embed&hl=%s&z=%d" frameborder="0" class="wpcw-widget-contact-map"></iframe></li>',
 				( $this->defer_map_iframes ) ? 'src="" data-src' : 'src',
-				urlencode( trim( strip_tags( $fields['address']['value'] ) ) ),
-				urlencode( $this->get_google_maps_locale() ),
+				rawurlencode( trim( strip_tags( $fields['address']['value'] ) ) ),
+				rawurlencode( $this->get_google_maps_locale() ),
 				absint( $fields['map']['zoom'] )
 			);
 
@@ -198,8 +198,12 @@ final class Contact extends Base_Widget {
 			'address' => [
 				'label'         => __( 'Address:', 'contact-widgets' ),
 				'type'          => 'textarea',
-				'sanitizer'     => function( $value ) { return current_user_can( 'unfiltered_html' ) ? $value : wp_kses_post( stripslashes( $value ) ); },
-				'escaper'       => function( $value ) { return nl2br( apply_filters( 'widget_text', $value ) ); },
+				'sanitizer'     => function( $value ) {
+					return current_user_can( 'unfiltered_html' ) ? $value : wp_kses_post( stripslashes( $value ) );
+				},
+				'escaper'       => function( $value ) {
+					return nl2br( apply_filters( 'widget_text', $value ) );
+				},
 				'form_callback' => 'render_form_textarea',
 				'description'   => __( 'A physical address where website visitors can go to visit you in person.', 'contact-widgets' ),
 			],
@@ -262,24 +266,19 @@ final class Contact extends Base_Widget {
 
 		switch ( $locale ) {
 
-			case 'en_AU' :
-			case 'en_GB' :
-			case 'pt_BR' :
-			case 'pt_PT' :
-			case 'zh_TW' :
-
+			case 'en_AU':
+			case 'en_GB':
+			case 'pt_BR':
+			case 'pt_PT':
+			case 'zh_TW':
 				$locale = str_replace( '_', '-', $locale );
-
 				break;
 
-			case 'zh_CH' :
-
+			case 'zh_CH':
 				$locale = 'zh-CN';
-
 				break;
 
-			default :
-
+			default:
 				$locale = substr( $locale, 0, 2 );
 
 		}

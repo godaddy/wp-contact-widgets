@@ -90,6 +90,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			printf(
 				'<div class="error"><p>%s</p></div>',
 				sprintf(
+					/* translators: Minumum PHP version supported. */
 					esc_html__( 'Contact widgets requires PHP version %s or higher. Please deactivate the plugin and contact your system administrator.', 'contact-widgets' ),
 					esc_html( $this->php_min_version )
 				)
@@ -99,6 +100,6 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 
 	}
 
-	new Contact_Widgets;
+	new Contact_Widgets();
 
 }

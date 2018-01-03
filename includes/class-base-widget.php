@@ -106,7 +106,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
 
-				$new_instance[ $key ] = [ 'value' => 'no' ];
+				$new_instance[ $key ] = [ 'value' => 'no' ]; // @codingStandardsIgnoreLine
 
 			}
 
@@ -479,7 +479,7 @@ abstract class Base_Widget extends \WP_Widget {
 						'section' => 'sidebar-widgets-' . $args['id'],
 						'control' => 'widget_' . preg_replace( '/-(\d)/', '[$1]', $args['widget_id'] ),
 					],
-					'url' => urlencode( $current_url ),
+					'url' => rawurlencode( $current_url ),
 				],
 				wp_customize_url()
 			);
@@ -508,7 +508,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function checked( $helper, $current, $echo = false ) {
 
-		$result = (string) $helper === (string) $current ?  'checked' : '';
+		$result = (string) $helper === (string) $current ? 'checked' : '';
 
 		if ( $echo ) {
 
