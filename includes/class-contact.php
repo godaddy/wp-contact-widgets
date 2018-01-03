@@ -146,7 +146,7 @@ final class Contact extends Base_Widget {
 			printf(
 				'<li class="has-map"><iframe %s="https://www.google.com/maps?q=%s&output=embed&hl=%s&z=%d" frameborder="0" class="wpcw-widget-contact-map"></iframe></li>',
 				( $this->defer_map_iframes ) ? 'src="" data-src' : 'src',
-				rawurlencode( trim( strip_tags( $fields['address']['value'] ) ) ),
+				rawurlencode( trim( wp_strip_all_tags( $fields['address']['value'] ) ) ),
 				rawurlencode( $this->get_google_maps_locale() ),
 				absint( $fields['map']['zoom'] )
 			);
@@ -190,7 +190,7 @@ final class Contact extends Base_Widget {
 				'type'        => 'text',
 				'description' => __( 'A phone number that website visitors can call if they have questions.', 'contact-widgets' ),
 			],
-			'fax'   => [
+			'fax'     => [
 				'label'       => __( 'Fax:', 'contact-widgets' ),
 				'type'        => 'text',
 				'description' => __( 'A fax number that website visitors can use to send important documents.', 'contact-widgets' ),
@@ -217,7 +217,7 @@ final class Contact extends Base_Widget {
 				'atts'           => $this->checked( 'yes', isset( $instance['labels']['value'] ) ? $instance['labels']['value'] : 'yes' ),
 				'show_front_end' => false,
 			],
-			'map'  => [
+			'map'     => [
 				'label'          => __( 'Display map of address?', 'contact-widgets' ),
 				'class'          => '',
 				'label_after'    => true,

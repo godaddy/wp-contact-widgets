@@ -73,7 +73,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		add_action( 'admin_footer',                            [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_footer', [ $this, 'enqueue_scripts' ] );
 		add_action( 'customize_controls_print_footer_scripts', [ $this, 'print_customizer_scripts' ] );
 
 		?>
@@ -475,11 +475,11 @@ abstract class Base_Widget extends \WP_Widget {
 
 			$edit_url = add_query_arg(
 				[
+					'url'       => rawurlencode( $current_url ),
 					'autofocus' => [
 						'section' => 'sidebar-widgets-' . $args['id'],
 						'control' => 'widget_' . preg_replace( '/-(\d)/', '[$1]', $args['widget_id'] ),
 					],
-					'url' => rawurlencode( $current_url ),
 				],
 				wp_customize_url()
 			);
