@@ -99,7 +99,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 *
 			 * @var string
 			 */
-			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_fontawesome_cdn_url', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js' ) );
+			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js' ) );
 
 			$suffix = SCRIPT_DEBUG ? '' : '.min';
 
