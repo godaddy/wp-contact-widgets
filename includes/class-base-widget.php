@@ -534,6 +534,10 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
 
+		include 'social-networks.php';
+
+		wp_localize_script( 'wpcw-admin', 'fieldsArray', $fields );
+
 		if ( $GLOBALS['is_IE'] ) {
 
 			wp_enqueue_style( 'wpcw-admin-ie', \Contact_Widgets::$assets_url . "css/admin-ie{$rtl}{$suffix}.css", [ 'wpcw-admin' ], Plugin::$version );
@@ -549,8 +553,8 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$this->enqueue_scripts();
 
-		wp_print_styles( [ 'font-awesome', 'font-awesome-brands', 'font-awesome-v4-shims', 'wpcw-admin', 'wpcw-admin-ie' ] );
-		wp_print_scripts( 'wpcw-admin' );
+		wp_print_styles( [ 'wpcw-admin', 'wpcw-admin-ie' ] );
+		wp_print_scripts( 'font-awesome', 'wpcw-admin' );
 
 	}
 

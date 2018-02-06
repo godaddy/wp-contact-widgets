@@ -122,7 +122,7 @@
 					.remove();
 
 				this.$template
-					.prepend( '<i class="' + prefix + ' fa-' + icon  + '"></i>' );
+					.prepend( '<i class="' + this.getIconPrefix( this.$btn.data( 'key' ) ) + ' fa-' + icon  + '"></i>' );
 
 			this.$template
 				.find( 'label span.text' )
@@ -166,6 +166,12 @@
 			var count = this.$widget.find( 'div > div' ).length;
 
 			this.$widget.find( '.customizer_update' ).val( count ).trigger( 'change' );
+
+		},
+
+		getIconPrefix: function( icon ) {
+
+			return ( 'prefix' in fieldsArray[icon] ) ? fieldsArray[icon].prefix : 'fab';
 
 		}
 

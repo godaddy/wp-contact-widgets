@@ -169,9 +169,10 @@ $fields = [
 		'select'  => $board,
 	],
 	'unsplash'     => [
-		'label'      => __( 'Unsplash', 'contact-widgets' ),
-		'default'    => "https://unsplash.com/@{$username}",
-		'select'     => $username,
-		'deprecated' => true,
+		'prefix'  => 'fas',
+		'icon'    => 'camera',
+		'label'   => __( 'Unsplash', 'contact-widgets' ),
+		'default' => "https://unsplash.com/@{$username}",
+		'select'  => $username,
 	],
 ];
