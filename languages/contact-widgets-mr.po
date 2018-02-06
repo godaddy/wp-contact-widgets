@@ -3,16 +3,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contact Widgets 1.4.0\n"
 "Report-Msgid-Bugs-To: https://github.com/godaddy/wp-contact-widgets/issues\n"
-"POT-Creation-Date: 2017-02-13 16:46:55+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2018-01-03 19:51:49+00:00\n"
 "PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
-"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
 #: contact-widgets.php:93
@@ -20,10 +21,10 @@ msgid ""
 "Contact widgets requires PHP version %s or higher. Please deactivate the "
 "plugin and contact your system administrator."
 msgstr ""
-"संपर्क विजेट्सना PHP आवृत्ती %s किंवा त्यापेक्षा उच्च आवश्यक आहे. कृपया "
-"प्लगइन निष्क्रिय करा आणि आपल्या सिस्टम प्रशासकाशी संपर्क साधा."
+"संपर्क विजेट्सना PHP आवृत्ती %s किंवा त्यापेक्षा उच्च आवश्यक आहे. कृपया प्लगइन निष्क्रिय करा "
+"आणि आपल्या सिस्टम प्रशासकाशी संपर्क साधा."
 
-#: includes/class-base-widget.php:488
+#: includes/class-base-widget.php:491
 msgid "Edit"
 msgstr "संपादित करा"
 
@@ -48,7 +49,8 @@ msgid "Email:"
 msgstr "ईमेल:"
 
 #: includes/class-contact.php:186
-msgid "An email address where website vistors can contact you."
+#, fuzzy
+msgid "An email address where website visitors can contact you."
 msgstr "ईमेल पत्ता जेथे वेबसाइट अभ्यंगते आपल्याशी संपर्क करू शकतील."
 
 #: includes/class-contact.php:189
@@ -56,7 +58,8 @@ msgid "Phone:"
 msgstr "फोन:"
 
 #: includes/class-contact.php:191
-msgid "A phone number that website vistors can call if they have questions."
+#, fuzzy
+msgid "A phone number that website visitors can call if they have questions."
 msgstr "फोन नंबर जो वेबसाइट अभ्यंगतांना काही प्रश्न असल्यास ते आपल्याशी संपर्क करू शकतेल ."
 
 #: includes/class-contact.php:194
@@ -64,7 +67,8 @@ msgid "Fax:"
 msgstr "फॅक्स:"
 
 #: includes/class-contact.php:196
-msgid "A fax number that website vistors can use to send important documents."
+#, fuzzy
+msgid "A fax number that website visitors can use to send important documents."
 msgstr "फॅक्स नंबर जो वेबसाइट अभ्यंगत महत्वाचे दस्तऐवज पाठवण्यासाठी वापरू शकतील."
 
 #: includes/class-contact.php:199
@@ -72,7 +76,9 @@ msgid "Address:"
 msgstr "पत्ता:"
 
 #: includes/class-contact.php:204
-msgid "A physical address where website vistors can go to visit you in person."
+#, fuzzy
+msgid ""
+"A physical address where website visitors can go to visit you in person."
 msgstr "निवासी पत्ता जेथे वेबसाइट अभ्यंगत आपल्याला भेटण्यासाठी येऊ शकतात."
 
 #: includes/class-contact.php:207 includes/class-social.php:228
@@ -215,6 +221,10 @@ msgstr "VK"
 msgid "Trello"
 msgstr "Trello"
 
+#: includes/social-networks.php:171
+msgid "Unsplash"
+msgstr ""
+
 #. Plugin Name of the plugin/theme
 msgid "Contact Widgets"
 msgstr "संपर्क विजेट्स"
@@ -224,8 +234,8 @@ msgid ""
 "Beautifully display social media and contact information on your website "
 "with these simple widgets."
 msgstr ""
-"आपल्या वेबसाइटवर या सामान्य विजेट्स सह सामाजिक मीडिया आणि संपर्क माहिती सुंदर "
-"रितीने प्रदर्शित करतात."
+"आपल्या वेबसाइटवर या सामान्य विजेट्स सह सामाजिक मीडिया आणि संपर्क माहिती सुंदर रितीने "
+"प्रदर्शित करतात."
 
 #. Author of the plugin/theme
 msgid "GoDaddy"

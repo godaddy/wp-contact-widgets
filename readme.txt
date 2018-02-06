@@ -2,7 +2,7 @@
 Contributors:      godaddy, jonathanbardo, fjarrett, eherman24
 Tags:              widget, contact, social, social icons, social media, facebook, twitter, instagram, linkedin, pinterest
 Requires at least: 4.4
-Tested up to:      4.7
+Tested up to:      4.9
 Stable tag:        1.4.1
 License:           GPL-2.0
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,7 @@ add_filter( 'wpcw_widget_contact_custom_fields', function ( $fields, $instance )
     'order'       => 2,
     'label'       => __( 'Cellphone:', 'YOURTEXTDOMAIN' ),
     'type'        => 'text',
-    'description' => __( 'A cellphone number that website vistors can call if they have questions.', 'YOURTEXTDOMAIN' ),
+    'description' => __( 'A cellphone number that website visitors can call if they have questions.', 'YOURTEXTDOMAIN' ),
   ];
 
   return $fields;
