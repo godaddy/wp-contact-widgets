@@ -100,8 +100,7 @@
 
 			this.$btn.removeClass( 'inactive' );
 
-			var icon   = this.$btn.find( 'svg' ).data( 'icon' ),
-			    prefix = 'rss' === icon ? 'fas' : 'fab';
+			var icon   = this.$btn.find( 'svg' ).data( 'icon' );
 
 			var data = this.$btn.data();
 
