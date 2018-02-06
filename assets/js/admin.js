@@ -116,12 +116,9 @@
 				.prop( 'value', data.value );
 
 
-				this.$template
-					.find( 'label svg' )
-					.remove();
-
-				this.$template
-					.prepend( '<i class="' + this.getIconPrefix( this.$btn.data( 'key' ) ) + ' fa-' + icon  + '"></i>' );
+			this.$template
+				.find( 'label svg' )
+				.replaceWith( '<i class="' + this.getIconPrefix( this.$btn.data( 'key' ) ) + ' fa-' + icon  + '"></i>' );
 
 			this.$template
 				.find( 'label span.text' )
