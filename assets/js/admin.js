@@ -100,6 +100,9 @@
 
 			this.$btn.removeClass( 'inactive' );
 
+			var icon   = this.$btn.find( 'svg' ).data( 'icon' ),
+			    prefix = 'rss' === icon ? 'fas' : 'fab';
+
 			var data = this.$btn.data();
 
 			this.$template
@@ -113,9 +116,13 @@
 				.prop( 'name', data.name )
 				.prop( 'value', data.value );
 
-			this.$template
-				.find( 'label span.fa' )
-				.prop( 'class', this.$btn.find( 'i' ).attr( 'class' ) );
+
+				this.$template
+					.find( 'label svg' )
+					.remove();
+
+				this.$template
+					.prepend( '<i class="' + prefix + ' fa-' + icon  + '"></i>' );
 
 			this.$template
 				.find( 'label span.text' )

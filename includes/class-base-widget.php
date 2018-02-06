@@ -528,8 +528,10 @@ abstract class Base_Widget extends \WP_Widget {
 		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
-		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [ 'font-awesome' ], Plugin::$version );
+		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [], Plugin::$version );
+
+		wp_enqueue_script( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.6', true );
+
 		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
 
 		if ( $GLOBALS['is_IE'] ) {
@@ -547,7 +549,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$this->enqueue_scripts();
 
-		wp_print_styles( [ 'font-awesome', 'wpcw-admin', 'wpcw-admin-ie' ] );
+		wp_print_styles( [ 'font-awesome', 'font-awesome-brands', 'font-awesome-v4-shims', 'wpcw-admin', 'wpcw-admin-ie' ] );
 		wp_print_scripts( 'wpcw-admin' );
 
 	}
@@ -563,6 +565,8 @@ abstract class Base_Widget extends \WP_Widget {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
+
+		wp_enqueue_script( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.6', true );
 
 		if ( is_customize_preview() ) {
 
