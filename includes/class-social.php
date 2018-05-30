@@ -82,7 +82,7 @@ final class Social extends Base_Widget {
 				esc_attr( $field['name'] ),
 				esc_attr( $field['id'] ),
 				esc_attr( $field['label'] ),
-				isset( $field['prefix'] ) ? esc_attr( $field['prefix'] ) : esc_attr( 'fab' ),
+				isset( $field['prefix'] ) ? esc_attr( $field['prefix'] ) : esc_attr( 'fab' ), //@codingStandardsIgnoreLine
 				esc_attr( $field['icon'] )
 			);
 
@@ -183,12 +183,14 @@ final class Social extends Base_Widget {
 	 * Enqueue scripts and styles for front-end use
 	 *
 	 * @action wp_enqueue_scripts
+	 * @codingStandardsIgnoreStart
 	 */
 	public function front_end_enqueue_scripts() {
 
 		parent::front_end_enqueue_scripts();
 
 	}
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * Initialize fields for use on front-end of forms
