@@ -13,7 +13,7 @@ $board    = esc_attr_x( 'board', 'Must be lowercase and use url-safe characters'
 
 $fields = [
 	'facebook'    => [
-		'icon'    => 'facebook-official',
+		'icon'    => 'facebook',
 		'label'   => __( 'Facebook', 'contact-widgets' ),
 		'default' => "https://www.facebook.com/{$username}",
 		'select'  => $username,
@@ -30,12 +30,13 @@ $fields = [
 		'select'  => $username,
 	],
 	'linkedin'    => [
-		'icon'    => 'linkedin-square',
+		'icon'    => 'linkedin',
 		'label'   => __( 'LinkedIn', 'contact-widgets' ),
 		'default' => "https://www.linkedin.com/in/{$username}",
 		'select'  => $username,
 	],
-	'rss'         => [
+	'rss' => [
+		'prefix'  => 'fas',
 		'label'   => __( 'RSS feed', 'contact-widgets' ),
 		'default' => get_feed_link(),
 	],
@@ -139,6 +140,7 @@ $fields = [
 		'default' => 'https://www.whatsapp.com/',
 	],
 	'wechat'      => [
+		'icon'    => 'weixin',
 		'label'   => __( 'WeChat', 'contact-widgets' ),
 		'default' => 'http://www.wechat.com/',
 	],
@@ -167,6 +169,7 @@ $fields = [
 		'select'  => $board,
 	],
 	'unsplash'    => [
+		'prefix'  => 'fas',
 		'icon'    => 'camera',
 		'label'   => __( 'Unsplash', 'contact-widgets' ),
 		'default' => "https://unsplash.com/@{$username}",

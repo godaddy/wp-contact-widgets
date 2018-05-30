@@ -100,6 +100,8 @@
 
 			this.$btn.removeClass( 'inactive' );
 
+			var icon   = this.$btn.find( 'svg' ).data( 'icon' );
+
 			var data = this.$btn.data();
 
 			this.$template
@@ -113,9 +115,10 @@
 				.prop( 'name', data.name )
 				.prop( 'value', data.value );
 
+
 			this.$template
-				.find( 'label span.fa' )
-				.prop( 'class', this.$btn.find( 'i' ).attr( 'class' ) );
+				.find( 'label svg' )
+				.replaceWith( '<i class="' + this.getIconPrefix( this.$btn.data( 'key' ) ) + ' fa-' + icon  + '"></i>' );
 
 			this.$template
 				.find( 'label span.text' )
@@ -159,6 +162,12 @@
 			var count = this.$widget.find( 'div > div' ).length;
 
 			this.$widget.find( '.customizer_update' ).val( count ).trigger( 'change' );
+
+		},
+
+		getIconPrefix: function( icon ) {
+
+			return ( 'prefix' in fieldsArray[icon] ) ? fieldsArray[icon].prefix : 'fab';
 
 		}
 

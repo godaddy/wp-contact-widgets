@@ -72,7 +72,7 @@ final class Social extends Base_Widget {
 					data-name="%s"
 					data-id="%s"
 					data-label="%s">
-					<i class="fa fa-%s"></i>
+					<i class="%s fa-%s"></i>
 				</a>',
 				empty( $field['value'] ) ? 'inactive' : '',
 				esc_attr( $field['label'] ),
@@ -82,6 +82,7 @@ final class Social extends Base_Widget {
 				esc_attr( $field['name'] ),
 				esc_attr( $field['id'] ),
 				esc_attr( $field['label'] ),
+				isset( $field['prefix'] ) ? esc_attr( $field['prefix'] ) : esc_attr( 'fab' ),
 				esc_attr( $field['icon'] )
 			);
 
@@ -156,7 +157,7 @@ final class Social extends Base_Widget {
 			$escape_callback = $field['escaper'];
 
 			printf( // xss ok.
-				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="fa fa-%s fa-%s"></span>%s</a></li>',
+				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="%s fa-%s fa-%s"></span>%s</a></li>',
 				( $display_labels ) ? 'has-label' : 'no-label',
 				$escape_callback( $field['value'] ),
 				esc_attr( $field['target'] ),
@@ -166,6 +167,7 @@ final class Social extends Base_Widget {
 					get_bloginfo( 'name' ),
 					$field['label']
 				),
+				isset( $field['prefix'] ) ? esc_attr( $field['prefix'] ) : esc_attr( 'fab' ),
 				isset( $fields['icon_size']['value'] ) ? esc_attr( $fields['icon_size']['value'] ) : '2x',
 				esc_attr( $field['icon'] ),
 				( $display_labels ) ? esc_html( $field['label'] ) : ''
@@ -183,8 +185,6 @@ final class Social extends Base_Widget {
 	 * @action wp_enqueue_scripts
 	 */
 	public function front_end_enqueue_scripts() {
-
-		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', [], '4.7.0' );
 
 		parent::front_end_enqueue_scripts();
 
@@ -269,8 +269,9 @@ final class Social extends Base_Widget {
 		}
 
 		printf(
-			'<label for="%s"><span class="fa fa-%s"></span> <span class="text">%s</span></label>',
+			'<label for="%s"><span class="%s fa-%s"></span> <span class="text">%s</span></label>',
 			esc_attr( $field['id'] ),
+			isset( $field['prefix'] ) ? esc_attr( $field['prefix'] ) : esc_attr( 'fab' ),
 			esc_attr( $field['icon'] ),
 			esc_html( $field['label'] )
 		);

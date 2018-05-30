@@ -105,7 +105,7 @@ module.exports = function( grunt ) {
 		},
 
 		jshint: {
-			assets: [ 'assets/js/**/*.js', '!assets/js/**/*.min.js' ],
+			assets: [ 'assets/js/**/*.js', '!assets/js/**/*.min.js', '!assets/js/fontawesome-*' ],
 			gruntfile: [ 'Gruntfile.js' ]
 		},
 
