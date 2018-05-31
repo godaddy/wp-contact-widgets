@@ -1,10 +1,17 @@
-actor: Tester
+actor: Tester 
 paths:
-    tests: tests/codeception
-    log: tests/codeception/_output
-    data: tests/codeception/_data
-    helpers: tests/codeception/_support
+    data: tests/codeception/_data/
+    envs: tests/codeception/_envs/
+    log: tests/codeception/_output/
+    support: tests/codeception/_support/
+    tests: tests/codeception/
+params:
+    - env
 settings:
+    backup_globals: true
     bootstrap: _bootstrap.php
     colors: true
-    memory_limit: 256M
+    memory_limit: 2048M
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed

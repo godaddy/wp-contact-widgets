@@ -7,12 +7,6 @@ notifications:
     on_success: never
     on_failure: change
 
-branches:
-  only:
-    - /^v\d.*$/
-    - master
-    - develop
-
 php:
   - 5.6
   - 7.1
@@ -35,6 +29,7 @@ matrix:
       env: WP_VERSION=4.4 WP_MULTISITE=0
 
 install:
+  - composer install --ansi
   - export DEV_LIB_PATH=dev-lib
   - if [ ! -e "$DEV_LIB_PATH" ] && [ -L .travis.yml ]; then export DEV_LIB_PATH=$( dirname $( readlink .travis.yml ) ); fi
   - if [ ! -e "$DEV_LIB_PATH" ]; then git clone https://github.com/xwp/wp-dev-lib.git $DEV_LIB_PATH; fi
@@ -42,14 +37,11 @@ install:
   - bash bin/install-wp-tests.sh wordpress wordpress_test root '' localhost $WP_VERSION
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
   - php /tmp/wp-cli.phar server --path=$WP_CORE_DIR > /dev/null 2>/dev/null &
   - sleep 3
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
-  - php /tmp/wp-cli.phar selenium start --path=$WP_CORE_DIR
+  - bash bin/run-tests.sh
 
 script:
   - source $DEV_LIB_PATH/travis.script.sh
