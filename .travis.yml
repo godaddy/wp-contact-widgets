@@ -7,10 +7,6 @@ notifications:
     on_success: never
     on_failure: change
 
-php:
-  - 5.6
-  - 7.1
-
 env:
   - WP_VERSION=4.4 WP_MULTISITE=0
   - WP_VERSION=latest WP_MULTISITE=0
@@ -24,6 +20,11 @@ addons:
 
 matrix:
   fast_finish: true
+  include:
+    - php: 5.6
+      env: ""
+    - php: 7.1
+      env: "RUN_TESTS=1"
   exclude:
     - php: 7.1
       env: WP_VERSION=4.4 WP_MULTISITE=0
@@ -41,7 +42,7 @@ before_script:
   - sleep 3
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
-  - bash bin/run-tests.sh
+  - if [ -n "$RUN_TESTS" ]; then bash bin/run-tests.sh; fi
 
 script:
   - source $DEV_LIB_PATH/travis.script.sh
