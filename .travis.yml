@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 
 language: php
 
@@ -17,6 +17,7 @@ env:
   - WP_VERSION=trunk WP_MULTISITE=0
 
 addons:
+  chrome: stable
   apt:
     packages:
       # Needed for `xmllint`.
@@ -27,6 +28,9 @@ matrix:
   exclude:
     - php: 7.1
       env: WP_VERSION=4.4 WP_MULTISITE=0
+
+before_install:
+  - google-chrome-stable --headless --no-sandbox --remote-debugging-port=9222 http://localhost:9515 # or some such
 
 install:
   - export DEV_LIB_PATH=dev-lib
@@ -47,7 +51,7 @@ before_script:
 script:
   - source $DEV_LIB_PATH/travis.script.sh
   - phpunit
-  - vendor/bin/codecept run -vvv --fail-fast --steps
+  - vendor/bin/codecept run
 
 before_deploy:
   - export RELEASE_FOLDER=contact-widgets

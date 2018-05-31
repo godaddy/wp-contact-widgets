@@ -8,7 +8,7 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - WebDriver:
-            url: https://contact-widgets.test
+            url: http://localhost
             window_size: false # disabled in ChromeDriver
             clear_cookies: false
             port: 9515
