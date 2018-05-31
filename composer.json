@@ -6,6 +6,7 @@
   "require": {
     "codeception/codeception": "*",
     "phpunit/phpunit": "^5",
-    "se/selenium-server-standalone": "^3.12"
+    "se/selenium-server-standalone": "^3.12",
+    "enm1989/chromedriver": "^2.38"
   }
 }

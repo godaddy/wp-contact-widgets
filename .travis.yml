@@ -17,7 +17,6 @@ env:
   - WP_VERSION=trunk WP_MULTISITE=0
 
 addons:
-  chrome: stable
   apt:
     packages:
       # Needed for `xmllint`.
@@ -29,9 +28,6 @@ matrix:
     - php: 7.1
       env: WP_VERSION=4.4 WP_MULTISITE=0
 
-before_install:
-  - google-chrome-stable --headless --no-sandbox --remote-debugging-port=9222 http://localhost:9515 > /dev/null 2>/dev/null &
-
 install:
   - export DEV_LIB_PATH=dev-lib
   - if [ ! -e "$DEV_LIB_PATH" ] && [ -L .travis.yml ]; then export DEV_LIB_PATH=$( dirname $( readlink .travis.yml ) ); fi
@@ -40,7 +36,9 @@ install:
   - bash bin/install-wp-tests.sh wordpress wordpress_test root '' localhost $WP_VERSION
 
 before_script:
-  - export DISPLAY=:99.0
+  - nohup sudo Xvfb :10 -ac
+  - export DISPLAY=:10
+  - java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar -Dwebdriver.chrome.bin="/usr/bin/google-chrome" -Dwebdriver.chrome.driver="vendor/bin/chromedriver" > /dev/null 2>/dev/null &
   - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
   - sleep 3
   - sh -e /etc/init.d/xvfb start
