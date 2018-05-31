@@ -36,7 +36,7 @@ install:
   - bash bin/install-wp-tests.sh wordpress wordpress_test root '' localhost $WP_VERSION
 
 before_script:
-  - nohup sudo Xvfb :10 -ac
+  - nohup sudo Xvfb :10 -ac > /dev/null 2>/dev/null &
   - export DISPLAY=:10
   - java -jar vendor/se/selenium-server-standalone/bin/selenium-server-standalone.jar -Dwebdriver.chrome.bin="/usr/bin/google-chrome" -Dwebdriver.chrome.driver="vendor/bin/chromedriver" > /dev/null 2>/dev/null &
   - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
