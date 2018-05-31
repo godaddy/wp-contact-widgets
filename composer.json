@@ -5,6 +5,6 @@
   "license" : "GPL-2.0+",
   "require": {
     "codeception/codeception": "*",
-    "phpunit/phpunit": "^6.1"
+    "phpunit/phpunit": "^5"
   }
 }
