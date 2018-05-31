@@ -43,12 +43,12 @@ before_script:
   - sleep 3
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
-  - bash bin/run-tests.sh
+  - php /tmp/wp-cli.phar selenium start --path=$WP_CORE_DIR
 
 script:
   - source $DEV_LIB_PATH/travis.script.sh
   - phpunit
-  - php /tmp/wp-cli.phar codeception run --debug --path=$WP_CORE_DIR
+  - vendor/bin/codecept run -vvv --fail-fast --steps ${@:6:99}
 
 before_deploy:
   - export RELEASE_FOLDER=contact-widgets
