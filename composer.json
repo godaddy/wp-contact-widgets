@@ -5,6 +5,7 @@
   "license" : "GPL-2.0+",
   "require": {
     "codeception/codeception": "*",
-    "phpunit/phpunit": "^5"
+    "phpunit/phpunit": "^5",
+    "se/selenium-server-standalone": "^3.12"
   }
 }
