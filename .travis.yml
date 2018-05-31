@@ -41,7 +41,7 @@ before_script:
   - sleep 3
   - npm install selenium-standalone@latest -g
   - selenium-standalone install
-  - selenium-standalone start
+  - selenium-standalone start > /dev/null 2>/dev/null &
   - sleep 3
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
