@@ -1,6 +1,8 @@
-sudo: false
+sudo: required
 
 language: php
+
+dist: trusty
 
 notifications:
   email:
@@ -17,6 +19,7 @@ env:
   - WP_VERSION=trunk WP_MULTISITE=0
 
 addons:
+  chrome: stable
   apt:
     packages:
       # Needed for `xmllint`.
@@ -36,9 +39,10 @@ install:
   - bash bin/install-wp-tests.sh wordpress wordpress_test root '' localhost $WP_VERSION
 
 before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
   - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
-  - sleep 3
-  - sh -e /etc/init.d/xvfb start
   - sleep 3
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
