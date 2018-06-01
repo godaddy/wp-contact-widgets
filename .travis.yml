@@ -37,7 +37,6 @@ install:
   - wget http://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/local/bin
   - java  -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver  -jar /usr/local/bin/selenium-server-standalone.jar &
   - sleep 3
-  - sudo whereis google-chrome
   - if [ ! -e "$DEV_LIB_PATH" ] && [ -L .travis.yml ]; then export DEV_LIB_PATH=$( dirname $( readlink .travis.yml ) ); fi
   - if [ ! -e "$DEV_LIB_PATH" ]; then git clone https://github.com/xwp/wp-dev-lib.git $DEV_LIB_PATH; fi
   - source $DEV_LIB_PATH/travis.install.sh
@@ -45,6 +44,8 @@ install:
 
 before_script:
   - "export DISPLAY=:99.0"
+  - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
+  - sleep 3
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
