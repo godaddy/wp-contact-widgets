@@ -44,7 +44,7 @@ install:
 
 before_script:
   - "export DISPLAY=:99.0"
-  - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
+  - vendor/bin/selenium-server-standalone > /dev/null 2>/dev/null &
   - sleep 3
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
