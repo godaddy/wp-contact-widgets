@@ -8,7 +8,7 @@ if ( getenv( 'TRAVIS' ) ) {
 
 } else {
 
-	require( dirname( dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) ) . '/wp-load.php' );
+	require( '../../../wp-load.php' );
 
 }
 
