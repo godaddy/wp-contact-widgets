@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Contact Widgets
  * Description: Beautifully display social media and contact information on your website with these simple widgets.
- * Version: 1.4.1
+ * Version: 1.5.0
  * Author: GoDaddy
  * Author URI: https://godaddy.com
  * Text Domain: contact-widgets
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		 *
 		 * @return string Returns URL where Font Awesome should load from.
 		 *
-		 * @since NEXT
+		 * @since 1.5.0
 		 */
 		public function font_awesome_url() {
 
