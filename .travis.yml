@@ -46,7 +46,7 @@ before_script:
   - "export DISPLAY=:99.0"
   - php /tmp/wp-cli.phar server --path=$WP_CORE_DIR > /dev/null 2>/dev/null &
   - sleep 3
-  - vendor/bin/selenium-server-standalone > /dev/null 2>/dev/null &
+  - vendor/bin/selenium-server-standalone -port 8080 > /dev/null 2>/dev/null &
   - sleep 3
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
