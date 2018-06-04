@@ -536,7 +536,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		include 'social-networks.php';
 
-		wp_localize_script( 'wpcw-admin', 'fieldsArray', $fields );
+		wp_localize_script( 'wpcw-admin', 'fieldsArray', apply_filters( 'wpcw_widget_social_custom_fields', $fields, [] ) );
 
 		if ( $GLOBALS['is_IE'] ) {
 

@@ -11,7 +11,7 @@ $channel  = esc_attr_x( 'channel', 'Must be lowercase and use url-safe character
 $company  = esc_attr_x( 'company', 'Must be lowercase and use url-safe characters', 'contact-widgets' );
 $board    = esc_attr_x( 'board', 'Must be lowercase and use url-safe characters', 'contact-widgets' );
 
-$fields = apply_filters( 'wpcw_widget_social_custom_fields', [
+$fields = [
 	'facebook'    => [
 		'icon'    => 'facebook',
 		'label'   => __( 'Facebook', 'contact-widgets' ),
@@ -175,4 +175,4 @@ $fields = apply_filters( 'wpcw_widget_social_custom_fields', [
 		'default' => "https://unsplash.com/@{$username}",
 		'select'  => $username,
 	],
-], isset( $instance ) ? $instance : [] );
+];
