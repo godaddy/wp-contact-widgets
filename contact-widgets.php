@@ -108,15 +108,6 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		}
 
 		/**
-		 * Enqueue Font Awesome
-		 */
-		public function enqueue_font_awesome() {
-
-			wp_enqueue_script( 'font-awesome', self::$fa_url, [], '5.0.6', true );
-
-		}
-
-		/**
 		 * Load languages
 		 *
 		 * @action plugins_loaded

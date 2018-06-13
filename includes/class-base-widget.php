@@ -572,6 +572,8 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_script( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.6', true );
 
+		wp_add_inline_script( 'font-awesome', 'window.FontAwesomeConfig = { showMissingIcons: false }', 'before' );
+
 		if ( is_customize_preview() ) {
 
 			if ( ! wp_script_is( 'jquery', 'enqueued' ) ) {
