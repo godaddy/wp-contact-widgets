@@ -36,7 +36,6 @@ $fields = [
 		'select'  => $username,
 	],
 	'rss'         => [
-		'prefix'  => 'fas',
 		'label'   => __( 'RSS feed', 'contact-widgets' ),
 		'default' => get_feed_link(),
 	],
@@ -169,10 +168,16 @@ $fields = [
 		'select'  => $board,
 	],
 	'unsplash'    => [
-		'prefix'  => 'fas',
 		'icon'    => 'camera',
 		'label'   => __( 'Unsplash', 'contact-widgets' ),
 		'default' => "https://unsplash.com/@{$username}",
 		'select'  => $username,
 	],
 ];
+
+if ( \Contact_Widgets::$fontawesome_5 ) {
+
+	$fields['rss']['prefix']      = 'fas';
+	$fields['unsplash']['prefix'] = 'fas';
+
+}

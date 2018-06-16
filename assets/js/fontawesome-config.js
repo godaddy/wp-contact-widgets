@@ -1,1 +1,0 @@
-window.FontAwesomeConfig = { showMissingIcons: false }

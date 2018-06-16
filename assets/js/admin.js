@@ -115,10 +115,9 @@
 				.prop( 'name', data.name )
 				.prop( 'value', data.value );
 
-
 			this.$template
-				.find( 'label svg' )
-				.replaceWith( '<i class="' + this.getIconPrefix( this.$btn.data( 'key' ) ) + ' fa-' + icon  + '"></i>' );
+				.find( 'label span[class*="fa-"]' )
+				.prop( 'class', this.$btn.find( 'i' ).attr( 'class' ) );
 
 			this.$template
 				.find( 'label span.text' )
@@ -162,12 +161,6 @@
 			var count = this.$widget.find( 'div > div' ).length;
 
 			this.$widget.find( '.customizer_update' ).val( count ).trigger( 'change' );
-
-		},
-
-		getIconPrefix: function( icon ) {
-
-			return ( 'prefix' in fieldsArray[icon] ) ? fieldsArray[icon].prefix : 'fab';
 
 		}
 

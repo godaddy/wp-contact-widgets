@@ -66,7 +66,6 @@ final class TestSocial extends TestCase {
 		$wp_scripts = wp_scripts();
 
 		// Make sure the JS file is enqueued
-		$this->assertContains( 'font-awesome-config', $wp_scripts->queue );
 		$this->assertContains( 'font-awesome', $wp_scripts->queue );
 		$this->assertContains( 'wpcw', $wp_styles->queue );
 

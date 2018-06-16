@@ -40,7 +40,6 @@ final class TestBaseWidget extends TestCase {
 
 		$this->plugin->enqueue_scripts();
 
-		$this->assertContains( 'font-awesome-config', $wp_styles->queue );
 		$this->assertContains( 'font-awesome', $wp_styles->queue );
 		$this->assertContains( 'wpcw-admin', $wp_styles->queue );
 		$this->assertContains( 'wpcw-admin', $wp_scripts->queue );

@@ -38,6 +38,13 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public static $assets_url;
 
 		/**
+		 * Font Awesome 5
+		 *
+		 * @var boolean
+		 */
+		public static $fontawesome_5;
+
+		/**
 		 * Font Awesome CSS locations
 		 *
 		 * @var string
@@ -52,6 +59,13 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		public function __construct( $cur_php_version = PHP_VERSION ) {
 
 			static::$assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
+
+			/**
+			 * Should Font Awesome 5 be loaded.
+			 *
+			 * @var boolean
+			 */
+			static::$fontawesome_5 = (boolean) apply_filters( 'wpcw_widget_use_fontawesome_5', true );
 
 			static::$fa_url = $this->font_awesome_url();
 
@@ -87,6 +101,22 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		 */
 		public function font_awesome_url() {
 
+			$suffix = SCRIPT_DEBUG ? '' : '.min';
+
+			/**
+			 * Font Awesome CDN URL.
+			 *
+			 * @var string
+			 */
+			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', ( self::$fontawesome_5 ? "https://use.fontawesome.com/releases/v5.0.13/css/all{$suffix}.css" : "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome{$suffix}.css" ) ) );
+
+			if ( ! self::$fontawesome_5 ) {
+
+				// Font Awesome 4.7.0 CDN URL
+				return $fontawesome_cdn_url;
+
+			}
+
 			/**
 			 * Should Font Awesome be loaded from the CDN.
 			 *
@@ -94,16 +124,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 */
 			$use_cdn = (boolean) apply_filters( 'wpcw_widget_social_icons_use_cdn', false );
 
-			/**
-			 * Font Awesome CDN URL.
-			 *
-			 * @var string
-			 */
-			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', 'https://use.fontawesome.com/releases/v5.0.6/js/all.js' ) );
-
-			$suffix = SCRIPT_DEBUG ? '' : '.min';
-
-			return $use_cdn ? $fontawesome_cdn_url : static::$assets_url . "js/fontawesome-all{$suffix}.js";
+			return ! $use_cdn ? static::$assets_url . "css/fontawesome-all{$suffix}.css" : $fontawesome_cdn_url;
 
 		}
 
