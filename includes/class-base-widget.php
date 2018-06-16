@@ -530,7 +530,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [], Plugin::$version );
 
-		wp_enqueue_style( 'wpcw-font-awesome', \Contact_Widgets::$fa_url, [], '5.0.13', 'all' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.13', 'all' );
 
 		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
 
@@ -568,7 +568,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
 
-		wp_enqueue_style( 'wpcw-font-awesome', \Contact_Widgets::$fa_url, [], '5.0.13', 'all' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '5.0.13', 'all' );
 
 		if ( is_customize_preview() ) {
 
