@@ -65,7 +65,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 *
 			 * @var boolean
 			 */
-			static::$fontawesome_5 = (boolean) apply_filters( 'wpcw_widget_use_fontawesome_5', true );
+			static::$fontawesome_5 = (boolean) apply_filters( 'wpcw_widget_use_fontawesome_5', false );
 
 			static::$fa_url = $this->font_awesome_url();
 
