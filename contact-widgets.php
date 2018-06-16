@@ -108,7 +108,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 *
 			 * @var string
 			 */
-			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', ( self::$fontawesome_5 ? "https://use.fontawesome.com/releases/v5.0.13/css/all{$suffix}.css" : "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome{$suffix}.css" ) ) );
+			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', ( self::$fontawesome_5 ? 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' : "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome{$suffix}.css" ) ) );
 
 			if ( ! self::$fontawesome_5 ) {
 
