@@ -552,7 +552,7 @@ abstract class Base_Widget extends \WP_Widget {
 		$this->enqueue_scripts();
 
 		wp_print_styles( [ 'wpcw-admin', 'wpcw-admin-ie' ] );
-		wp_print_scripts( 'font-awesome', 'wpcw-admin' );
+		wp_print_scripts( 'wpcw-admin' );
 
 	}
 
