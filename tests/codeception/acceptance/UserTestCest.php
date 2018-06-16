@@ -203,8 +203,8 @@ class AdminTestCest {
 		$I->executeJS('jQuery(".wpcw-widget-social ul li:first-child")[0].scrollIntoView();');
 
 		// Facebook should be first after reordering
-		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:first-child svg.fa-facebook' ] );
-		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:last-child svg.fa-twitter' ] );
+		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:first-child span[class*="facebook"]' ] );
+		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:last-child span[class*="twitter"]' ] );
 
 		$I->moveMouseOver( [ 'css' => '#wp-admin-bar-my-account' ] );
 
