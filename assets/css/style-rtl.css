@@ -1,20 +1,25 @@
 .wpcw-widget-contact ul,
+.wp-block-contact-widgets-contact-block ul,
 .wpcw-widget-social ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 .wpcw-widget-contact ul li,
+.wp-block-contact-widgets-contact-block ul li,
 .wpcw-widget-social ul li.has-label {
 	padding: 10px 0;
 }
 .wpcw-widget-contact ul li:before,
 .wpcw-widget-contact ul li:after,
+.wp-block-contact-widgets-contact-block ul li:before,
+.wp-block-contact-widgets-contact-block ul li:after,
 .wpcw-widget-social ul li:before,
 .wpcw-widget-social ul li:after {
 	display: none;
 }
-.wpcw-widget-contact ul li div {
+.wpcw-widget-contact ul li div,
+.wp-block-contact-widgets-contact-block ul li div {
 	display: inline;
 }
 .wpcw-widget-social ul li:not(.has-label) {

@@ -1,321 +1,278 @@
+import icons from './icons';
+
 /**
- * Contact Widgets - Contact Block
- *
- * @author GoDaddy
- *
- * @param  {object} blocks     Default blocks object.
- * @param  {object} components Default components object.
- * @param  {object} i18n       WordPress core translation functions.
- * @param  {object} element    Element object.
- *
- * @since NEXT
+ * Internal block libraries
  */
-( function( blocks, components, i18n, element ) {
+const { __ } = wp.i18n;
 
-  var el                = element.createElement,
-      children          = blocks.source.children,
-      BlockControls     = wp.blocks.BlockControls,
-      AlignmentToolbar  = wp.blocks.AlignmentToolbar,
-      InspectorControls = wp.blocks.InspectorControls,
-      TextControl       = wp.blocks.InspectorControls.TextControl,
-      TextareaControl   = wp.blocks.InspectorControls.TextareaControl,
-      ToggleControl     = wp.blocks.InspectorControls.ToggleControl;
+const {
+    registerBlockType,
+    RichText,
+    AlignmentToolbar,
+    BlockControls,
+    BlockAlignmentToolbar,
+    InspectorControls,
+} = wp.blocks;
 
-  blocks.registerBlockType( 'contact-widgets/contact-block', {
-    title: i18n.__( 'Contact Details' ),
-    icon: 'email-alt',
+const {
+    Toolbar,
+    Button,
+    Tooltip,
+    PanelBody,
+    PanelRow,
+    FormToggle,
+    TextControl
+} = wp.components;
+
+/**
+ * Register block
+ */
+export default registerBlockType(
+  'contact-widgets/contact-block',
+  {
+    title: __( 'Contact Details', 'contact-widgets' ),
+    description: __( 'Display contact details on your site.', 'contact-widgets' ),
     category: 'common',
+    icon: 'email-alt',
     keywords: [
-      i18n.__( 'Email' ),
-      i18n.__( 'Phone' ),
-      i18n.__( 'Map' ),
+      __( 'Email', 'contact-widgets' ),
+      __( 'Phone', 'contact-widgets' ),
+      __( 'Map', 'contact-widgets' ),
     ],
     attributes: {
       title: {
-        type: 'array',
-        source: 'children',
-        selector: 'h3',
-      },
-      alignment: {
         type: 'string',
-        default: 'center',
+        source: 'text',
+        selector: '.contact-title',
       },
-      emailAddress: {
-        type: 'url',
+      email: {
+        type: 'string',
+        source: 'text',
+        selector: '.contact-email',
       },
-      phoneNumber: {
-        type: 'url',
+      phone: {
+        type: 'string',
+        source: 'text',
+        selector: '.contact-phone',
       },
-      faxNumber: {
-        type: 'url',
+      fax: {
+        type: 'string',
+        source: 'text',
+        selector: '.contact-fax',
       },
       address: {
-        type: 'url',
+        type: 'array',
+        source: 'children',
+        selector: '.contact-address',
       },
       displayLabels: {
         type: 'boolean',
-        default: false,
+        default: true,
       },
-      displayMap: {
-        type: 'checkbox',
-        default: false,
+      displayMapOfAddress: {
+        type: 'boolean',
+        default: true,
       },
     },
-
-    /**
-     * Edit the contact block.
-     *
-     * @param  {object} props Properties object.
-     *
-     * @since NEXT
-     */
-    edit: function( props ) {
-
-      var focus           = props.focus,
-          focusedEditable = props.focus ? props.focus.editable || 'title' : null,
-          alignment       = props.attributes.alignment,
-          attributes      = props.attributes,
-          emailAddress    = props.attributes.emailAddress,
-          phoneNumber     = props.attributes.phoneNumber,
-          faxNumber       = props.attributes.faxNumber,
-          address         = props.attributes.address,
-          displayLabels   = props.attributes.displayLabels,
-          displayMap      = props.attributes.displayMap;
-
-      function onChangeAlignment( newAlignment ) {
-
-        props.setAttributes( {
-          alignment: newAlignment
-        } );
-
+    getEditWrapperProps( attributes ) {
+      const { blockAlignment } = attributes;
+      if ( 'left' === blockAlignment || 'right' === blockAlignment || 'full' === blockAlignment ) {
+        return { 'data-align': blockAlignment };
       }
-
+    },
+    edit: props => {
+      const { attributes: { textAlignment, blockAlignment, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, isSelected, className, setAttributes } = props;
+      const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
+      const toggleDisplayMapOfAddress = () => setAttributes( { displayMapOfAddress: ! displayMapOfAddress } );
+      const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
+      const showEmail = ( typeof email !== 'undefined' && email.length > 0 ) ? true : false;
+      const showPhone = ( typeof phone !== 'undefined' && phone.length > 0 ) ? true : false;
+      const showFax = ( typeof fax !== 'undefined' && fax.length > 0 ) ? true : false;
+      const showAddress = ( typeof address !== 'undefined' && address.length > 0 ) ? true : false;
+      var mapAddress = showAddress ? encodeURIComponent( address.join( ' ' ).replace( ' [object Object]', '' ).trim() ) : '';
       return [
-        !! focus && el(
-          blocks.BlockControls,
-          { key: 'controls' },
-          el(
-            blocks.AlignmentToolbar,
-            {
-              value: alignment,
-              onChange: onChangeAlignment,
-            }
-          )
+        // Inspector Controls
+        isSelected && (
+          <InspectorControls>
+            <PanelBody
+              title={ __( 'Contact Details Controls', 'contact-widgets' ) }
+            >
+              <PanelRow>
+                <label htmlFor="display-labels-toggle" >
+                  { __( 'Display Labels', 'contact-widgets' ) }
+                </label>
+                <FormToggle
+                  id="display-labels-toggle"
+                  label={ __( 'Display Labels', 'contact-widgets' ) }
+                  checked={ displayLabels }
+                  onChange={ toggleDisplayLabels }
+                />
+              </PanelRow>
+              <PanelRow>
+                <label htmlFor="display-map-of-address-toggle">
+                  { __( 'Display Map of Address', 'contact-widgets' ) }
+                </label>
+                <FormToggle
+                  id="display-map-of-address-toggle"
+                  label={ __( 'Display Map of Address', 'contact-widgets' ) }
+                  checked={ displayMapOfAddress }
+                  onChange={ toggleDisplayMapOfAddress }
+                />
+              </PanelRow>
+            </PanelBody>
+          </InspectorControls>
         ),
-
-        /**
-         * Block Advanced Settings
-         */
-        !! focus && el(
-          blocks.InspectorControls,
-          { key: 'inspector' },
-          el( 'div', { className: 'components-block-description' },
-            el( 'p', {}, i18n.__( 'Setup your contact details.' ) ),
-          ),
-          el( 'h2', {}, i18n.__( 'Contact Details' ) ),
-          el(
-            TextControl,
-            {
-              type: 'email',
-              label: i18n.__( 'Email:' ),
-              value: emailAddress,
-              onChange: function( newEmailAddress ) {
-                props.setAttributes( { emailAddress: newEmailAddress } );
-              },
-            }
-          ),
-          el(
-            TextControl,
-            {
-              type: 'tel',
-              label: i18n.__( 'Phone:' ),
-              value: phoneNumber,
-              onChange: function( newPhoneNumber ) {
-                props.setAttributes( { phoneNumber: newPhoneNumber } );
-              },
-            }
-          ),
-          el(
-            TextControl,
-            {
-              type: 'tel',
-              label: i18n.__( 'Fax' ),
-              value: faxNumber,
-              onChange: function( newFaxNumber ) {
-                props.setAttributes( { faxNumber: newFaxNumber } );
-              },
-            }
-          ),
-          el(
-            TextareaControl,
-            {
-              label: i18n.__( 'Address' ),
-              value: address,
-              onChange: function( newAddress ) {
-                props.setAttributes( { address: newAddress } );
-              },
-            }
-          ),
-          el(
-            ToggleControl,
-            {
-              type: 'checkbox',
-              label: i18n.__( 'Display labels?' ),
-              value: displayLabels,
-              checked: !! displayLabels,
-              onChange: function( newDisplayLabels ) {
-                props.setAttributes( { displayLabels: event.target.checked } );
-              },
-            }
-          ),
-          el(
-            ToggleControl,
-            {
-              type: 'checkbox',
-              label: i18n.__( 'Display map of address?' ),
-              value: displayMap,
-              checked: !! displayMap,
-              onChange: function( newDisplayMap ) {
-                props.setAttributes( { displayMap: event.target.checked } );
-              },
-            }
-          ),
+        // Custom Toolbar
+        isSelected && (
+          <BlockControls>
+            <AlignmentToolbar
+              value={ textAlignment }
+              onChange={ ( textAlignment ) => props.setAttributes( { textAlignment } ) }
+            />
+            <Toolbar>
+              <Tooltip text={ __( 'Display Labels', 'contact-widgets' )  }>
+                <Button onClick={ toggleDisplayLabels }>
+                  {icons.label}
+                </Button>
+              </Tooltip>
+            </Toolbar>
+            <Toolbar>
+              <Tooltip text={ __( 'Display Map of Address', 'contact-widgets' )  }>
+                <Button onClick={ toggleDisplayMapOfAddress }>
+                  {icons.map}
+                </Button>
+              </Tooltip>
+            </Toolbar>
+          </BlockControls>
         ),
-
-        /**
-         * Block
-         */
-        el( 'div', { className: props.className },
-          el( 'div', {
-            className: 'contact-widgets-content', style: { textAlign: alignment } },
-            el( blocks.Editable, {
-              tagName: 'h3',
-              inline: false,
-              placeholder: i18n.__( 'Contact Details Title' ),
-              value: attributes.title,
-              onChange: function( newTitle ) {
-                props.setAttributes( { title: newTitle } );
-              },
-              focus: focusedEditable === 'title' ? focus : null,
-              onFocus: function( focus ) {
-                props.setFocus( _.extend( {}, focus, { editable: 'title' } ) );
-              },
-            } ),
-            el( 'div', { className: 'contact-widgets-contact' },
-              attributes.emailAddress && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels ) && el( 'strong', {}, i18n.__( 'Email' ) ),
-                ( attributes.displayLabels ) && el( 'br', {}, null ),
-                el( 'div', {}, el( 'a', {
-                      href: 'mailto:' + attributes.emailAddress,
-                    },
-                    attributes.emailAddress
-                  ),
-                )
-              ),
-              attributes.phoneNumber && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'strong', {}, i18n.__( 'Phone' ) ),
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.phoneNumber )
-              ),
-              attributes.faxNumber && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'strong', {}, i18n.__( 'Fax' ) ),
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.faxNumber )
-              ),
-              attributes.address && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.address ) && el( 'strong', {}, i18n.__( 'Address' ) ),
-                ( attributes.displayLabels && attributes.address ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.address )
-              ),
-              ( attributes.displayMap && attributes.address ) &&
-              el( 'iframe', {
-                  src: 'https://www.google.com/maps?q=' + encodeURIComponent( attributes.address ) + '&output=embed&hl=%s&z=14',
-                  frameborder: 0,
-                  className: 'wpcw-widget-contact-map wpcw-contact-block-map',
-                },
-              ),
-            ),
-          ),
-        )
+        // Admin Block Markup
+        <div className={ className }>
+          <div className="contact-widgets-content">
+            { isSelected ? (
+              <TextControl
+                tagName="h2"
+                placeholder={ __( 'Contact Details Title', 'contact-widgets' ) }
+                value={ title }
+                onChange={ title => setAttributes( { title } ) }
+              />
+            ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
+            { displayLabels && (
+              <strong>{ __( 'Email', 'contact-widgets' ) }<br /></strong>
+            ) }
+            { isSelected ? (
+              <TextControl
+                placeholder={ __( 'Email Address', 'contact-widgets' ) }
+                value={ email }
+                onChange={ email => setAttributes( { email } ) }
+              />
+            ) : ( showEmail && ( <div>{ email }</div> ) ) }
+            { displayLabels && (
+              <strong>{ __( 'Phone', 'contact-widgets' ) }<br /></strong>
+            ) }
+            { isSelected ? (
+              <TextControl
+                placeholder={ __( 'Phone Number', 'contact-widgets' ) }
+                value={ phone }
+                onChange={ phone => setAttributes( { phone } ) }
+              />
+            ) : ( showPhone && ( <div>{ phone }</div> ) ) }
+            { displayLabels && (
+              <strong>{ __( 'Fax', 'contact-widgets' ) }<br /></strong>
+            ) }
+            { isSelected ? (
+              <TextControl
+                placeholder={ __( 'Fax Number', 'contact-widgets' ) }
+                value={ fax }
+                onChange={ fax => setAttributes( { fax } ) }
+              />
+            ) : ( showFax && ( <div>{ fax }</div> ) ) }
+            { displayLabels && (
+              <strong>{ __( 'Address', 'contact-widgets' ) }<br /></strong>
+            ) }
+            { isSelected ? (
+              <RichText
+                placeholder={ __( 'Address', 'contact-widgets' ) }
+                onChange={ address => setAttributes( { address } ) }
+                value={ address }
+              />
+            ) : ( showAddress && ( <div>{ address }</div> ) ) }
+            { ! isSelected && showAddress && displayMapOfAddress && (
+               <iframe
+                 src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
+               />
+            ) }
+          </div>
+        </div>
       ];
     },
-
-    /**
-     * Save the contact block.
-     *
-     * @param  {object} props Properties object.
-     *
-     * @since NEXT
-     */
-    save: function( props ) {
-
-      var attributes = props.attributes,
-          alignment  = props.attributes.alignment;
-
+    save: props => {
+      const { attributes: { textAlignment, displayLabels, displayMapOfAddress, title, email, phone, fax, address } } = props;
+      const labelClass = displayLabels ? 'has-label' : 'no-label';
+      const mapClass = displayMapOfAddress ? 'has-map' : labelClass;
+      const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
+      const showEmail = ( typeof email !== 'undefined' && email.length > 0 ) ? true : false;
+      const showPhone = ( typeof phone !== 'undefined' && phone.length > 0 ) ? true : false;
+      const showFax = ( typeof fax !== 'undefined' && fax.length > 0 ) ? true : false;
+      const showAddress = ( typeof address !== 'undefined' && address.length > 0 ) ? true : false;
+      const mapAddress = showAddress ? encodeURIComponent( address.join( ' ' ).replace( ' [object Object]', '' ).trim() ) : '';
       return (
-        el( 'div', { className: props.className },
-          el( 'div', { className: 'contact-widgets-content', style: { textAlign: attributes.alignment } },
-            el( 'h3', {}, attributes.title ),
-            el( 'div', { className: 'contact-widgets-contact' },
-              attributes.emailAddress && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels ) && el( 'strong', {}, i18n.__( 'Email' ) ),
-                ( attributes.displayLabels ) && el( 'br', {}, null ),
-                el( 'div', {}, el( 'a', {
-                      href: 'mailto:' + attributes.emailAddress,
-                    },
-                    attributes.emailAddress
-                  ),
-                )
-              ),
-              attributes.phoneNumber &&
-              el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'strong', {}, i18n.__( 'Phone' ) ),
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.phoneNumber )
-              ),
-              attributes.faxNumber && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'strong', {}, i18n.__( 'Fax' ) ),
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.faxNumber )
-              ),
-              attributes.address && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.address ) && el( 'strong', {}, i18n.__( 'Address' ) ),
-                ( attributes.displayLabels && attributes.address ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.address )
-              ),
-              ( attributes.displayMap && attributes.address ) &&
-              el( 'iframe', {
-                  src: 'https://www.google.com/maps?q=' + encodeURIComponent( attributes.address ) + '&output=embed&hl=%s&z=14',
-                  frameborder: 0,
-                  className: 'wpcw-widget-contact-map wpcw-contact-block-map',
-                },
-              ),
-            )
-          )
-        )
+        <div>
+          { showTitle && (
+            <h2 class="contact-title">
+              { title }<br />
+            </h2>
+          ) }
+          <ul>
+            { showEmail && (
+              <li className={ labelClass }>
+                { displayLabels && (
+                  <strong>{ __( 'Email', 'contact-widgets' ) }<br /></strong>
+                ) }
+                <div className="contact-email" >
+                  { email }
+                </div>
+              </li>
+            ) }
+            { showPhone && (
+              <li className={ labelClass }>
+                { displayLabels && (
+                  <strong>{ __( 'Phone', 'contact-widgets' ) }<br /></strong>
+                ) }
+                <div className="contact-phone">
+                  { phone }
+                </div>
+              </li>
+            ) }
+            { showFax && (
+              <li className={ labelClass }>
+                { displayLabels && (
+                  <strong>{ __( 'Fax', 'contact-widgets' ) }<br /></strong>
+                ) }
+                <div className="contact-fax">
+                  { fax }
+                </div>
+              </li>
+            ) }
+            { showAddress && (
+              <li className={ labelClass }>
+                { displayLabels && (
+                  <strong>{ __( 'Address', 'contact-widgets' ) }<br /></strong>
+                ) }
+                <div className="contact-address">
+                  { address }
+                </div>
+              </li>
+            ) }
+            { displayMapOfAddress && (
+              <li className="has-map">
+                <iframe
+                  src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
+                />
+              </li>
+            ) }
+          </ul>
+        </div>
       );
     },
-  } );
-
-} )(
-  window.wp.blocks,
-  window.wp.components,
-  window.wp.i18n,
-  window.wp.element,
+  },
 );

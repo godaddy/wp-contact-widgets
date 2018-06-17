@@ -26,9 +26,7 @@ class Contact_Block {
 	 */
 	function contact_block_scripts() {
 
-		wp_enqueue_script( 'contact-widgets-contact-block', plugins_url( 'contact-block.js', __FILE__ ), array( 'wp-blocks', 'wp-i18n', 'wp-element' ), Plugin::$version );
-
-		wp_enqueue_style( 'contact-widgets-contact-block-frontend', plugins_url( 'contact-block.css', __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
+		wp_enqueue_style( 'contact-widgets-contact-block-frontend', plugins_url( 'contact-block.css', __FILE__ ), array( 'wp-blocks' ), Plugin::$version );
 
 	}
 
@@ -39,7 +37,7 @@ class Contact_Block {
 	 */
 	public function contact_block_styles() {
 
-		wp_enqueue_style( 'contact-widgets-contact-block-frontend', plugins_url( 'contact-block.css', __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
+		wp_enqueue_style( 'contact-widgets-contact-block-frontend', plugins_url( 'contact-block.css', __FILE__ ), array( 'wp-blocks' ), Plugin::$version );
 
 	}
 
