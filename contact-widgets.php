@@ -110,9 +110,9 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 */
 			$fontawesome_cdn_url = (string) esc_url( apply_filters( 'wpcw_widget_social_icons_cdn_url', ( self::$fontawesome_5 ? 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' : "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome{$suffix}.css" ) ) );
 
-			if ( ! self::$fontawesome_5 ) {
+			if ( self::$fontawesome_5 ) {
 
-				// Font Awesome 4.7.0 CDN URL
+				// Font Awesome 5 CDN URL
 				return $fontawesome_cdn_url;
 
 			}
@@ -124,7 +124,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 */
 			$use_cdn = (boolean) apply_filters( 'wpcw_widget_social_icons_use_cdn', false );
 
-			return ! $use_cdn ? static::$assets_url . "css/fontawesome-all{$suffix}.css" : $fontawesome_cdn_url;
+			return ! $use_cdn ? static::$assets_url . "css/font-awesome{$suffix}.css" : $fontawesome_cdn_url;
 
 		}
 

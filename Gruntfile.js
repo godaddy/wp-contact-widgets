@@ -43,7 +43,7 @@ module.exports = function( grunt ) {
 					{
 						expand: true,
 						cwd: 'assets/css/',
-						src: [ '*.css', '!*-rtl.css', '!*.min.css', '!*-rtl.min.css', '!fontawesome*' ],
+						src: [ '*.css', '!*-rtl.css', '!*.min.css', '!*-rtl.min.css', '!font-awesome*' ],
 						dest: 'assets/css/',
 						ext: '-rtl.css'
 					}
@@ -105,7 +105,7 @@ module.exports = function( grunt ) {
 		},
 
 		jshint: {
-			assets: [ 'assets/js/**/*.js', '!assets/js/**/*.min.js', '!assets/js/fontawesome-*' ],
+			assets: [ 'assets/js/**/*.js', '!assets/js/**/*.min.js' ],
 			gruntfile: [ 'Gruntfile.js' ]
 		},
 
