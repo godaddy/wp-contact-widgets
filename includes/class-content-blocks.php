@@ -27,7 +27,10 @@ class Content_Blocks {
 
 		wp_enqueue_script( 'contact-widgets-blocks', plugins_url( "../assets/js/contact-widget-blocks{$suffix}.js", __FILE__ ), array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components' ), Plugin::$version );
 
-		wp_localize_script( 'contact-widgets-blocks', 'wpcw_icons', (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ) );
+		wp_localize_script( 'contact-widgets-blocks', 'wpcw_social', [
+      'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
+      'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
+    ] );
 
 	}
 

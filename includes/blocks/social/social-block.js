@@ -25,22 +25,20 @@ const {
 } = wp.components;
 
 /**
- * Render the social media icons
+ * Render the social media icons inspector controls
  */
 function renderIcons() {
-  if ( ! Object.keys( wpcw_icons ).length ) {
+  if ( ! Object.keys( wpcw_social.icons ).length ) {
     return <h2>{ __( 'No Icons Found.', 'contact-widgets' ) }</h2>;
   }
-  return Object.keys( wpcw_icons ).map( function( key ) {
-    console.log( wpcw_icons[key] );
-    var iconClass  = key,
-    iconLabel  = wpcw_icons[key].label,
-    iconURL    = wpcw_icons[key].default,
-    iconSelect = wpcw_icons[key].select;
+  return Object.keys( wpcw_social.icons ).map( function( key ) {
+    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon,
+    iconLabel  = wpcw_social.icons[key].label,
+    iconURL    = wpcw_social.icons[key].default,
+    iconSelect = wpcw_social.icons[key].select;
     return <a href="#" class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
-      <i class={ "fa fa-" + iconClass }></i>
+      <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
     </a>;
-    return <i className={key}>{wpcw_icons[key].label}<br /></i>
   } );
 }
 
