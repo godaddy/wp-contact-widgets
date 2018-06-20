@@ -25,6 +25,26 @@ const {
 } = wp.components;
 
 /**
+ * Render the social media icons
+ */
+function renderIcons() {
+  if ( ! Object.keys( wpcw_icons ).length ) {
+    return <h2>{ __( 'No Icons Found.', 'contact-widgets' ) }</h2>;
+  }
+  return Object.keys( wpcw_icons ).map( function( key ) {
+    console.log( wpcw_icons[key] );
+    var iconClass  = key,
+    iconLabel  = wpcw_icons[key].label,
+    iconURL    = wpcw_icons[key].default,
+    iconSelect = wpcw_icons[key].select;
+    return <a href="#" class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
+      <i class={ "fa fa-" + iconClass }></i>
+    </a>;
+    return <i className={key}>{wpcw_icons[key].label}<br /></i>
+  } );
+}
+
+/**
  * Register block
  */
 export default registerBlockType(
@@ -45,11 +65,28 @@ export default registerBlockType(
         source: 'text',
         selector: '.social-title',
       },
+      icons: {
+        type: 'array',
+        source: 'child',
+        selector: '.social-icons',
+      },
     },
     edit: props => {
-      const { attributes: { textAlignment, blockAlignment, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, isSelected, className, setAttributes } = props;
+      const { attributes: { title, icons }, isSelected, className, setAttributes } = props;
       const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
       return [
+        // Inspector Controls
+        isSelected && (
+          <InspectorControls>
+            <PanelBody
+              title={ __( 'Social Icons', 'contact-widgets' ) }
+            >
+              <div className="icons">
+                { renderIcons() }
+              </div>
+            </PanelBody>
+          </InspectorControls>
+        ),
         // Admin Block Markup
         <div className={ className }>
           <div className="contact-widgets-social-icons">
@@ -78,6 +115,9 @@ export default registerBlockType(
               { title }<br />
             </h2>
           ) }
+          <ul class="social-icons">
+            <li>test</li>
+          </ul>
         </div>
       );
     },

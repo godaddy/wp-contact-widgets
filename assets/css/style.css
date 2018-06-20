@@ -30,6 +30,6 @@
 .wpcw-widget-social ul li.has-label a {
 	display: block;
 }
-.wpcw-widget-social ul li.has-label span {
+.wpcw-widget-social ul li.has-label svg {
 	margin-right: 0.25em;
 }

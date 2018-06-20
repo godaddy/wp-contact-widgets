@@ -53,7 +53,7 @@ final class TestContact extends TestCase {
 		];
 		$args = [
 			'before_widget' => '<div class="widget wpcw-widget-contact"><div class="widget-content">',
-			'after_widget' => '</div><div class="clear"></div></div>',
+			'after_widget'  => '</div><div class="clear"></div></div>',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
 		];
@@ -62,7 +62,7 @@ final class TestContact extends TestCase {
 		$this->expectOutputRegex( '/<h3 class="widget-title">/' );
 
 		// Check that we sprint the right google url
-		$this->expectOutputRegex( '~//www\.google\.com/maps\?q=123\+Santa\+Monica&output=embed~' );
+		$this->expectOutputRegex( '~//www\.google\.com\/maps\?q=123%20Santa%20Monica&output=embed~' );
 
 		$this->plugin->widget( $args, $instance );
 

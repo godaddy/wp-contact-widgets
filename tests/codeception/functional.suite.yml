@@ -1,8 +1,0 @@
-# Codeception Test Suite Configuration
-
-# suite for functional (integration) tests.
-# emulate web requests and make application process them.
-
-class_name: FunctionalTester
-modules:
-    enabled: [WordPress, FunctionalHelper]

@@ -5,7 +5,7 @@
 **Tags:**              [widget](https://wordpress.org/plugins/tags/widget/), [contact](https://wordpress.org/plugins/tags/contact/), [social](https://wordpress.org/plugins/tags/social/), [social icons](https://wordpress.org/plugins/tags/social icons/), [social media](https://wordpress.org/plugins/tags/social media/), [facebook](https://wordpress.org/plugins/tags/facebook/), [twitter](https://wordpress.org/plugins/tags/twitter/), [instagram](https://wordpress.org/plugins/tags/instagram/), [linkedin](https://wordpress.org/plugins/tags/linkedin/), [pinterest](https://wordpress.org/plugins/tags/pinterest/)  
 **Requires at least:** 4.4  
 **Tested up to:**      4.9  
-**Stable tag:**        1.4.1  
+**Stable tag:**        1.5.2  
 **License:**           GPL-2.0  
 **License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -85,7 +85,7 @@ Here is an example:
 add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) {
 
   $fields['scribd'] = [
-    'icon'      => 'scribd', //See font-awesome icon slug
+    'icon'      => 'scribd', // See font-awesome icon slug
     'label'     => __( 'Scribd', 'YOURTEXTDOMAIN' ),
     'default'   => 'https://www.scribd.com/username',
     'select'    => 'username',
@@ -100,7 +100,63 @@ add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) 
 }, 10, 2 );
 </pre>
 
+If using Font Awesome v5, 'solid' & 'regular' icons require a 'prefix' value when defining the custom icon. If excluded, the default prefix added to icons is 'fab', for the Font Awesome brand icons. If you are adding an icon that is not a brand icon, you will need to add a prefix. For example, if you wanted to add a [graduation cap icon](https://fontawesome.com/icons/graduation-cap?style=solid) you would need to add `'prefix' => 'fas'` to the attributes array.
+
+Here is an example of adding a 'fas' (Solid) icon to the social profiles.
+
+<pre lang="php">
+add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) {
+
+  $fields['lattes'] = [
+    'icon'      => 'graduation-cap', // See font-awesome icon slug
+    'prefix'    => 'fas', // See font-awesome icon prefix
+    'label'     => __( 'Service Name', 'YOURTEXTDOMAIN' ),
+    'default'   => 'https://example.com/username',
+    'select'    => 'username',
+    'sanitizer' => 'esc_url_raw',
+    'escaper'   => 'esc_url',
+    'social'    => true,
+    'target'    => '_blank',
+  ];
+
+  return $fields;
+
+}, 10, 2 );
+</pre>
+
+### Where are the Font Awesome files served from? ###
+
+Out of the box the Font Awesome files are bundled in Contact Widgets and served locally. However, we have included a filter to allow Font Awesome files to be loaded from MaxCDN.
+
+To force the plugin to load the files from MaxCDN you can return a `true` value in the filter `wpcw_social_icons_use_cdn`.
+
+<pre>
+add_filter( 'wpcw_social_icons_use_cdn', '__return_true' );
+</pre>
+
 ## Changelog ##
+
+### 1.5.2 - June 18, 2018 ###
+* New: Introduce filter `wpcw_social_icons_fontawesome_5` (default: `false`) to use Font Awesome 5 in Contact Widgets.
+* New: Introduce filter `wpcw_social_icons_use_cdn` (default: `false`) to load Font Awesome v4.7.0 files from MaxCDN.
+* New: Introduce filter `wpcw_social_icons_cdn_url` to alter the default Font Awesome CDN URL.
+* Tweak: Revert back to Font Awesome 4.7.0 with the option to force load Font Awesome v5.0.13 via filter *(see above)*.
+
+Props [@EvanHerman](https://github.com/evanherman)
+
+### 1.5.1 - June 14, 2018 ###
+* Tweak: Added a Font Awesome 5 config file with `showMissingIcons` set to `false`, to prevent conflicts with plugins and themes using Font Awesome v4.
+* Tweak: Filter the social profile fields array before localizing into `admin.js`, fixing custom social profile icons.
+
+Props [@EvanHerman](https://github.com/evanherman)
+
+### 1.5.0 - May 31, 2018 ###
+
+* New: Add support for "Unsplash" (https://unsplash.com/)
+* Tweak: Update FontAwesome to 5.0.6
+* Tweak: Fix typo in widget descriptions.
+
+Props [@EvanHerman](https://github.com/evanherman), [@fjarrett](https://github.com/fjarrett), [@salvoventura](https://github.com/salvoventura), [@garrett-eclipse](https://github.com/garrett-eclipse)
 
 ### 1.4.1 - February 13, 2017 ###
 

@@ -1,17 +1,13 @@
-sudo: false
+sudo: required
 
 language: php
+
+dist: trusty
 
 notifications:
   email:
     on_success: never
     on_failure: change
-
-branches:
-  only:
-    - /^v\d.*$/
-    - master
-    - develop
 
 php:
   - 5.6
@@ -22,6 +18,13 @@ env:
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=trunk WP_MULTISITE=0
 
+addons:
+  chrome: stable
+  apt:
+    packages:
+      # Needed for `xmllint`.
+      - libxml2-utils
+
 matrix:
   fast_finish: true
   exclude:
@@ -30,25 +33,30 @@ matrix:
 
 install:
   - export DEV_LIB_PATH=dev-lib
+  - wget http://selenium-release.storage.googleapis.com/3.9/selenium-server-standalone-3.9.1.jar -O selenium-server-standalone.jar && sudo mv selenium-server-standalone.jar /usr/local/bin
+  - wget http://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip -O chromedriver.zip && unzip chromedriver.zip && sudo mv chromedriver /usr/local/bin
+  - java  -Dwebdriver.chrome.driver=/usr/local/bin/chromedriver  -jar /usr/local/bin/selenium-server-standalone.jar &
+  - sleep 3
   - if [ ! -e "$DEV_LIB_PATH" ] && [ -L .travis.yml ]; then export DEV_LIB_PATH=$( dirname $( readlink .travis.yml ) ); fi
   - if [ ! -e "$DEV_LIB_PATH" ]; then git clone https://github.com/xwp/wp-dev-lib.git $DEV_LIB_PATH; fi
   - source $DEV_LIB_PATH/travis.install.sh
   - bash bin/install-wp-tests.sh wordpress wordpress_test root '' localhost $WP_VERSION
 
 before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3
+  - "export DISPLAY=:99.0"
   - php /tmp/wp-cli.phar server --path=$WP_CORE_DIR > /dev/null 2>/dev/null &
   - sleep 3
+  - vendor/bin/selenium-server-standalone -port 9515 > /dev/null 2>/dev/null &
+  - sleep 3
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
   - ln -s $TRAVIS_BUILD_DIR $WP_CORE_DIR/wp-content/plugins/
   - php /tmp/wp-cli.phar plugin activate $(basename $TRAVIS_BUILD_DIR) --path=$WP_CORE_DIR
-  - php /tmp/wp-cli.phar selenium start --path=$WP_CORE_DIR
 
 script:
   - source $DEV_LIB_PATH/travis.script.sh
   - phpunit
-  - php /tmp/wp-cli.phar codeception run --debug --path=$WP_CORE_DIR
+  - vendor/bin/codecept run
 
 before_deploy:
   - export RELEASE_FOLDER=contact-widgets
@@ -60,7 +68,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: hTzKtQQc8LifJd59j17aZaD3HH+EG2ilmg15msuTriJmJC98IIGb13q0VqQGmPRomk4HcnoXsrMJvyWwvNiWobza8hnRvc1jTZFHPrgOYdUtwyKwRrqzdnhaJuTz4KoPJeushanIwKyzbJI4Wfd6G/ghSB3NZf2wwPrWfTq80qfvkCxqVBxqTMt8TS4sb2eGEHQKoHk2JQm8q2WiDbOezETS7njqU+RwOoZsz7qR6XkI0H42VPjhtwqu1a/PLrie+yEKDizVTooMO7f+Q2ZKExT45sM+dPaRUlOPGckDdh16zwZEPKjSVNZ/ytptc8aLygjd09e0tYkyEQuGEG0Sc5LXIuTLiHBgYEQSmeBFKlR8ky/C47vGnnEG+S+gg4YAS462ffofHDEINPFd4qWOhrd1G2bpDtnyK4thU/Oy+B3el/9Zk5HuGr04igwRI2P5c1TcpJqvuO3UFk7FjogD++52s0Me58JRJ2DRGRkMkdAm5L/nKMEn//meKohaW+G5irveeOAqRnrddCwqUsgm8QNuytsSJzoYeTlZO6b3vkBIu0Yjp8wcAb4Qdc1lt9OparSWgaHdjQeSkzqxtgxi6kcZ3Lr9PxdQPEY+4X1JAGU4MJ4wXiBKSDloG1V1mN7sJT0lyncPoXrKlLrVsRSTp6NDSVzmUw2z915Ty+jHFvY=
+    secure: HVhuuS7lyf/WweTRSno1c9s1Z/54zHBLRKZVv94ybpHm4zNlG2aFpvWy+bUoLBrr1cCeMN+5HaMMonWETvXMyMsiR+gS/55iC0UsT/EPGhhupJqCZ+hJDk8yucSV0r8le7cy86TR9xLX7OOm6Q5vjPJZlDwyhfYuQBW9c6ciCKbeIXLviomJdBRvNBtHU49JLbP48vCiIBdIBjrFiY17/cSu0PZ9sZDBMOQEc0mPRso7WOTPHSI4tVA6rxKr92x+w6lIhMqBnm4W4o7/UUsRPq2ZPID52LqXpNyk2q8Q76MHBeJoVAscEDb+tCCU+jdwlUfO7/iA+9Fw/5xkYnMfI4bJbTrDN27NCiam4HyMBv63yFyrclPaXbV+bqhf0G5q5+B1eApZ/SiFvD1rYhYSI9fQ7qCini+YEOuW7ilZ1SWmWWqRm7cO8Jve8LZph+hpYfgkGnC+E+ntQAHfQZujZlR+49DJtAOudtPI1WaqBZZH1WsoNFmabiGQs2jkaLveq8798gLAxNrIVT+VvmCs+PGsL3dF7Im3Ohhd92z01bb+ktAOQZjMAP7WqtYSajN2PcaxGTF6ZBkPGBi+Q0Lg5w7dL9RtjO+mtl7rzE85g8bSE65VTli3y9tuEhkQz2PP5p4CnH+L2d6jglU3K+XtRAtk0YvSPQQ5OAt+fqF1Ka4=
   file: contact-widgets.zip
   on:
     tags: true

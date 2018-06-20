@@ -100,6 +100,8 @@
 
 			this.$btn.removeClass( 'inactive' );
 
+			var icon   = this.$btn.find( 'svg' ).data( 'icon' );
+
 			var data = this.$btn.data();
 
 			this.$template
@@ -114,7 +116,7 @@
 				.prop( 'value', data.value );
 
 			this.$template
-				.find( 'label span.fa' )
+				.find( 'label span[class*="fa-"]' )
 				.prop( 'class', this.$btn.find( 'i' ).attr( 'class' ) );
 
 			this.$template

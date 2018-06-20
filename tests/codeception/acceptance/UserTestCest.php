@@ -1,5 +1,4 @@
 <?php
-use Codeception\Util\Debug;
 
 class AdminTestCest {
 
@@ -25,7 +24,9 @@ class AdminTestCest {
 		$I->wantTo( 'Log into WordPress admin' );
 
 		// Let's start on the login page
-		$I->amOnPage( wp_login_url() );
+		$I->amOnUrl( wp_login_url() );
+
+		$I->wait( 3 );
 
 		// Populate the login form's user id field
 		$I->fillField( [ 'id' => 'user_login' ], 'admin' );
@@ -53,9 +54,9 @@ class AdminTestCest {
 
 		$I->wantTo( 'Validate contact widget form in widgets.php' );
 
-		$I->amOnPage( admin_url( 'widgets.php' ) );
+		$I->amOnUrl( admin_url( 'widgets.php' ) );
 
-		$I->canSee( 'Contact Details', [ 'css' => '.widget h3' ] );
+		$I->see( 'Contact Details', [ 'css' => '.widget h3' ] );
 
 		$selector = '#widget-list div[id$=wpcw_contact-__i__]';
 
@@ -97,19 +98,19 @@ class AdminTestCest {
 
 		$I->wantTo( 'Validate contact front-end output' );
 
-		$I->amOnPage( home_url() );
+		$I->amOnUrl( home_url() );
 
 		$I->waitForElementVisible( [ 'class' => 'wpcw-widget-contact' ] );
 
 		// Let's validate what we submitted earlier
-		$I->canSee( 'Acceptance tests contact', [ 'css' => '.wpcw-widget-contact .widget-title' ] );
-		$I->canSee( 'info@local.dev', [ 'css' => '.wpcw-widget-contact ul li' ] );
-		$I->canSee( '555-555-5555', [ 'css' => '.wpcw-widget-contact ul li' ] );
-		$I->canSee( '555-555-5556', [ 'css' => '.wpcw-widget-contact ul li' ] );
-		$I->canSee( '1234 Santa Monica Blvd', [ 'css' => '.wpcw-widget-contact ul li' ] );
+		$I->see( 'Acceptance tests contact', [ 'css' => '.wpcw-widget-contact .widget-title' ] );
+		$I->see( 'info@local.dev', [ 'css' => '.wpcw-widget-contact ul li' ] );
+		$I->see( '555-555-5555', [ 'css' => '.wpcw-widget-contact ul li' ] );
+		$I->see( '555-555-5556', [ 'css' => '.wpcw-widget-contact ul li' ] );
+		$I->see( '1234 Santa Monica Blvd', [ 'css' => '.wpcw-widget-contact ul li' ] );
 
 		$I->waitForElementVisible( [ 'css' => '.wpcw-widget-contact ul li.has-map' ] );
-		$I->waitForElementVisible( [ 'css' => '.wpcw-widget-contact ul li.has-map iframe[src="https://www.google.com/maps?q=1234+Santa+Monica+BlvdBeverly+Hills%2C+CA+90210&output=embed&hl=en&z=14"]' ] );
+		$I->waitForElementVisible( [ 'css' => '.wpcw-widget-contact ul li.has-map iframe[src="https://www.google.com/maps?q=1234%20Santa%20Monica%20BlvdBeverly%20Hills%2C%20CA%2090210&output=embed&hl=en&z=14"]' ] );
 
 	}
 
@@ -123,9 +124,9 @@ class AdminTestCest {
 
 		$I->wantTo( 'Validate social widget form in widgets.php' );
 
-		$I->amOnPage( admin_url( 'widgets.php' ) );
+		$I->amOnUrl( admin_url( 'widgets.php' ) );
 
-		$I->canSee( 'Social Profiles', [ 'css' => '.widget h3' ] );
+		$I->see( 'Social Profiles', [ 'css' => '.widget h3' ] );
 
 		$selector = '#widget-list div[id$=wpcw_social-__i__]';
 
@@ -193,17 +194,19 @@ class AdminTestCest {
 
 		$I->wantTo( 'Validate social front-end output' );
 
-		$I->amOnPage( home_url() );
+		$I->amOnUrl( home_url() );
 
 		$I->waitForElementVisible( [ 'css' => '.wpcw-widget-social' ] );
 
-		$I->canSee( 'Acceptance tests social', [ 'css' => '.wpcw-widget-social .widget-title' ] );
+		$I->see( 'Acceptance tests social', [ 'css' => '.wpcw-widget-social .widget-title' ] );
 
 		$I->executeJS('jQuery(".wpcw-widget-social ul li:first-child")[0].scrollIntoView();');
 
 		// Facebook should be first after reordering
-		$I->canSeeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:first-child span[class*="facebook"]' ] );
-		$I->canSeeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:last-child span[class*="twitter"]' ] );
+		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:first-child span[class*="facebook"]' ] );
+		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:last-child span[class*="twitter"]' ] );
+
+		$I->moveMouseOver( [ 'css' => '#wp-admin-bar-my-account' ] );
 
 	}
 
@@ -216,25 +219,19 @@ class AdminTestCest {
 
 		$I->wantTo( 'Validate the edit link of our widget' );
 
-		$I->amOnPage( home_url() );
-
-		$I->cantSeeElementInDOM( [ 'css' => '.wpcw-widgets .post-edit-link' ] );
-
-		$this->login( $I );
-
-		$I->amOnPage( home_url() );
+		$I->amOnUrl( home_url() );
 
 		$I->waitForElementVisible( [ 'css' => '.wpcw-widgets .post-edit-link' ] );
 
-		$I->executeJS('jQuery(".wpcw-widgets .post-edit-link")[0].scrollIntoView();');
+		$I->executeJS( 'jQuery(".wpcw-widgets .post-edit-link")[0].scrollIntoView();' );
 
 		$I->click( [ 'css' => '.wpcw-widget-social .post-edit-link' ] );
 
-		$I->canSeeInCurrentUrl( 'wp-admin/customize.php' );
+		$I->seeInCurrentUrl( '/wp-admin/customize.php' );
 
 		$I->wait( 3 ); // The animation takes a little bit of time
 
-		$I->canSeeElement( [ 'class' => 'wpcw-widget-social' ] );
+		$I->seeElement( [ 'class' => 'wpcw-widget-social' ] );
 
 	}
 

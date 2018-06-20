@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class Social extends Base_Widget {
 
+	private $icon_prefix;
+
 	/**
 	 * Widget constructor
 	 */
@@ -26,6 +28,8 @@ final class Social extends Base_Widget {
 			__( 'Social Profiles', 'contact-widgets' ),
 			$widget_options
 		);
+
+		$this->icon_prefix = \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa';
 
 	}
 
@@ -72,7 +76,7 @@ final class Social extends Base_Widget {
 					data-name="%s"
 					data-id="%s"
 					data-label="%s">
-					<i class="fa fa-%s"></i>
+					<i class="%s fa-%s"></i>
 				</a>',
 				empty( $field['value'] ) ? 'inactive' : '',
 				esc_attr( $field['label'] ),
@@ -82,6 +86,7 @@ final class Social extends Base_Widget {
 				esc_attr( $field['name'] ),
 				esc_attr( $field['id'] ),
 				esc_attr( $field['label'] ),
+				esc_attr( $this->get_icon_prefix( $field ) ),
 				esc_attr( $field['icon'] )
 			);
 
@@ -117,7 +122,7 @@ final class Social extends Base_Widget {
 		echo '<div class="default-fields">';
 
 		// Template form for JS use
-		$this->render_form_input( $this->field_defaults + [ 'social' => true ] );
+		$this->render_form_input( $this->field_defaults + [ 'social' => true ] ); // @codingStandardsIgnoreLine
 
 		echo '</div>'; // End default-fields
 
@@ -156,11 +161,17 @@ final class Social extends Base_Widget {
 			$escape_callback = $field['escaper'];
 
 			printf( // xss ok.
-				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="fa fa-%s fa-%s"></span>%s</a></li>',
+				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="%s fa-%s fa-%s"></span>%s</a></li>',
 				( $display_labels ) ? 'has-label' : 'no-label',
 				$escape_callback( $field['value'] ),
 				esc_attr( $field['target'] ),
-				sprintf( esc_attr_x( 'Visit %1$s on %2$s', '1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. Facebook)', 'contact-widgets' ), get_bloginfo( 'name' ), $field['label'] ),
+				sprintf(
+					/* translators: 1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. Facebook) */
+					esc_attr__( 'Visit %1$s on %2$s', 'contact-widgets' ),
+					get_bloginfo( 'name' ),
+					$field['label']
+				),
+				esc_attr( $this->get_icon_prefix( $field ) ),
 				isset( $fields['icon_size']['value'] ) ? esc_attr( $fields['icon_size']['value'] ) : '2x',
 				esc_attr( $field['icon'] ),
 				( $display_labels ) ? esc_html( $field['label'] ) : ''
@@ -176,14 +187,14 @@ final class Social extends Base_Widget {
 	 * Enqueue scripts and styles for front-end use
 	 *
 	 * @action wp_enqueue_scripts
+	 * @codingStandardsIgnoreStart
 	 */
 	public function front_end_enqueue_scripts() {
-
-		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', [], '4.7.0' );
 
 		parent::front_end_enqueue_scripts();
 
 	}
+	// @codingStandardsIgnoreEnd
 
 	/**
 	 * Initialize fields for use on front-end of forms
@@ -264,11 +275,23 @@ final class Social extends Base_Widget {
 		}
 
 		printf(
-			'<label for="%s"><span class="fa fa-%s"></span> <span class="text">%s</span></label>',
+			'<label for="%s"><span class="%s fa-%s"></span> <span class="text">%s</span></label>',
 			esc_attr( $field['id'] ),
+			esc_attr( $this->get_icon_prefix( $field ) ),
 			esc_attr( $field['icon'] ),
 			esc_html( $field['label'] )
 		);
+
+	}
+
+	/**
+	 * Determine the icon prefix.
+	 *
+	 * @param array $field
+	 */
+	private function get_icon_prefix( array $field ) {
+
+		return ( \Contact_Widgets::$fontawesome_5 && isset( $field['prefix'] ) ) ? $field['prefix'] : $this->icon_prefix;
 
 	}
 

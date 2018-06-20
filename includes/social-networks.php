@@ -13,7 +13,7 @@ $board    = esc_attr_x( 'board', 'Must be lowercase and use url-safe characters'
 
 $fields = [
 	'facebook'    => [
-		'icon'    => 'facebook-official',
+		'icon'    => 'facebook',
 		'label'   => __( 'Facebook', 'contact-widgets' ),
 		'default' => "https://www.facebook.com/{$username}",
 		'select'  => $username,
@@ -30,12 +30,12 @@ $fields = [
 		'select'  => $username,
 	],
 	'linkedin'    => [
-		'icon'    => 'linkedin-square',
+		'icon'    => 'linkedin',
 		'label'   => __( 'LinkedIn', 'contact-widgets' ),
 		'default' => "https://www.linkedin.com/in/{$username}",
 		'select'  => $username,
 	],
-	'rss' => [
+	'rss'         => [
 		'label'   => __( 'RSS feed', 'contact-widgets' ),
 		'default' => get_feed_link(),
 	],
@@ -60,7 +60,7 @@ $fields = [
 		'default' => "https://www.flickr.com/photos/{$username}",
 		'select'  => $username,
 	],
-	'500px'    => [
+	'500px'       => [
 		'label'   => __( '500px', 'contact-widgets' ),
 		'default' => "https://www.500px.com/{$username}",
 		'select'  => $username,
@@ -139,6 +139,7 @@ $fields = [
 		'default' => 'https://www.whatsapp.com/',
 	],
 	'wechat'      => [
+		'icon'    => 'weixin',
 		'label'   => __( 'WeChat', 'contact-widgets' ),
 		'default' => 'http://www.wechat.com/',
 	],
@@ -166,10 +167,17 @@ $fields = [
 		'default' => "https://trello.com/b/{$board}",
 		'select'  => $board,
 	],
-	'unsplash'     => [
-		'icon'       => 'camera',
-		'label'      => __( 'Unsplash', 'contact-widgets' ),
-		'default'    => "https://unsplash.com/@{$username}",
-		'select'     => $username,
+	'unsplash'    => [
+		'icon'    => 'camera',
+		'label'   => __( 'Unsplash', 'contact-widgets' ),
+		'default' => "https://unsplash.com/@{$username}",
+		'select'  => $username,
 	],
 ];
+
+if ( \Contact_Widgets::$fontawesome_5 ) {
+
+	$fields['rss']['prefix']      = 'fas';
+	$fields['unsplash']['prefix'] = 'fas';
+
+}

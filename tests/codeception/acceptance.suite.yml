@@ -1,26 +1,30 @@
 # Codeception Test Suite Configuration
-
-# suite for acceptance tests.
-# perform tests in browser using the WebDriver or PhpBrowser.
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
 # If you need both WebDriver and PHPBrowser tests - create a separate suite.
 
 class_name: AcceptanceTester
 modules:
-  enabled:
-    - WebDriver
-    - WordPress
-    - AcceptanceHelper
-  config:
-    WebDriver:
-      window_size: 1366x764
-      wait: 20
-    BrowserStack:
-      browser: IE
-      version: 9.0
-      resolution: 1024x768
-      capabilities:
-        'browserstack.local': 'true'
-        'browserstack.debug': 'true'
+    enabled:
+        - WebDriver:
+            url: http://localhost:8080
+            window_size: false # disabled in ChromeDriver
+            clear_cookies: false
+            port: 9515
+            wait: 15
+            browser: chrome
+    config:
+        WebDriver:
+          window_size: 1366x764
+          wait: 20
+        BrowserStack:
+          browser: IE
+          version: 9.0
+          resolution: 1024x768
+          capabilities:
+            'browserstack.local': 'true'
+            'browserstack.debug': 'true'
 env:
   mobile:
     modules:

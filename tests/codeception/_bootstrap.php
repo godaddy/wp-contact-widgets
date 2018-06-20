@@ -1,27 +1,16 @@
 <?php
 
-// Workaround to boot individual bootstrap
-$args = WP_CLI::get_runner()->arguments;
+define( 'WP_USE_THEMES', false );
 
-if ( isset( $args[2] ) ) {
+if ( getenv( 'TRAVIS' ) ) {
 
-	$file = sprintf(
-		'%s/%s/_bootstrap.php',
-		self::$config['paths']['tests'],
-		trim( $args[2] )
-	);
+	require( '/tmp/wordpress/wp-load.php' );
 
-	if ( file_exists( $file ) ) {
+} else {
 
-		require $file;
-
-	}
+	require( '../../../wp-load.php' );
 
 }
 
-if ( ! isset( $args[2] ) ) {
-
-	require self::$config['paths']['tests'] . '/acceptance/_bootstrap.php';
-	require self::$config['paths']['tests'] . '/functional/_bootstrap.php';
-
-}
+require self::$config['paths']['tests'] . '/acceptance/_bootstrap.php';
+require self::$config['paths']['tests'] . '/functional/_bootstrap.php';

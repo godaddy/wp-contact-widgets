@@ -73,7 +73,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		add_action( 'admin_footer',                            [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_footer', [ $this, 'enqueue_scripts' ] );
 		add_action( 'customize_controls_print_footer_scripts', [ $this, 'print_customizer_scripts' ] );
 
 		?>
@@ -106,7 +106,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
 
-				$new_instance[ $key ] = [ 'value' => 'no' ];
+				$new_instance[ $key ] = [ 'value' => 'no' ]; // @codingStandardsIgnoreLine
 
 			}
 
@@ -475,11 +475,11 @@ abstract class Base_Widget extends \WP_Widget {
 
 			$edit_url = add_query_arg(
 				[
+					'url'       => rawurlencode( $current_url ),
 					'autofocus' => [
 						'section' => 'sidebar-widgets-' . $args['id'],
 						'control' => 'widget_' . preg_replace( '/-(\d)/', '[$1]', $args['widget_id'] ),
 					],
-					'url' => urlencode( $current_url ),
 				],
 				wp_customize_url()
 			);
@@ -508,7 +508,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function checked( $helper, $current, $echo = false ) {
 
-		$result = (string) $helper === (string) $current ?  'checked' : '';
+		$result = (string) $helper === (string) $current ? 'checked' : '';
 
 		if ( $echo ) {
 
@@ -528,9 +528,13 @@ abstract class Base_Widget extends \WP_Widget {
 		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', [], '4.7.0' );
-		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [ 'font-awesome' ], Plugin::$version );
+		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [], Plugin::$version );
+
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
+
 		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
+
+		include 'social-networks.php';
 
 		if ( $GLOBALS['is_IE'] ) {
 
@@ -563,6 +567,8 @@ abstract class Base_Widget extends \WP_Widget {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
+
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
 		if ( is_customize_preview() ) {
 
