@@ -1,212 +1,85 @@
+import icons from './icons';
+
 /**
- * Contact Widgets - Social Block
- *
- * @author GoDaddy
- *
- * @param  {object} blocks     Default blocks object.
- * @param  {object} components Default components object.
- * @param  {object} i18n       WordPress core translation functions.
- * @param  {object} element    Element object.
- *
- * @since NEXT
+ * Internal block libraries
  */
-( function( blocks, components, i18n, element ) {
+const { __ } = wp.i18n;
 
-  var el                = element.createElement,
-      children          = blocks.source.children,
-      BlockControls     = wp.blocks.BlockControls,
-      AlignmentToolbar  = wp.blocks.AlignmentToolbar,
-      InspectorControls = wp.blocks.InspectorControls,
-      TextControl       = wp.blocks.InspectorControls.TextControl,
-      TextareaControl   = wp.blocks.InspectorControls.TextareaControl,
-      ToggleControl     = wp.blocks.InspectorControls.ToggleControl;
+const {
+    registerBlockType,
+    RichText,
+    AlignmentToolbar,
+    BlockControls,
+    BlockAlignmentToolbar,
+    InspectorControls,
+} = wp.blocks;
 
-  blocks.registerBlockType( 'contact-widgets/social-block', {
-    title: i18n.__( 'Social Profiles' ),
-    icon: 'email-alt',
+const {
+    Toolbar,
+    Button,
+    Tooltip,
+    PanelBody,
+    PanelRow,
+    FormToggle,
+    TextControl
+} = wp.components;
+
+/**
+ * Register block
+ */
+export default registerBlockType(
+  'contact-widgets/social-block',
+  {
+    title: __( 'Social Profiles', 'contact-widgets' ),
+    description: __( 'Display contact details on your site.', 'contact-widgets' ),
     category: 'common',
+    icon: 'email-alt',
     keywords: [
-      i18n.__( 'social' ),
-      i18n.__( 'icons' ),
-      i18n.__( 'profile' ),
+      __( 'Social', 'contact-widgets' ),
+      __( 'Icons', 'contact-widgets' ),
+      __( 'Media', 'contact-widgets' ),
     ],
     attributes: {
       title: {
-        type: 'array',
-        source: 'children',
-        selector: 'h3',
-      },
-      alignment: {
         type: 'string',
-        default: 'center',
-      },
-      socialIcons: {
-        type: 'text',
-      },
-      displayLabels: {
-        type: 'boolean',
-        default: false,
+        source: 'text',
+        selector: '.social-title',
       },
     },
-
-    /**
-     * Edit the contact block.
-     *
-     * @param  {object} props Properties object.
-     *
-     * @since NEXT
-     */
-    edit: function( props ) {
-
-      var focus           = props.focus,
-          focusedEditable = props.focus ? props.focus.editable || 'title' : null,
-          attributes      = props.attributes,
-          alignment       = props.attributes.alignment,
-          socialIcons     = props.attributes.socialIcons,
-          displayLabels   = props.attributes.displayLabels;
-
-      function onChangeAlignment( newAlignment ) {
-
-        props.setAttributes( {
-          alignment: newAlignment
-        } );
-
-      }
-
+    edit: props => {
+      const { attributes: { textAlignment, blockAlignment, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, isSelected, className, setAttributes } = props;
+      const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
       return [
-        !! focus && el(
-          blocks.BlockControls,
-          { key: 'controls' },
-          el(
-            blocks.AlignmentToolbar,
-            {
-              value: alignment,
-              onChange: onChangeAlignment,
-            }
-          )
-        ),
-        /**
-         * Block Advanced Settings
-         */
-        !! focus && el(
-          blocks.InspectorControls,
-          { key: 'inspector' },
-          el( 'div', { className: 'components-block-description' },
-            el( 'p', {}, i18n.__( 'Select your social profiles.' ) ),
-          ),
-          el( 'h2', {}, i18n.__( 'Social Profiles' ) ),
-          el(
-            TextControl,
-            {
-              type: 'text',
-              label: i18n.__( 'Social Icons:' ),
-              value: socialIcons,
-              onChange: function() {
-
-              },
-            }
-          ),
-        ),
-
-        /**
-         * Block
-         */
-        el( 'div', { className: props.className },
-          el( 'div', {
-            className: 'contact-widgets-social', style: { textAlign: alignment } },
-            el( blocks.Editable, {
-              tagName: 'h3',
-              inline: false,
-              placeholder: i18n.__( 'Social Profiles Title' ),
-              value: attributes.title,
-              onChange: function( newTitle ) {
-                props.setAttributes( { title: newTitle } );
-              },
-              focus: focusedEditable === 'title' ? focus : null,
-              onFocus: function( focus ) {
-                props.setFocus( _.extend( {}, focus, { editable: 'title' } ) );
-              },
-            } ),
-            el( 'div', { className: 'contact-widgets-social' },
-              attributes.socialIcons && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels ) && el( 'strong', {}, i18n.__( 'Email' ) ),
-                ( attributes.displayLabels ) && el( 'br', {}, null ),
-                el( 'div', {}, el( 'a', {
-                      href: 'mailto:' + attributes.socialIcons,
-                    },
-                    attributes.socialIcons
-                  ),
-                )
-              ),
-            ),
-          ),
-        )
+        // Admin Block Markup
+        <div className={ className }>
+          <div className="contact-widgets-social-icons">
+            { isSelected ? (
+              <TextControl
+                tagName="h2"
+                placeholder={ __( 'Social Icons Title', 'contact-widgets' ) }
+                value={ title }
+                onChange={ title => setAttributes( { title } ) }
+              />
+            ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
+            { isSelected ? (
+              ( <i className="fa fa-user-circle-o" ariaHidden="true"></i> )
+            ) : ( <h2>Hey</h2> ) }
+          </div>
+        </div>
       ];
     },
-
-    /**
-     * Save the contact block.
-     *
-     * @param  {object} props Properties object.
-     *
-     * @since NEXT
-     */
-    save: function( props ) {
-
-      var attributes = props.attributes,
-          alignment  = props.attributes.alignment;
-
+    save: props => {
+      const { attributes: { title } } = props;
+      const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
       return (
-        el( 'div', { className: props.className },
-          el( 'div', { className: 'contact-widgets-content', style: { textAlign: attributes.alignment } },
-            el( 'h3', {}, attributes.title ),
-            el( 'div', { className: 'contact-widgets-social' },
-              attributes.emailAddress && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels ) && el( 'strong', {}, i18n.__( 'Email' ) ),
-                ( attributes.displayLabels ) && el( 'br', {}, null ),
-                el( 'div', {}, el( 'a', {
-                      href: 'mailto:' + attributes.emailAddress,
-                    },
-                    attributes.emailAddress
-                  ),
-                )
-              ),
-              attributes.phoneNumber &&
-              el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'strong', {}, i18n.__( 'Phone' ) ),
-                ( attributes.displayLabels && attributes.phoneNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.phoneNumber )
-              ),
-              attributes.faxNumber && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'strong', {}, i18n.__( 'Fax' ) ),
-                ( attributes.displayLabels && attributes.faxNumber ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.faxNumber )
-              ),
-              attributes.address && el( 'li', {
-                  className: attributes.displayLabels ? 'has-label' : '',
-                },
-                ( attributes.displayLabels && attributes.address ) && el( 'strong', {}, i18n.__( 'Address' ) ),
-                ( attributes.displayLabels && attributes.address ) && el( 'br', {}, null ),
-                el( 'div', {}, attributes.address )
-              ),
-            )
-          )
-        )
+        <div>
+          { showTitle && (
+            <h2 class="social-title">
+              { title }<br />
+            </h2>
+          ) }
+        </div>
       );
     },
-  } );
-
-} )(
-  window.wp.blocks,
-  window.wp.components,
-  window.wp.i18n,
-  window.wp.element,
+  },
 );

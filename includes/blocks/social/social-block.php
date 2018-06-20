@@ -26,8 +26,6 @@ class Social_Block {
 	 */
 	function social_block_scripts() {
 
-		wp_enqueue_script( 'contact-widgets-social-block', plugins_url( 'social-block.js', __FILE__ ), array( 'wp-blocks', 'wp-i18n', 'wp-element' ), Plugin::$version );
-
 		wp_enqueue_style( 'contact-widgets-social-block-frontend', plugins_url( 'social-block.css', __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
 
 	}
