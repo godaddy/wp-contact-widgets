@@ -32,7 +32,7 @@ const {
 export default registerBlockType( 'contact-widgets/contact-block', {
   title: __( 'Contact Details', 'contact-widgets' ),
   description: __( 'Display contact details on your site.', 'contact-widgets' ),
-  category: 'common',
+  category: 'widgets',
   icon: 'email-alt',
   keywords: [
     __( 'Email', 'contact-widgets' ),

@@ -52,7 +52,7 @@ function renderFrontEndIcons() {
 export default registerBlockType( 'contact-widgets/social-block', {
   title: __( 'Social Profiles', 'contact-widgets' ),
   description: __( 'Display contact details on your site.', 'contact-widgets' ),
-  category: 'common',
+  category: 'widgets',
   icon: socialIcons.social,
   keywords: [
     __( 'Social', 'contact-widgets' ),
