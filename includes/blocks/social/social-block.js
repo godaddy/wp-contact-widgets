@@ -1,5 +1,5 @@
-import icons from './icons';
-import AdminControlIcons from './icon-control';
+import socialIcons from './icons';
+import { AdminControlIcons } from './icon-control';
 
 /**
  * Internal block libraries
@@ -53,7 +53,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
   title: __( 'Social Profiles', 'contact-widgets' ),
   description: __( 'Display contact details on your site.', 'contact-widgets' ),
   category: 'common',
-  icon: 'email-alt',
+  icon: socialIcons.social,
   keywords: [
     __( 'Social', 'contact-widgets' ),
     __( 'Icons', 'contact-widgets' ),
@@ -71,13 +71,20 @@ export default registerBlockType( 'contact-widgets/social-block', {
       source: 'child',
       selector: '.social-icons',
     },
+    displayLabels: {
+      type: 'boolean',
+      default: true,
+    },
   },
 
   edit: props => {
 
     const { attributes: { title, icons, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
-    const toggleSelectedIcons = () => setAttributes( { icons: true } );
+    const toggleSelectedIcons = (e) => {
+      $(e.target).closest('a').toggleClass('inactive');
+      setAttributes( { icons: true } );
+    };
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
     return [
@@ -87,11 +94,27 @@ export default registerBlockType( 'contact-widgets/social-block', {
         <PanelBody
           title={ __( 'Social Icons', 'contact-widgets' ) }
         >
-          <div className="icons">
-            <AdminControlIcons
-              toggleSelectedIcons={toggleSelectedIcons}
+          <PanelRow>
+            <label htmlFor="display-labels-toggle" >
+              { __( 'Display Labels', 'contact-widgets' ) }
+            </label>
+            <FormToggle
+              id="display-labels-toggle"
+              label={ __( 'Display Labels', 'contact-widgets' ) }
+              checked={ displayLabels }
+              onChange={ toggleDisplayLabels }
             />
-          </div>
+          </PanelRow>
+          <PanelRow>
+            <label htmlFor="social-networks" >
+              { __( 'Social Networks', 'contact-widgets' ) }
+            </label>
+            <div className="icons">
+              <AdminControlIcons
+                toggleSelectedIcons={toggleSelectedIcons}
+              />
+            </div>
+          </PanelRow>
         </PanelBody>
       </InspectorControls>,
 
@@ -99,8 +122,8 @@ export default registerBlockType( 'contact-widgets/social-block', {
       <BlockControls>
         <Toolbar>
           <Tooltip text={ __( 'Display Labels', 'contact-widgets' )  }>
-            <Button onClick={ toggleDisplayLabels }>
-              Toggle Labels Icons
+            <Button onClick={toggleDisplayLabels}>
+              {socialIcons.label}
             </Button>
           </Tooltip>
         </Toolbar>
@@ -128,6 +151,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
   save: props => {
     const { attributes: { title } } = props;
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
+    const icons = ( typeof icons !== 'undefined' && icons.length > 0 ) ? true : false;
     return (
       <div>
         { showTitle && (
