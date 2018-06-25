@@ -81,8 +81,14 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
     const { attributes: { title, icons, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
-    const toggleSelectedIcons = (e) => {
+    const toggleSelectedIcons = (e,iconClass) => {
       $(e.target).closest('a').toggleClass('inactive');
+      var inactiveIcon = $(e.target).closest('a').hasClass('inactive');
+      if ( inactiveIcon ) { // remove icon from props.icons array
+
+      } else {  // add icon to props.icons array
+
+      }
       setAttributes( { icons: true } );
     };
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;

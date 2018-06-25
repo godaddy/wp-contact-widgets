@@ -16,7 +16,7 @@ export const AdminControlIcons = props => {
         iconSelect = wpcw_social.icons[key].select;
 
     return (
-      <a href="#" onClick={toggleSelectedIcons} class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
+      <a href="#" onClick={(e) => toggleSelectedIcons(e,iconClass)} class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
         <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
       </a>
     );
