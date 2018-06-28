@@ -1,5 +1,5 @@
 import socialIcons from './icons';
-import { AdminControlIcons } from './icon-control';
+import AdminControlIcons from './icon-control';
 
 /**
  * Internal block libraries
@@ -29,24 +29,6 @@ const {
 } = wp.components;
 
 /**
- * Render the front end social media icons
- */
-function renderFrontEndIcons() {
-  if ( ! Object.keys( wpcw_social.icons ).length ) {
-    return;
-  }
-  return Object.keys( wpcw_social.icons ).map( function( key ) {
-    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon,
-    iconLabel  = wpcw_social.icons[key].label,
-    iconURL    = wpcw_social.icons[key].default,
-    iconSelect = wpcw_social.icons[key].select;
-    return <a href="#" class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
-      <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
-    </a>;
-  } );
-}
-
-/**
  * Register block
  */
 export default registerBlockType( 'contact-widgets/social-block', {
@@ -70,6 +52,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
       type: 'array',
       source: 'child',
       selector: '.social-icons',
+      default: [],
     },
     displayLabels: {
       type: 'boolean',
@@ -82,15 +65,34 @@ export default registerBlockType( 'contact-widgets/social-block', {
     const { attributes: { title, icons, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
     const toggleSelectedIcons = (e,iconClass) => {
+      e.preventDefault();
       $(e.target).closest('a').toggleClass('inactive');
       var inactiveIcon = $(e.target).closest('a').hasClass('inactive');
       if ( inactiveIcon ) { // remove icon from props.icons array
-
+        var iconIndex = icons.indexOf(iconClass);
+        if (iconIndex > -1) {
+          icons.splice(iconIndex, 1);
+        }
       } else {  // add icon to props.icons array
-
+        icons.push( iconClass )
       }
-      setAttributes( { icons: true } );
+      setAttributes( { icons: icons } );
     };
+		const renderFrontEndIcons = () => {
+			return Object.keys( wpcw_social.icons ).map( function( key ) {
+				var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon;
+		    if ( ( $.inArray(iconClass, icons) < 0 ) ) {
+		      return;
+		    }
+		    var iconLabel  = wpcw_social.icons[key].label,
+		    iconURL    = wpcw_social.icons[key].default,
+		    iconSelect = wpcw_social.icons[key].select,
+		    activeIconClass = ( $.inArray(iconClass, icons) >= 0 ) ? 'active' : 'inactive';
+		    return <li className="no-label"><a href="#" className={ activeIconClass } title={ iconLabel } dataKey={ iconClass } dataValue={ iconURL } dataSelect={ iconSelect } dataLabel={ iconLabel }>
+		      <i className={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
+		    </a></li>;
+		  } );
+		};
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
     return [
@@ -116,9 +118,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
               { __( 'Social Networks', 'contact-widgets' ) }
             </label>
             <div className="icons">
-              <AdminControlIcons
-                toggleSelectedIcons={toggleSelectedIcons}
-              />
+              <AdminControlIcons { ...{ setAttributes, toggleSelectedIcons, ...props } } />
             </div>
           </PanelRow>
         </PanelBody>
@@ -146,18 +146,16 @@ export default registerBlockType( 'contact-widgets/social-block', {
               onChange={ title => setAttributes( { title } ) }
             />
           ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
-          { isSelected ? (
-            ( <i className="fa fa-user-circle-o" ariaHidden="true"></i> )
-          ) : ( renderFrontEndIcons() ) }
+          { <ul>{ renderFrontEndIcons( icons ) }</ul> }
         </div>
       </div>
     ];
   },
 
   save: props => {
-    const { attributes: { title } } = props;
+    const { attributes: { icons, title } } = props;
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
-    const icons = ( typeof icons !== 'undefined' && icons.length > 0 ) ? true : false;
+    const displayIcons = ( typeof icons !== 'undefined' && icons.length > 0 ) ? true : false;
     return (
       <div>
         { showTitle && (
@@ -165,9 +163,9 @@ export default registerBlockType( 'contact-widgets/social-block', {
             { title }<br />
           </h2>
         ) }
-        { icons && (
+        { displayIcons && (
           <ul class="social-icons">
-            <li>{ renderFrontEndIcons() }</li>
+            <li>{ renderFrontEndIcons( icons ) }</li>
           </ul>
         ) }
       </div>

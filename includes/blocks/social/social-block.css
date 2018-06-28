@@ -1,0 +1,48 @@
+/**
+ * Admin Block Controls
+ */
+.components-panel__row .icons {
+	margin: 10px 0;
+}
+.components-panel__row .icons a {
+	margin: 5px;
+	font-size: 20px;
+	display: inline-block;
+}
+.components-panel__row .icons a:focus {
+	box-shadow: none;
+}
+.components-panel__row .icons a.inactive:not(:hover) {
+	color: #ccc;
+}
+
+/**
+ * Block Styles
+ */
+.wp-block-contact-widgets-social-block ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.wp-block-contact-widgets-social-block ul li,
+.wp-block-contact-widgets-social-block ul li.has-label {
+	padding: 10px 0;
+}
+.wp-block-contact-widgets-social-block ul li:before,
+.wp-block-contact-widgets-social-block ul li:after {
+	display: none;
+}
+.wp-block-contact-widgets-social-block ul li div {
+	display: inline;
+}
+.wp-block-contact-widgets-social-block ul li:not(.has-label) {
+	display: inline-block;
+	margin: 0 0.75em 0.75em 0;
+	border: none;
+}
+.wp-block-contact-widgets-social-block ul li.has-label a {
+	display: block;
+}
+.wp-block-contact-widgets-social-block ul li.has-label svg {
+	margin-right: 0.25em;
+}

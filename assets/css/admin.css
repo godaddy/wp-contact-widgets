@@ -80,21 +80,17 @@
 /**
  * Icons
  */
-.wpcw-widget-social .icons,
-.components-panel__row .icons {
+.wpcw-widget-social .icons {
 	margin: 10px 0;
 }
-.wpcw-widget-social .icons a,
-.components-panel__row .icons a {
+.wpcw-widget-social .icons a {
 	margin: 5px;
 	font-size: 20px;
 	display: inline-block;
 }
-.wpcw-widget-social .icons a:focus,
-.components-panel__row .icons a:focus {
+.wpcw-widget-social .icons a:focus {
 	box-shadow: none;
 }
-.wpcw-widget-social .icons a.inactive:not(:hover),
-.components-panel__row .icons a.inactive:not(:hover) {
+.wpcw-widget-social .icons a.inactive:not(:hover) {
 	color: #ccc;
 }

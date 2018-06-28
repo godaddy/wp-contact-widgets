@@ -1,26 +1,32 @@
 const { Component } = wp.element;
 
-export const AdminControlIcons = props => {
+export default class AdminControlIcons extends Component {
 
-  const { icons = [], toggleSelectedIcons = () => {} } = props;
+	constructor() {
+		super( ...arguments );
+	}
 
-  if ( ! Object.keys( wpcw_social.icons ).length ) {
-    return <h2>{ __( 'No Icons Found.', 'contact-widgets' ) }</h2>;
-  }
+	render() {
+		const { attributes: { icons }, toggleSelectedIcons  } = this.props;
 
-  return Object.keys( wpcw_social.icons ).map( function( key ) {
+		if ( ! Object.keys( wpcw_social.icons ).length ) {
+	    return <h2>{ __( 'No Icons Found.', 'contact-widgets' ) }</h2>;
+	  }
 
-    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon,
-        iconLabel  = wpcw_social.icons[key].label,
-        iconURL    = wpcw_social.icons[key].default,
-        iconSelect = wpcw_social.icons[key].select;
+	  return Object.keys( wpcw_social.icons ).map( function( key ) {
 
-    return (
-      <a href="#" onClick={(e) => toggleSelectedIcons(e,iconClass)} class="inactive" title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
-        <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
-      </a>
-    );
+	    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon,
+	        iconLabel  = wpcw_social.icons[key].label,
+	        iconURL    = wpcw_social.icons[key].default,
+	        iconSelect = wpcw_social.icons[key].select,
+	        activeIconClass = ( $.inArray(iconClass, icons) >= 0 ) ? 'active' : 'inactive';
 
-  } );
+	    return (
+	      <a href="#" onClick={(e) => toggleSelectedIcons(e,iconClass)} class={ activeIconClass } title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
+	        <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
+	      </a>
+	    );
 
+	  } );
+	}
 }
