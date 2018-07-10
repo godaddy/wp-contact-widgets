@@ -16,6 +16,14 @@
 	color: #ccc;
 }
 
+.social-icon-urls label span.fa {
+  margin-right: 3px;
+}
+
+.social-icon-urls .default-fields {
+  display: none;
+}
+
 /**
  * Block Styles
  */

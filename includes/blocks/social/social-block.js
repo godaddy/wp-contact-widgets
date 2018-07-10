@@ -1,5 +1,6 @@
 import socialIcons from './icons';
 import AdminControlIcons from './icon-control';
+import AdminControlIconURLS from './icon-url-control';
 
 /**
  * Internal block libraries
@@ -73,6 +74,11 @@ export default registerBlockType( 'contact-widgets/social-block', {
       selector: '.social-icons',
       default: [],
     },
+    icons: {
+      type: 'array',
+      selector: '.social-icon-urls',
+      default: [],
+    },
     displayLabels: {
       type: 'boolean',
       default: true,
@@ -81,7 +87,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
   edit: props => {
 
-    const { attributes: { title, icons, displayLabels }, isSelected, className, setAttributes } = props;
+    const { attributes: { title, icons, iconURLS, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
@@ -111,6 +117,23 @@ export default registerBlockType( 'contact-widgets/social-block', {
               <AdminControlIcons { ...{ setAttributes, ...props } } />
             </div>
           </PanelRow>
+          <div className="social-icon-urls">
+            <AdminControlIconURLS { ...{ setAttributes, ...props } } />
+            <div className="default-fields">
+              <p className="">
+                <label for="">
+                  <span className="fa fa-"></span>
+                  <span className="text"></span>
+                </label>
+                <span>
+                  <input className="widefat" id="" name="" type="text" value="" placeholder="" autocomplete="off" />
+                  <span className="wpcw-widget-sortable-handle">
+                    <span className="dashicons dashicons-menu"></span>
+                  </span>
+                </span>
+              </p>
+            </div>
+          </div>
         </PanelBody>
       </InspectorControls>,
 
