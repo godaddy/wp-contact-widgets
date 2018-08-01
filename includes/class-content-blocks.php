@@ -25,12 +25,14 @@ class Content_Blocks {
 
 		include 'social-networks.php';
 
-		wp_enqueue_script( 'contact-widgets-blocks', plugins_url( "../assets/js/contact-widget-blocks{$suffix}.js", __FILE__ ), array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components' ), Plugin::$version );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+
+		wp_enqueue_script( 'contact-widgets-blocks', plugins_url( "../assets/js/contact-widget-blocks{$suffix}.js", __FILE__ ), array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'jquery-ui-sortable' ), Plugin::$version );
 
 		wp_localize_script( 'contact-widgets-blocks', 'wpcw_social', [
-      'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
-      'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
-    ] );
+			'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
+			'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
+		] );
 
 	}
 

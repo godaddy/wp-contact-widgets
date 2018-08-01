@@ -11,46 +11,79 @@ function ucfirst(str) {
   return f + str.substr(1)
 }
 
-console.log( wpcw_social );
-
 export default class AdminControlIconURLS extends Component {
 
   constructor() {
     super( ...arguments );
   }
 
+  componentDidMount() {
+
+    var $contact_form = $( '.social-icon-urls' ),
+        props         = this.props;
+
+    $contact_form.sortable( {
+      items : '> *:not(.not-sortable)',
+      handle: '.wpcw-social-icons-sortable-handle',
+      containment: 'parent',
+      placeholder: 'sortable-placeholder',
+      axis: 'y',
+      tolerance: 'pointer',
+      forcePlaceholderSize: true,
+      cursorAt: { top: 40 },
+      scroll: false,
+      start: function( e, ui ) {
+        ui.placeholder.height( ui.item.height() );
+      },
+      stop: function( e, ui ) {
+        var icons = [];
+        $( '.social-icon-urls' ).children().not( '.default-fields' ).each( function() {
+          icons.push( $( this ).attr( 'class' ) );
+        } );
+        props.setAttributes( { icons: icons } );
+        $contact_form.sortable( 'cancel' );
+      }
+    } );
+
+  }
+
   render() {
     const { attributes: { icons, iconURLS }, setAttributes  } = this.props;
 
-    return Object.keys( wpcw_social.icons ).map( function( key ) {
+    return icons.map( function( icon ) {
 
-	    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon,
-	        iconLabel  = wpcw_social.icons[key].label,
-	        iconURL    = wpcw_social.icons[key].default,
-	        iconSelect = wpcw_social.icons[key].select;
+      var iconData = ( icon in wpcw_social.icons ) ? wpcw_social.icons[ icon ] : false;
 
-      if ( $.inArray(iconClass, icons) < 0 ) {
+      if ( ! iconData || $.inArray( icon, icons ) < 0 ) {
+
         return;
+
       }
 
-	    return (
-        <p className={ iconClass }>
+      var iconLabel  = iconData['label'],
+          iconURL    = iconData['default'],
+          iconSelect = iconData['select'];
+
+      return (
+        <p className={ icon }>
           <label for="social-networks">
-            <span className={ wpcw_social.iconPrefix + " fa-" + iconClass }></span>
-            <span className="text">{ ucfirst( iconClass )  }</span>
+            <span className={ wpcw_social.iconPrefix + " fa-" + icon }></span>
+            <span className="text">{ ucfirst( icon )  }</span>
           </label>
-          <span>
+          <span className="holder">
             <UrlInput
               className="url"
-              value={ wpcw_social.icons[key].default }
+              value={ iconURL }
               onChange={ url => setAttributes( { url } ) }
             />
-            <span className="wpcw-widget-sortable-handle">
+            <span className="wpcw-social-icons-sortable-handle">
               <span className="dashicons dashicons-menu"></span>
             </span>
           </span>
         </p>
-	    );
-	  } );
-	}
+      );
+
+    } );
+
+  }
 }

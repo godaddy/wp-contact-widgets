@@ -30,23 +30,30 @@ const {
 } = wp.components;
 
 function renderFrontEndIcons( icons ) {
-  var iconMarkup = Object.keys( wpcw_social.icons ).map( function( key ) {
-    var iconClass  = ( ! ( "icon" in wpcw_social.icons[key] ) ) ? key : wpcw_social.icons[key].icon;
-    if ( ( $.inArray(iconClass, icons) < 0 ) ) {
+
+  var iconMarkup = icons.map( function( icon ) {
+
+    var iconData = ( icon in wpcw_social.icons ) ? wpcw_social.icons[ icon ] : false;
+
+    if ( ! iconData ) {
+
       return;
+
     }
-    var iconLabel  = wpcw_social.icons[key].label,
-    iconURL    = wpcw_social.icons[key].default,
-    iconSelect = wpcw_social.icons[key].select,
-    activeIconClass = ( $.inArray(iconClass, icons) >= 0 ) ? 'active' : 'inactive';
-    return <li className="no-label"><a href="#" className={ activeIconClass } title={ iconLabel } dataKey={ iconClass } dataValue={ iconURL } dataSelect={ iconSelect } dataLabel={ iconLabel }>
-      <i className={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
-    </a></li>;
+
+    var iconLabel  = iconData['label'],
+        iconURL    = iconData['default'];
+
+    return <li className="no-label">
+      <a href="#" title={ iconLabel } dataKey={ icon } dataValue={ iconURL } dataLabel={ iconLabel }>
+        <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
+      </a>
+    </li>;
+
   } );
-  if ( ! iconMarkup.filter( function(n){ return n != undefined } ).length ) {
-    return;
-  }
+
   return <ul className="social-icons">{ iconMarkup }</ul>;
+
 }
 
 /**
@@ -125,9 +132,9 @@ export default registerBlockType( 'contact-widgets/social-block', {
                   <span className="fa fa-"></span>
                   <span className="text"></span>
                 </label>
-                <span>
+                <span className="holder">
                   <input className="widefat" id="" name="" type="text" value="" placeholder="" autocomplete="off" />
-                  <span className="wpcw-widget-sortable-handle">
+                  <span className="wpcw-social-icons-sortable-handle">
                     <span className="dashicons dashicons-menu"></span>
                   </span>
                 </span>
