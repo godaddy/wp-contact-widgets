@@ -29,7 +29,7 @@ const {
   TextControl
 } = wp.components;
 
-function renderFrontEndIcons( icons ) {
+function renderIcons( icons, iconURLS ) {
 
   var iconMarkup = icons.map( function( icon ) {
 
@@ -42,10 +42,10 @@ function renderFrontEndIcons( icons ) {
     }
 
     var iconLabel  = iconData['label'],
-        iconURL    = iconData['default'];
+        iconURL    = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'];
 
     return <li className="no-label">
-      <a href="#" title={ iconLabel } dataKey={ icon } dataValue={ iconURL } dataLabel={ iconLabel }>
+      <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
       </a>
     </li>;
@@ -81,8 +81,8 @@ export default registerBlockType( 'contact-widgets/social-block', {
       selector: '.social-icons',
       default: [],
     },
-    icons: {
-      type: 'array',
+    iconURLS: {
+      type: 'object',
       selector: '.social-icon-urls',
       default: [],
     },
@@ -167,14 +167,14 @@ export default registerBlockType( 'contact-widgets/social-block', {
               className="social-title"
             />
           ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
-          { renderFrontEndIcons( icons ) }
+          { renderIcons( icons, iconURLS ) }
         </div>
       </div>
     ];
   },
 
   save: props => {
-    const { attributes: { title, icons, displayLabels }, className } = props;
+    const { attributes: { title, icons, iconURLS, displayLabels }, className } = props;
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
     return (
@@ -184,7 +184,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
             { title }<br />
           </h2>
         ) }
-        { renderFrontEndIcons( icons ) }
+        { renderIcons( icons, iconURLS ) }
       </div>
     );
   },

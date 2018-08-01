@@ -49,6 +49,13 @@ export default class AdminControlIconURLS extends Component {
 
   render() {
     const { attributes: { icons, iconURLS }, setAttributes  } = this.props;
+    const updateIconURLS = () => {
+      var newURLS = {};
+      $( '.holder input[type="text"]' ).each( function() {
+        newURLS[ $( this ).closest( 'span' ).data( 'icon' ) ] = $( this ).val();
+      } );
+      setAttributes( { iconURLS: newURLS } );
+    };
 
     return icons.map( function( icon ) {
 
@@ -61,20 +68,19 @@ export default class AdminControlIconURLS extends Component {
       }
 
       var iconLabel  = iconData['label'],
-          iconURL    = iconData['default'],
+          iconURL    = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
           iconSelect = iconData['select'];
 
       return (
         <p className={ icon }>
           <label for="social-networks">
             <span className={ wpcw_social.iconPrefix + " fa-" + icon }></span>
-            <span className="text">{ ucfirst( icon )  }</span>
+            <span className="text">{ ucfirst( icon ) }</span>
           </label>
-          <span className="holder">
+          <span className="holder" data-icon={ icon }>
             <UrlInput
-              className="url"
               value={ iconURL }
-              onChange={ url => setAttributes( { url } ) }
+              onChange={ updateIconURLS }
             />
             <span className="wpcw-social-icons-sortable-handle">
               <span className="dashicons dashicons-menu"></span>
