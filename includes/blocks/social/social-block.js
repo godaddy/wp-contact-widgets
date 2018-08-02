@@ -33,7 +33,7 @@ function renderIcons( icons, iconURLS, displayLabels ) {
 
   var iconMarkup = icons.map( function( icon ) {
 
-    var iconData = ( icon in wpcw_social.icons ) ? wpcw_social.icons[ icon ] : false;
+    var iconData = getIconData( icon );
 
     if ( ! iconData ) {
 
@@ -45,8 +45,6 @@ function renderIcons( icons, iconURLS, displayLabels ) {
         iconURL       = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
         labelClass    = displayLabels ? 'has-label' : 'no-label';
 
-    console.log( displayLabels );
-
     return <li className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
@@ -57,6 +55,33 @@ function renderIcons( icons, iconURLS, displayLabels ) {
   } );
 
   return <ul className="social-icons">{ iconMarkup }</ul>;
+
+}
+
+function getIconData( iconName ) {
+
+  if ( iconName in wpcw_social.icons ) {
+
+    return wpcw_social.icons[ iconName ];
+
+  }
+
+  var iconData = false;
+
+  Object.keys( wpcw_social.icons ).map( function( key ) {
+
+
+    if ( ! "icon" in wpcw_social.icons[ key ] || iconName !== wpcw_social.icons[ key ].icon ) {
+
+      return;
+
+    }
+
+    iconData = wpcw_social.icons[ key ];
+
+  } );
+
+  return iconData;
 
 }
 
@@ -129,7 +154,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
             </div>
           </PanelRow>
           <div className="social-icon-urls">
-            <AdminControlIconURLS { ...{ setAttributes, ...props } } />
+            <AdminControlIconURLS { ...{ setAttributes, getIconData, ...props } } />
             <div className="default-fields">
               <p className="">
                 <label for="">

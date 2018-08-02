@@ -7,14 +7,27 @@ export default class AdminControlIcons extends Component {
   }
 
   render() {
-    const { attributes: { icons }, setAttributes  } = this.props;
+    const { attributes: { icons, getIconData }, setAttributes  } = this.props;
     const toggleSelectedIcons = ( e, iconClass ) => {
+
       e.preventDefault();
-      $( e.target ).closest( 'a' ).toggleClass( 'inactive' );
-      var newIcons = [];
-      $( '.icons a' ).not( '.inactive' ).each( function() {
-        newIcons.push( $( this ).data( 'key' ) );
-      } );
+
+      var $btn     = $( e.target ).closest( 'a' ),
+          newIcons = [ ...icons ];
+
+      $btn.toggleClass( 'inactive' );
+
+      var inactiveIcon = $btn.hasClass( 'inactive' );
+
+      if ( inactiveIcon ) {
+        var iconIndex = icons.indexOf( iconClass );
+        if ( iconIndex > -1 ) {
+          newIcons.splice( iconIndex, 1 );
+        }
+      } else {
+        newIcons = [ ...icons, iconClass ];
+      }
+
       setAttributes( { icons: newIcons } );
     };
 
@@ -24,7 +37,7 @@ export default class AdminControlIcons extends Component {
 
     return Object.keys( wpcw_social.icons ).map( function( key ) {
 
-      var iconClass  = ( ! ( "icon" in wpcw_social.icons[ key ] ) ) ? key : wpcw_social.icons[key].icon,
+      var iconClass  = ( "icon" in wpcw_social.icons[ key ] ) ? wpcw_social.icons[ key ].icon : key,
           iconLabel  = wpcw_social.icons[ key ].label,
           iconURL    = wpcw_social.icons[ key ].default,
           iconSelect = wpcw_social.icons[ key ].select,

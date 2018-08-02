@@ -47,7 +47,7 @@ export default class AdminControlIconURLS extends Component {
   }
 
   render() {
-    const { attributes: { icons, iconURLS }, setAttributes  } = this.props;
+    const { attributes: { icons, iconURLS }, setAttributes, getIconData  } = this.props;
     const updateIconURLS = () => {
       var newURLS = {};
       $( '.holder input[type="text"]' ).each( function() {
@@ -58,9 +58,9 @@ export default class AdminControlIconURLS extends Component {
 
     return icons.map( function( icon ) {
 
-      var iconData = ( icon in wpcw_social.icons ) ? wpcw_social.icons[ icon ] : false;
+      var iconData = getIconData( icon );
 
-      if ( ! iconData || $.inArray( icon, icons ) < 0 ) {
+      if ( ! iconData ) {
 
         return;
 
