@@ -1,5 +1,5 @@
 /**
- * Admin Block Controls
+ * Block Controls
  */
 .components-panel__row .icons {
 	margin: 10px 0;
@@ -17,84 +17,94 @@
 }
 
 .social-icon-urls {
-  overflow: auto;
+	overflow: auto;
 }
 
-  .sortable-placeholder {
-    margin-bottom: 1em;
-  }
+	.sortable-placeholder {
+		margin-bottom: 1em;
+	}
 
-  .social-icon-urls label span.fa {
-    margin-right: 3px;
-  }
+	.social-icon-urls label span.fa {
+		margin-right: 3px;
+	}
 
-  .social-icon-urls .default-fields {
-    display: none;
-  }
+	.social-icon-urls .default-fields {
+		display: none;
+	}
 
-  .social-icon-urls .holder {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
+	.social-icon-urls .holder {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+	}
 
-    .social-icon-urls .holder .editor-url-input {
-      padding: 0;
-    }
+		.social-icon-urls .holder .editor-url-input {
+			padding: 0;
+		}
 
-    .social-icon-urls .holder input[type="text"] {
-      margin: 0;
-    }
+		.social-icon-urls .holder input[type="text"] {
+			margin: 0;
+		}
 
-    .social-icon-urls .holder .wpcw-social-icons-sortable-handle{
-      padding: 4px;
-      background-color: #f7f7f7;
-      border: 1px solid #ddd;
-      border-left: none;
-      cursor: row-resize;
-      cursor: grab;
-      cursor: -moz-grab;
-      cursor: -webkit-grab;
-      -webkit-box-shadow: 0 1px 1px rgba( 0, 0, 0, 0.04 );
-      -moz-box-shadow: 0 1px 1px rgba( 0, 0, 0, .04 );
-      box-shadow: 0 1px 1px rgba( 0, 0, 0, 0.04 );
-      color: #a0a5aa;
-    }
+		.social-icon-urls .holder .wpcw-social-icons-sortable-handle{
+			padding: 4px;
+			background-color: #f7f7f7;
+			border: 1px solid #ddd;
+			border-left: none;
+			cursor: row-resize;
+			cursor: grab;
+			cursor: -moz-grab;
+			cursor: -webkit-grab;
+			-webkit-box-shadow: 0 1px 1px rgba( 0, 0, 0, 0.04 );
+			-moz-box-shadow: 0 1px 1px rgba( 0, 0, 0, .04 );
+			box-shadow: 0 1px 1px rgba( 0, 0, 0, 0.04 );
+			color: #a0a5aa;
+		}
 
-    .social-icon-urls .holder .wpcw-social-icons-sortable-handle:active {
-      cursor: row-resize;
-      cursor: grabbing;
-      cursor: -moz-grabbing;
-      cursor: -webkit-grabbing
-    }
+		.social-icon-urls .holder .wpcw-social-icons-sortable-handle:active {
+			cursor: row-resize;
+			cursor: grabbing;
+			cursor: -moz-grabbing;
+			cursor: -webkit-grabbing
+		}
 
 /**
  * Block Styles
  */
-.wp-block-contact-widgets-social-block ul {
+.wp-block-contact-widgets-social-block ul li {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
+
+	.wp-block-contact-widgets-social-block ul li a {
+		text-decoration: none;
+	}
+
 .wp-block-contact-widgets-social-block ul li,
 .wp-block-contact-widgets-social-block ul li.has-label {
 	padding: 10px 0;
 }
+
 .wp-block-contact-widgets-social-block ul li:before,
 .wp-block-contact-widgets-social-block ul li:after {
 	display: none;
 }
+
 .wp-block-contact-widgets-social-block ul li div {
 	display: inline;
 }
+
 .wp-block-contact-widgets-social-block ul li:not(.has-label) {
 	display: inline-block;
 	margin: 0 0.75em 0.75em 0;
 	border: none;
 }
+
 .wp-block-contact-widgets-social-block ul li.has-label a {
 	display: block;
 }
+
 .wp-block-contact-widgets-social-block ul li.has-label svg {
 	margin-right: 0.25em;
 }

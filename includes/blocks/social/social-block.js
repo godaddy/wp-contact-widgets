@@ -29,7 +29,7 @@ const {
   TextControl
 } = wp.components;
 
-function renderIcons( icons, iconURLS ) {
+function renderIcons( icons, iconURLS, displayLabels ) {
 
   var iconMarkup = icons.map( function( icon ) {
 
@@ -41,12 +41,16 @@ function renderIcons( icons, iconURLS ) {
 
     }
 
-    var iconLabel  = iconData['label'],
-        iconURL    = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'];
+    var iconLabel     = displayLabels ? iconData['label'] : false,
+        iconURL       = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
+        labelClass    = displayLabels ? 'has-label' : 'no-label';
 
-    return <li className="no-label">
+    console.log( displayLabels );
+
+    return <li className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
+        { iconLabel }
       </a>
     </li>;
 
@@ -167,7 +171,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
               className="social-title"
             />
           ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
-          { renderIcons( icons, iconURLS ) }
+          { renderIcons( icons, iconURLS, displayLabels ) }
         </div>
       </div>
     ];
@@ -184,7 +188,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
             { title }<br />
           </h2>
         ) }
-        { renderIcons( icons, iconURLS ) }
+        { renderIcons( icons, iconURLS, displayLabels ) }
       </div>
     );
   },
