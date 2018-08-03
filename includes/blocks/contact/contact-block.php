@@ -24,7 +24,7 @@ class Contact_Block {
 	 *
 	 * @action enqueue_block_editor_assets
 	 */
-	function contact_block_scripts() {
+	public function contact_block_scripts() {
 
 		wp_enqueue_style( 'contact-widgets-contact-block-frontend', plugins_url( 'contact-block.css', __FILE__ ), array( 'wp-blocks' ), Plugin::$version );
 
