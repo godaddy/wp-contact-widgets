@@ -4,12 +4,6 @@ const {
   UrlInput,
 } = wp.editor;
 
-function ucfirst(str) {
-  str += '';
-  var f = str.charAt(0).toUpperCase();
-  return f + str.substr(1);
-}
-
 export default class AdminControlIconURLS extends Component {
 
   constructor() {
@@ -74,7 +68,7 @@ export default class AdminControlIconURLS extends Component {
         <p className={ icon }>
           <label for="social-networks">
             <span className={ wpcw_social.iconPrefix + " fa-" + icon }></span>
-            <span className="text">{ ucfirst( icon ) }</span>
+            <span className="text">{ iconLabel }</span>
           </label>
           <span className="holder" data-icon={ icon }>
             <UrlInput
