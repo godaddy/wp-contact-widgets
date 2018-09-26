@@ -1,7 +1,7 @@
 const { Component } = wp.element;
 
 const {
-  UrlInput,
+  URLInput,
 } = wp.editor;
 
 export default class AdminControlIconURLS extends Component {
@@ -50,7 +50,7 @@ export default class AdminControlIconURLS extends Component {
       setAttributes( { iconURLS: newURLS } );
     };
 
-    return icons.map( function( icon ) {
+    return icons.map( function( icon, i ) {
 
       var iconData = getIconData( icon );
 
@@ -65,13 +65,13 @@ export default class AdminControlIconURLS extends Component {
           iconSelect = iconData['select'];
 
       return (
-        <p className={ icon }>
-          <label for="social-networks">
+        <p key={ i } className={ icon }>
+          <label htmlFor="social-networks">
             <span className={ wpcw_social.iconPrefix + " fa-" + icon }></span>
             <span className="text">{ iconLabel }</span>
           </label>
           <span className="holder" data-icon={ icon }>
-            <UrlInput
+            <URLInput
               value={ iconURL }
               onChange={ updateIconURLS }
             />

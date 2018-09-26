@@ -45,7 +45,7 @@ function renderIcons( icons, iconURLS, displayLabels ) {
         iconURL       = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
         labelClass    = displayLabels ? 'has-label' : 'no-label';
 
-    return <li className={ labelClass }>
+    return <li key={ icon } className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
         { iconLabel }
@@ -157,12 +157,12 @@ export default registerBlockType( 'contact-widgets/social-block', {
             <AdminControlIconURLS { ...{ setAttributes, getIconData, ...props } } />
             <div className="default-fields">
               <p className="">
-                <label for="">
+                <label htmlFor="">
                   <span className="fa fa-"></span>
                   <span className="text"></span>
                 </label>
                 <span className="holder">
-                  <input className="widefat" id="" name="" type="text" value="" placeholder="" autocomplete="off" />
+                  <input className="widefat" id="" name="" type="text" value="" placeholder="" autoComplete="off" />
                   <span className="wpcw-social-icons-sortable-handle">
                     <span className="dashicons dashicons-menu"></span>
                   </span>
@@ -189,7 +189,6 @@ export default registerBlockType( 'contact-widgets/social-block', {
         <div className="contact-widgets-social-icons">
           { isSelected ? (
             <TextControl
-              tagName="h2"
               placeholder={ __( 'Social Icons Title', 'contact-widgets' ) }
               value={ title }
               onChange={ title => setAttributes( { title } ) }
@@ -199,6 +198,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
           { renderIcons( icons, iconURLS, displayLabels ) }
         </div>
       </div>
+
     ];
   },
 

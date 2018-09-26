@@ -17,9 +17,7 @@ export default class AdminControlIcons extends Component {
 
       $btn.toggleClass( 'inactive' );
 
-      var inactiveIcon = $btn.hasClass( 'inactive' );
-
-      if ( inactiveIcon ) {
+      if ( $btn.hasClass( 'inactive' ) ) {
         var iconIndex = icons.indexOf( iconClass );
         if ( iconIndex > -1 ) {
           newIcons.splice( iconIndex, 1 );
@@ -28,7 +26,8 @@ export default class AdminControlIcons extends Component {
         newIcons = [ ...icons, iconClass ];
       }
 
-      setAttributes( { icons: newIcons } );
+      // Breaking things...
+      this.props.setAttributes( { icons: newIcons } );
     };
 
     if ( ! Object.keys( wpcw_social.icons ).length ) {
@@ -44,8 +43,8 @@ export default class AdminControlIcons extends Component {
           activeIconClass = ( $.inArray( iconClass, icons ) >= 0 ) ? 'active' : 'inactive';
 
       return (
-        <a href="#" onClick={ ( e ) => toggleSelectedIcons( e, iconClass ) } class={ activeIconClass } title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
-          <i class={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
+        <a key={ key } href="#" onClick={ ( e ) => toggleSelectedIcons( e, iconClass ) } className={ activeIconClass } title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
+          <i className={ wpcw_social.iconPrefix + " fa-" + iconClass }></i>
         </a>
       );
 

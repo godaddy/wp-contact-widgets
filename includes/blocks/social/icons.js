@@ -15,7 +15,7 @@ socialIcons.social = <svg
     </g>
   </g>
   <g>
-    <rect x="6.5" y="4.5" style={{ fill: '#FFFFFF;' }} width="28" height="34"></rect>
+    <rect x="6.5" y="4.5" style={{ fill: '#FFFFFF' }} width="28" height="34"></rect>
     <g>
       <path style={{ fill: '#788B9C' }} d="M34,5v33H7V5H34 M35,4H6v35h29V4L35,4z"></path>
     </g>
