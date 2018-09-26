@@ -145,7 +145,9 @@ export default registerBlockType( 'contact-widgets/social-block', {
               onChange={ toggleDisplayLabels }
             />
           </PanelRow>
-          <PanelRow>
+          <PanelRow
+            className="social-icons"
+          >
             <label htmlFor="social-networks" >
               { __( 'Social Networks', 'contact-widgets' ) }
             </label>

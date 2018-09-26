@@ -1,6 +1,9 @@
 /**
  * Block Controls
  */
+.components-panel__row.social-icons-row {
+	display: block;
+}
 .components-panel__row .icons {
 	margin: 10px 0;
 }
@@ -44,6 +47,9 @@
 
 		.social-icon-urls .holder input[type="text"] {
 			margin: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+			border: 1px solid lightgrey;
 		}
 
 		.social-icon-urls .holder .wpcw-social-icons-sortable-handle{
