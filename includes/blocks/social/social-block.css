@@ -1,7 +1,7 @@
 /**
  * Block Controls
  */
-.components-panel__row.social-icons-row {
+.components-panel__row.social-icons {
 	display: block;
 }
 .components-panel__row .icons {
@@ -22,6 +22,11 @@
 .social-icon-urls {
 	overflow: auto;
 }
+
+	.social-icon-urls section {
+		display: block;
+		margin-bottom: 1em;
+	}
 
 	.sortable-placeholder {
 		margin-bottom: 1em;

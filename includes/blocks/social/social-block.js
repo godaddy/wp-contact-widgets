@@ -41,7 +41,7 @@ function renderIcons( icons, iconURLS, displayLabels ) {
 
     }
 
-    var iconLabel     = displayLabels ? iconData['label'] : false,
+    var iconLabel     = displayLabels ? iconData['label'] : undefined,
         iconURL       = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
         labelClass    = displayLabels ? 'has-label' : 'no-label';
 
@@ -125,12 +125,11 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
     const { attributes: { title, icons, iconURLS, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
-    const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
     return [
 
       // Inspector Controls
-      <InspectorControls>
+      <InspectorControls key="social-icons-inspector-controls">
         <PanelBody
           title={ __( 'Social Icons', 'contact-widgets' ) }
         >
@@ -155,7 +154,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
               <AdminControlIcons { ...{ setAttributes, ...props } } />
             </div>
           </PanelRow>
-          <div className="social-icon-urls">
+          <div className="social-icon-urls" key="social-icon-urls">
             <AdminControlIconURLS { ...{ setAttributes, getIconData, ...props } } />
             <div className="default-fields">
               <p className="">
@@ -176,7 +175,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
       </InspectorControls>,
 
       // Custom Toolbar
-      <BlockControls>
+      <BlockControls key="social-icons-controls">
         <Toolbar>
           <Tooltip text={ __( 'Display Labels', 'contact-widgets' )  }>
             <Button onClick={toggleDisplayLabels}>
@@ -187,7 +186,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
       </BlockControls>,
 
       // Admin Block Markup
-      <div className={ className }>
+      <div className={ className } key={ className }>
         <div className="contact-widgets-social-icons">
           { isSelected ? (
             <TextControl
@@ -196,7 +195,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
               onChange={ title => setAttributes( { title } ) }
               className="social-title"
             />
-          ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
+          ) : ( displayLabels && ( <h2>{ title }</h2> ) ) }
           { renderIcons( icons, iconURLS, displayLabels ) }
         </div>
       </div>
@@ -206,11 +205,10 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
   save: props => {
     const { attributes: { title, icons, iconURLS, displayLabels }, className } = props;
-    const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
 
     return (
       <div className={ className }>
-        { showTitle && (
+        { displayLabels && (
           <h2 className="social-title">
             { title }<br />
           </h2>

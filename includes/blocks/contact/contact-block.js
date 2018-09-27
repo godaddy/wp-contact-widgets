@@ -92,10 +92,12 @@ export default registerBlockType( 'contact-widgets/contact-block', {
     const showAddress = ( typeof address !== 'undefined' && address.length > 0 ) ? true : false;
     var mapAddress = showAddress ? encodeURIComponent( address.join( ' ' ).replace( ' [object Object]', '' ).trim() ) : '';
 
+    console.log( address );
+
     return [
 
       // Inspector Controls
-      <InspectorControls>
+      <InspectorControls key="contact-block-inspector-controls">
         <PanelBody
           title={ __( 'Contact Details Controls', 'contact-widgets' ) }
         >
@@ -125,7 +127,7 @@ export default registerBlockType( 'contact-widgets/contact-block', {
       </InspectorControls>,
 
       // Custom Toolbar
-      <BlockControls>
+      <BlockControls key="contact-block-controls">
         <AlignmentToolbar
           value={ textAlignment }
           onChange={ ( textAlignment ) => props.setAttributes( { textAlignment } ) }
@@ -147,11 +149,16 @@ export default registerBlockType( 'contact-widgets/contact-block', {
       </BlockControls>,
 
       // Admin Block Markup
-      <div className={ className }>
-        <div className="contact-widgets-content">
+      <div
+        className={ className }
+        key={ className }
+      >
+        <div
+          className="contact-widgets-content"
+          key="contact-widgets-content"
+        >
           { isSelected ? (
             <TextControl
-              tagName="h2"
               placeholder={ __( 'Contact Details Title', 'contact-widgets' ) }
               value={ title }
               onChange={ title => setAttributes( { title } ) }
@@ -196,7 +203,13 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               onChange={ address => setAttributes( { address } ) }
               value={ address }
             />
-          ) : ( showAddress && ( <div>{ address }</div> ) ) }
+        ) : ( showAddress && address && (
+          <RichText
+            placeholder={ __( 'Address', 'contact-widgets' ) }
+            onChange={ address => setAttributes( { address } ) }
+            value={ address }
+          />
+        ) ) }
           { ! isSelected && showAddress && displayMapOfAddress && (
              <iframe
                src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }

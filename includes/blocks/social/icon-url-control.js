@@ -65,7 +65,7 @@ export default class AdminControlIconURLS extends Component {
           iconSelect = iconData['select'];
 
       return (
-        <p key={ i } className={ icon }>
+        <section key={ i } className={ icon }>
           <label htmlFor="social-networks">
             <span className={ wpcw_social.iconPrefix + " fa-" + icon }></span>
             <span className="text">{ iconLabel }</span>
@@ -79,7 +79,7 @@ export default class AdminControlIconURLS extends Component {
               <span className="dashicons dashicons-menu"></span>
             </span>
           </span>
-        </p>
+        </section>
       );
 
     } );
