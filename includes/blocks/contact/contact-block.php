@@ -20,7 +20,7 @@ class Contact_Block {
 
 
 	/**
-	 * Enqueue admin block scripts and styles.
+	 * Enqueue admin block styles.
 	 *
 	 * @action enqueue_block_editor_assets
 	 */

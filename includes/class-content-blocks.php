@@ -19,6 +19,13 @@ class Content_Blocks {
 
 	}
 
+	/**
+	 * Enqueue content block scripts.
+	 *
+	 * @action enqueue_block_editor_assets
+	 *
+	 * @since NEXT
+	 */
 	public function enqueue_block_scripts() {
 
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
@@ -29,10 +36,14 @@ class Content_Blocks {
 
 		wp_enqueue_script( 'contact-widgets-blocks', plugins_url( "../assets/js/contact-widget-blocks{$suffix}.js", __FILE__ ), array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'jquery-ui-sortable' ), Plugin::$version, true );
 
-		wp_localize_script( 'contact-widgets-blocks', 'wpcw_social', [
-			'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
-			'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
-		] );
+		wp_localize_script(
+			'contact-widgets-blocks',
+			'wpcw_social',
+			[
+				'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
+				'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
+			]
+		);
 
 	}
 
