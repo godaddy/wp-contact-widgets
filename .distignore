@@ -15,3 +15,5 @@ node_modules/
 tests/
 vendor/
 wp-org-assets/
+.babelrbc
+webpack.config.js
