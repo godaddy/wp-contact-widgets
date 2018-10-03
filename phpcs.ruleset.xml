@@ -4,6 +4,7 @@
 
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
 	</rule>
 
 	<rule ref="WordPress-Extra">

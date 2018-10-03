@@ -204,18 +204,21 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	protected function order_field( array $fields ) {
 
-		uksort( $fields, function( $a, $b ) use ( $fields ) {
+		uksort(
+			$fields,
+			function( $a, $b ) use ( $fields ) {
 
-			// We want title first and order of non sortable fields doesn't matter
-			if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
+				// We want title first and order of non sortable fields doesn't matter
+				if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
 
-				return 1;
+					return 1;
+
+				}
+
+				return ( $fields[ $a ]['order'] < $fields[ $b ]['order'] ) ? -1 : 1;
 
 			}
-
-			return ( $fields[ $a ]['order'] < $fields[ $b ]['order'] ) ? -1 : 1;
-
-		} );
+		);
 
 		return $fields;
 
