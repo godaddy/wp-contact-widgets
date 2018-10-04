@@ -41,14 +41,14 @@ function renderIcons( icons, iconURLS, displayLabels ) {
 
     }
 
-    var iconLabel     = displayLabels ? iconData['label'] : undefined,
+    var iconLabel     = displayLabels ? '\u00A0' + iconData['label'] : undefined,
         iconURL       = ( icon in iconURLS ) ? iconURLS[ icon ] : iconData['default'],
         labelClass    = displayLabels ? 'has-label' : 'no-label';
 
     return <li key={ icon } className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
-        { iconLabel }
+      { iconLabel }
       </a>
     </li>;
 
@@ -117,7 +117,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
     },
     displayLabels: {
       type: 'boolean',
-      default: true,
+      default: false,
     },
   },
 
