@@ -125,6 +125,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
     const { attributes: { title, icons, iconURLS, displayLabels }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
+    var displayTitle = ( 'undefined' !== typeof title && title.length > 0 );
 
     return [
 
@@ -195,7 +196,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
               onChange={ title => setAttributes( { title } ) }
               className="social-title"
             />
-          ) : ( displayLabels && ( <h2>{ title }</h2> ) ) }
+          ) : ( displayTitle && ( <h2>{ title }</h2> ) ) }
           { renderIcons( icons, iconURLS, displayLabels ) }
         </div>
       </div>
