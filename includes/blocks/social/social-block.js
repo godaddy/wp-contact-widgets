@@ -205,10 +205,11 @@ export default registerBlockType( 'contact-widgets/social-block', {
 
   save: props => {
     const { attributes: { title, icons, iconURLS, displayLabels }, className } = props;
+    var displayTitle = ( 'undefined' !== typeof title && title.length > 0 );
 
     return (
       <div className={ className }>
-        { displayLabels && (
+        { displayTitle && (
           <h2 className="social-title">
             { title }<br />
           </h2>
@@ -217,4 +218,8 @@ export default registerBlockType( 'contact-widgets/social-block', {
       </div>
     );
   },
+} );
+
+$( document ).on( 'click', '.social-icons a', function( event ) {
+  event.preventDefault();
 } );
