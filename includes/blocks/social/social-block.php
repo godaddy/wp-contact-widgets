@@ -44,7 +44,7 @@ class Social_Block {
 
 		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
-		wp_enqueue_style( 'contact-widgets-social-block-frontend', plugins_url( 'social-block.css', __FILE__ ), array( 'wp-edit-blocks', 'font-awesome' ), Plugin::$version );
+		wp_enqueue_style( 'contact-widgets-social-block-frontend', plugins_url( 'social-block-frontend.css', __FILE__ ), array( 'wp-edit-blocks', 'font-awesome' ), Plugin::$version );
 
 	}
 
