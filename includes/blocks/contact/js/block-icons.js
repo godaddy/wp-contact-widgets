@@ -1,6 +1,6 @@
-const icons = {};
+const contactBlockIcons = {};
 
-icons.map = <svg
+contactBlockIcons.map = <svg
   xmlns="http://www.w3.org/2000/svg"
   x="0px"
   y="0px"
@@ -20,7 +20,7 @@ icons.map = <svg
     </g>
 </svg>;
 
-icons.label = <svg
+contactBlockIcons.label = <svg
   xmlns="http://www.w3.org/2000/svg"
   x="0px"
   y="0px"
@@ -34,4 +34,4 @@ icons.label = <svg
     </g>
 </svg>;
 
-export default icons;
+export default contactBlockIcons;

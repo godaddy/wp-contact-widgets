@@ -1,4 +1,4 @@
-import icons from './icons';
+import contactBlockIcons from './block-icons';
 
 /**
  * Internal block libraries
@@ -135,14 +135,14 @@ export default registerBlockType( 'contact-widgets/contact-block', {
         <Toolbar>
           <Tooltip text={ __( 'Display Labels', 'contact-widgets' )  }>
             <Button onClick={ toggleDisplayLabels }>
-              {icons.label}
+              {contactBlockIcons.label}
             </Button>
           </Tooltip>
         </Toolbar>
         <Toolbar>
           <Tooltip text={ __( 'Display Map of Address', 'contact-widgets' )  }>
             <Button onClick={ toggleDisplayMapOfAddress }>
-              {icons.map}
+              {contactBlockIcons.map}
             </Button>
           </Tooltip>
         </Toolbar>

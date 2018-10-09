@@ -26,10 +26,9 @@ class Social_Block {
 	 */
 	public function social_block_scripts() {
 
-		wp_enqueue_style( 'contact-widgets-social-block-frontend', plugins_url( 'social-block.css', __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
-
-		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style( 'contact-widgets-social-block', plugins_url( "css/social-block{$suffix}.css", __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
 
 		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
 
@@ -43,8 +42,6 @@ class Social_Block {
 	public function social_block_styles() {
 
 		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
-
-		wp_enqueue_style( 'contact-widgets-social', plugins_url( 'social-block.css', __FILE__ ), array( 'wp-edit-blocks', 'font-awesome' ), Plugin::$version );
 
 	}
 

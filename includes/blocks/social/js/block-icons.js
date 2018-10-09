@@ -1,6 +1,6 @@
-const socialIcons = {};
+const socialBlockIcons = {};
 
-socialIcons.social = <svg
+socialBlockIcons.social = <svg
   xmlns="http://www.w3.org/2000/svg"
   x="0px"
   y="0px"
@@ -49,7 +49,7 @@ socialIcons.social = <svg
   <rect x="27" y="29" style={{ fill: '#8B75A1' }} width="13" height="1"></rect>
 </svg>;
 
-socialIcons.label = <svg
+socialBlockIcons.label = <svg
   xmlns="http://www.w3.org/2000/svg"
   x="0px"
   y="0px"
@@ -63,4 +63,4 @@ socialIcons.label = <svg
     </g>
 </svg>;
 
-export default socialIcons;
+export default socialBlockIcons;

@@ -1,5 +1,6 @@
 .wpcw-widget-contact ul,
 .wp-block-contact-widgets-contact-block ul,
+.wp-block-contact-widgets-social-block ul,
 .wpcw-widget-social ul {
 	margin: 0;
 	padding: 0;
@@ -32,4 +33,22 @@
 }
 .wpcw-widget-social ul li.has-label svg {
 	margin-left: 0.25em;
+}
+
+/**
+ * Block Styles
+ */
+.wp-block-contact-widgets-social-block ul li a {
+	text-decoration: none;
+}
+
+.wp-block-contact-widgets-social-block ul li,
+.wp-block-contact-widgets-social-block ul li.has-label {
+	padding: 10px 0;
+}
+
+.wp-block-contact-widgets-social-block ul li:not(.has-label) {
+	display: inline-block;
+	margin: 0 0 0.75em 0.75em;
+	border: none;
 }

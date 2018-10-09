@@ -1,4 +1,4 @@
-import socialIcons from './icons';
+import socialBlockIcons from './block-icons';
 import AdminControlIcons from './icon-control';
 import AdminControlIconURLS from './icon-url-control';
 
@@ -47,7 +47,7 @@ function renderIcons( icons, iconURLS, displayLabels ) {
 
     return <li key={ icon } className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
-        <i className={ wpcw_social.iconPrefix + " fa-" + icon }></i>
+        <i className={ wpcw_social.iconPrefix + " fa-2x fa-" + icon }></i>
       { iconLabel }
       </a>
     </li>;
@@ -92,7 +92,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
   title: __( 'Social Profiles', 'contact-widgets' ),
   description: __( 'Display contact details on your site.', 'contact-widgets' ),
   category: 'widgets',
-  icon: socialIcons.social,
+  icon: socialBlockIcons.social,
   keywords: [
     __( 'Social', 'contact-widgets' ),
     __( 'Icons', 'contact-widgets' ),
@@ -180,7 +180,7 @@ export default registerBlockType( 'contact-widgets/social-block', {
         <Toolbar>
           <Tooltip text={ __( 'Display Labels', 'contact-widgets' )  }>
             <Button onClick={toggleDisplayLabels}>
-              {socialIcons.label}
+              {socialBlockIcons.label}
             </Button>
           </Tooltip>
         </Toolbar>

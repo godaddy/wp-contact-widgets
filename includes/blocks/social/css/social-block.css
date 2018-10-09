@@ -1,5 +1,5 @@
 /**
- * Block Controls
+ * Social Icon Block - Admin Styles
  */
 .components-panel__row.social-icons {
 	display: block;
@@ -79,47 +79,47 @@
 			cursor: -webkit-grabbing
 		}
 
-    /**
-     * Block Styles
-     */
-    .wp-block-contact-widgets-social-block ul {
-     padding-left: 0;
-    }
+		/**
+		 * Block Styles
+		 */
+		.wp-block-contact-widgets-social-block ul {
+		 padding-left: 0;
+		}
 
-    	.wp-block-contact-widgets-social-block ul li {
-    		margin: 0;
-    		padding: 0;
-    		list-style: none;
-    	}
+			.wp-block-contact-widgets-social-block ul li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
 
-    		.wp-block-contact-widgets-social-block ul li a {
-    			text-decoration: none;
-    		}
+				.wp-block-contact-widgets-social-block ul li a {
+					text-decoration: none;
+				}
 
-    .wp-block-contact-widgets-social-block ul li,
-    .wp-block-contact-widgets-social-block ul li.has-label {
-    	padding: 10px 0;
-    }
+		.wp-block-contact-widgets-social-block ul li,
+		.wp-block-contact-widgets-social-block ul li.has-label {
+			padding: 10px 0;
+		}
 
-    .wp-block-contact-widgets-social-block ul li:before,
-    .wp-block-contact-widgets-social-block ul li:after {
-    	display: none;
-    }
+		.wp-block-contact-widgets-social-block ul li:before,
+		.wp-block-contact-widgets-social-block ul li:after {
+			display: none;
+		}
 
-    .wp-block-contact-widgets-social-block ul li div {
-    	display: inline;
-    }
+		.wp-block-contact-widgets-social-block ul li div {
+			display: inline;
+		}
 
-    .wp-block-contact-widgets-social-block ul li:not(.has-label) {
-    	display: inline-block;
-    	margin: 0 0.75em 0.75em 0;
-    	border: none;
-    }
+		.wp-block-contact-widgets-social-block ul li:not(.has-label) {
+			display: inline-block;
+			margin: 0 0.75em 0.75em 0;
+			border: none;
+		}
 
-    .wp-block-contact-widgets-social-block ul li.has-label a {
-    	display: block;
-    }
+		.wp-block-contact-widgets-social-block ul li.has-label a {
+			display: block;
+		}
 
-    .wp-block-contact-widgets-social-block ul li.has-label svg {
-    	margin-right: 0.25em;
-    }
+		.wp-block-contact-widgets-social-block ul li.has-label svg {
+			margin-right: 0.25em;
+		}

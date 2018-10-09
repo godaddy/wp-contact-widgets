@@ -67,7 +67,15 @@ module.exports = function( grunt ) {
 						ext: '.min.css'
 					}
 				]
-			}
+			},
+			content_blocks_admin: {
+				files: [
+					{
+						'includes/blocks/contact/css/contact-block.min.css': [ 'includes/blocks/contact/css/contact-block.css' ],
+						'includes/blocks/social/css/social-block.min.css': [ 'includes/blocks/social/css/social-block.css' ],
+					}
+				]
+			},
 		},
 
 		devUpdate: {
@@ -200,6 +208,10 @@ module.exports = function( grunt ) {
 			css: {
 				files: [ 'assets/css/**/*.css', '!assets/css/**/*.min.css' ],
 				tasks: [ 'cssjanus', 'cssmin' ]
+			},
+			content_block_css: {
+				files: [ 'includes/blocks/**/*.css', '!includes/blocks/**/*.min.css' ],
+				tasks: [ 'cssmin' ]
 			},
 			images: {
 				files: [
