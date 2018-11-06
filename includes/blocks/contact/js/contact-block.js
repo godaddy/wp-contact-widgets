@@ -13,7 +13,8 @@ const {
   BlockControls,
   InspectorControls,
   AlignmentToolbar,
-  RichText
+  RichText,
+  BlockMover
 } = wp.editor;
 
 const {
@@ -158,12 +159,18 @@ export default registerBlockType( 'contact-widgets/contact-block', {
           key="contact-widgets-content"
         >
           { isSelected ? (
-            <TextControl
-              placeholder={ __( 'Contact Details Title', 'contact-widgets' ) }
-              value={ title }
-              onChange={ title => setAttributes( { title } ) }
-            />
+            <span>
+              <BlockMover />
+              <TextControl
+                placeholder={ __( 'Contact Details Title', 'contact-widgets' ) }
+                value={ title }
+                onChange={ title => setAttributes( { title } ) }
+              />
+          </span>
           ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
+          { isSelected && (
+            <BlockMover />
+          ) }
           { displayLabels && (
             <strong>{ __( 'Email', 'contact-widgets' ) }<br /></strong>
           ) }
@@ -174,6 +181,9 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               onChange={ email => setAttributes( { email } ) }
             />
           ) : ( showEmail && ( <div>{ email }</div> ) ) }
+          { isSelected && (
+            <BlockMover />
+          ) }
           { displayLabels && (
             <strong>{ __( 'Phone', 'contact-widgets' ) }<br /></strong>
           ) }
@@ -184,6 +194,9 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               onChange={ phone => setAttributes( { phone } ) }
             />
           ) : ( showPhone && ( <div>{ phone }</div> ) ) }
+          { isSelected && (
+            <BlockMover />
+          ) }
           { displayLabels && (
             <strong>{ __( 'Fax', 'contact-widgets' ) }<br /></strong>
           ) }
@@ -194,6 +207,9 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               onChange={ fax => setAttributes( { fax } ) }
             />
           ) : ( showFax && ( <div>{ fax }</div> ) ) }
+          { isSelected && (
+            <BlockMover />
+          ) }
           { displayLabels && (
             <strong>{ __( 'Address', 'contact-widgets' ) }<br /></strong>
           ) }
@@ -203,13 +219,13 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               onChange={ address => setAttributes( { address } ) }
               value={ address }
             />
-        ) : ( showAddress && address && (
-          <RichText
-            placeholder={ __( 'Address', 'contact-widgets' ) }
-            onChange={ address => setAttributes( { address } ) }
-            value={ address }
-          />
-        ) ) }
+          ) : ( showAddress && address && (
+            <RichText
+              placeholder={ __( 'Address', 'contact-widgets' ) }
+              onChange={ address => setAttributes( { address } ) }
+              value={ address }
+            />
+          ) ) }
           { ! isSelected && showAddress && displayMapOfAddress && (
              <iframe
                src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
