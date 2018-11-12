@@ -1,4 +1,5 @@
 import contactBlockIcons from './block-icons';
+import BlockOrderControl from './block-order-control';
 
 /**
  * Internal block libraries
@@ -13,8 +14,7 @@ const {
   BlockControls,
   InspectorControls,
   AlignmentToolbar,
-  RichText,
-  BlockMover
+  RichText
 } = wp.editor;
 
 const {
@@ -26,6 +26,82 @@ const {
     FormToggle,
     TextControl
 } = wp.components;
+
+function renderFields( setAttributes, fields, displayLabels, values ) {
+
+  console.log( values );
+
+  var fieldMarkup = fields.map( function( field ) {
+
+    switch( field.label ) {
+
+      case 'Title':
+
+        return <li key={ field.label }>
+          <strong>{ field.label }</strong>
+          <TextControl
+            name={ field.label.toLowerCase() }
+            placeholder={ field.label }
+            value={ values.title }
+            onChange={ title => setAttributes( { title } ) }
+          />
+        </li>;
+
+      case 'Email':
+
+        return <li key={ field.label }>
+          <strong>{ field.label }</strong>
+          <TextControl
+            name={ field.label.toLowerCase() }
+            placeholder={ field.label }
+            value={ values.email }
+            onChange={ email => setAttributes( { email } ) }
+          />
+        </li>;
+
+      case 'Phone':
+
+        return <li key={ field.label }>
+          <strong>{ field.label }</strong>
+          <TextControl
+            name={ field.label.toLowerCase() }
+            placeholder={ field.label }
+            value={ values.phone }
+            onChange={ phone => setAttributes( { phone } ) }
+          />
+        </li>;
+
+      case 'Fax':
+
+        return <li key={ field.label }>
+          <strong>{ field.label }</strong>
+          <TextControl
+            name={ field.label.toLowerCase() }
+            placeholder={ field.label }
+            value={ values.fax }
+            onChange={ fax => setAttributes( { fax } ) }
+          />
+        </li>;
+
+      case 'Address':
+
+        return <li key={ field.label }>
+          <strong>{ field.label }</strong>
+          <RichText
+            name={ field.label.toLowerCase() }
+            placeholder={ field.label }
+            value={ values.address }
+            onChange={ address => setAttributes( { address } ) }
+          />
+        </li>;
+
+    }
+
+  } );
+
+  return <ul className="fields">{ fieldMarkup }</ul>;
+
+}
 
 /**
  * Register block
@@ -41,6 +117,27 @@ export default registerBlockType( 'contact-widgets/contact-block', {
     __( 'Map', 'contact-widgets' ),
   ],
   attributes: {
+    fields: {
+      type: 'array',
+      selector: '.fields',
+      default: [
+        {
+          label: __( 'Title', 'contact-widgets' ),
+        },
+        {
+          label: __( 'Email', 'contact-widgets' ),
+        },
+        {
+          label: __( 'Phone', 'contact-widgets' ),
+        },
+        {
+          label: __( 'Fax', 'contact-widgets' ),
+        },
+        {
+          label: __( 'Address', 'contact-widgets' ),
+        },
+      ]
+    },
     title: {
       type: 'string',
       source: 'text',
@@ -83,7 +180,7 @@ export default registerBlockType( 'contact-widgets/contact-block', {
   },
   edit: props => {
 
-    const { attributes: { textAlignment, blockAlignment, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, isSelected, className, setAttributes } = props;
+    const { attributes: { textAlignment, blockAlignment, fields, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, isSelected, className, setAttributes } = props;
     const toggleDisplayLabels = () => setAttributes( { displayLabels: ! displayLabels } );
     const toggleDisplayMapOfAddress = () => setAttributes( { displayMapOfAddress: ! displayMapOfAddress } );
     const showTitle = ( typeof title !== 'undefined' && title.length > 0 ) ? true : false;
@@ -93,7 +190,7 @@ export default registerBlockType( 'contact-widgets/contact-block', {
     const showAddress = ( typeof address !== 'undefined' && address.length > 0 ) ? true : false;
     var mapAddress = showAddress ? encodeURIComponent( address.join( ' ' ).replace( ' [object Object]', '' ).trim() ) : '';
 
-    console.log( address );
+    // console.log( fields );
 
     return [
 
@@ -123,6 +220,9 @@ export default registerBlockType( 'contact-widgets/contact-block', {
               checked={ displayMapOfAddress }
               onChange={ toggleDisplayMapOfAddress }
             />
+          </PanelRow>
+          <PanelRow>
+            <BlockOrderControl { ...{ setAttributes, ...props } } />
           </PanelRow>
         </PanelBody>
       </InspectorControls>,
@@ -154,84 +254,12 @@ export default registerBlockType( 'contact-widgets/contact-block', {
         className={ className }
         key={ className }
       >
-        <div
-          className="contact-widgets-content"
+        <ul
+          className="fields"
           key="contact-widgets-content"
         >
-          { isSelected ? (
-            <span>
-              <BlockMover />
-              <TextControl
-                placeholder={ __( 'Contact Details Title', 'contact-widgets' ) }
-                value={ title }
-                onChange={ title => setAttributes( { title } ) }
-              />
-          </span>
-          ) : ( showTitle && ( <h2>{ title }</h2> ) ) }
-          { isSelected && (
-            <BlockMover />
-          ) }
-          { displayLabels && (
-            <strong>{ __( 'Email', 'contact-widgets' ) }<br /></strong>
-          ) }
-          { isSelected ? (
-            <TextControl
-              placeholder={ __( 'Email Address', 'contact-widgets' ) }
-              value={ email }
-              onChange={ email => setAttributes( { email } ) }
-            />
-          ) : ( showEmail && ( <div>{ email }</div> ) ) }
-          { isSelected && (
-            <BlockMover />
-          ) }
-          { displayLabels && (
-            <strong>{ __( 'Phone', 'contact-widgets' ) }<br /></strong>
-          ) }
-          { isSelected ? (
-            <TextControl
-              placeholder={ __( 'Phone Number', 'contact-widgets' ) }
-              value={ phone }
-              onChange={ phone => setAttributes( { phone } ) }
-            />
-          ) : ( showPhone && ( <div>{ phone }</div> ) ) }
-          { isSelected && (
-            <BlockMover />
-          ) }
-          { displayLabels && (
-            <strong>{ __( 'Fax', 'contact-widgets' ) }<br /></strong>
-          ) }
-          { isSelected ? (
-            <TextControl
-              placeholder={ __( 'Fax Number', 'contact-widgets' ) }
-              value={ fax }
-              onChange={ fax => setAttributes( { fax } ) }
-            />
-          ) : ( showFax && ( <div>{ fax }</div> ) ) }
-          { isSelected && (
-            <BlockMover />
-          ) }
-          { displayLabels && (
-            <strong>{ __( 'Address', 'contact-widgets' ) }<br /></strong>
-          ) }
-          { isSelected ? (
-            <RichText
-              placeholder={ __( 'Address', 'contact-widgets' ) }
-              onChange={ address => setAttributes( { address } ) }
-              value={ address }
-            />
-          ) : ( showAddress && address && (
-            <RichText
-              placeholder={ __( 'Address', 'contact-widgets' ) }
-              onChange={ address => setAttributes( { address } ) }
-              value={ address }
-            />
-          ) ) }
-          { ! isSelected && showAddress && displayMapOfAddress && (
-             <iframe
-               src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
-             />
-          ) }
-        </div>
+          { renderFields( props.setAttributes, fields, displayLabels, { 'title': title, 'email': email, 'phone': phone, 'fax': fax, 'address': address } ) }
+        </ul>
       </div>
     ];
   },

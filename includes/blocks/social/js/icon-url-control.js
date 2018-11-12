@@ -12,10 +12,10 @@ export default class AdminControlIconURLS extends Component {
 
   componentDidMount() {
 
-    var $contact_form = $( '.social-icon-urls' ),
+    var $socialIcons = $( '.social-icon-urls' ),
         props         = this.props;
 
-    $contact_form.sortable( {
+    $socialIcons.sortable( {
       items : '> *:not(.not-sortable)',
       handle: '.wpcw-social-icons-sortable-handle',
       containment: 'parent',
@@ -34,7 +34,7 @@ export default class AdminControlIconURLS extends Component {
           icons.push( $( this ).attr( 'class' ) );
         } );
         props.setAttributes( { icons: icons } );
-        $contact_form.sortable( 'cancel' );
+        $socialIcons.sortable( 'cancel' );
       }
     } );
 
