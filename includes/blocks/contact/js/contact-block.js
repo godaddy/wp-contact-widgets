@@ -212,7 +212,14 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
 
       case 'Title':
 
-        return <div>{ isSelected ? (
+        if ( ! isSelected && ! values.title ) {
+
+          return;
+
+        }
+
+        return <li key={ field.label } className={ labelClass }>
+          { isSelected ? (
             <div>
               <strong>{ field.label }</strong>
               <TextControl
@@ -224,9 +231,16 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
             </div>
           ) : (
             <h4 className="contact-title">{ values.title }</h4>
-        ) }</div>;
+          ) }
+        </li>;
 
       case 'Email':
+
+        if ( ! isSelected && ! values.email ) {
+
+          return;
+
+        }
 
         return <li key={ field.label } className={ labelClass }>
           { isSelected ? (
@@ -251,6 +265,12 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
 
       case 'Phone':
 
+        if ( ! isSelected && ! values.phone ) {
+
+          return;
+
+        }
+
         return <li key={ field.label } className={ labelClass }>
           { isSelected ? (
             <div>
@@ -273,6 +293,12 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
         </li>;
 
       case 'Fax':
+
+        if ( ! isSelected && ! values.fax ) {
+
+          return;
+
+        }
 
         return <li key={ field.label } className={ labelClass }>
           { isSelected ? (
@@ -297,6 +323,12 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
 
       case 'Address':
 
+        if ( ! isSelected && ( Object.keys( values.address ).length == 0 || values.address[0].trim() == '' )  ) {
+
+          return;
+
+        }
+
         return <li key={ field.label } className={ labelClass }>
           { isSelected ? (
             <div>
@@ -313,7 +345,7 @@ function renderFields( setAttributes, isSelected, fields, displayLabels, display
               { displayLabels && ( Object.keys( values.address ).length > 0 ) && (
                 <strong>{ field.label }<br /></strong>
               ) }
-              <div className="contact-address"><RichText.Content value={ values.address }/><br /></div>
+              <div className="contact-address"><RichText.Content value={ values.address }/></div>
               { displayMapOfAddress && ( Object.keys( values.address ).length > 0 ) && (
                 <div className="has-map">
                   <iframe

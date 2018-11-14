@@ -4,3 +4,6 @@
 .wpcw-contact-block-map {
 	width: 100%;
 }
+.wp-block-contact-widgets-contact-block .has-map {
+  margin-top: 0.5em;
+}
