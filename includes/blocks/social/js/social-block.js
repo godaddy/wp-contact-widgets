@@ -48,7 +48,7 @@ function renderIcons( icons, iconURLS, displayLabels ) {
     return <li key={ icon } className={ labelClass }>
       <a href={ iconURL } title={ iconLabel }>
         <i className={ wpcw_social.iconPrefix + " fa-2x fa-" + icon }></i>
-      { iconLabel }
+        { iconLabel }
       </a>
     </li>;
 

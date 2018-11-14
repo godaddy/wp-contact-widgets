@@ -29,11 +29,10 @@ export default class BlockOrderControl extends Component {
       stop: function( e, ui ) {
         var fields = [];
         $( '.contact-fields-order' ).children().each( function() {
-          console.log( $( this ) );
           fields.push( { label: $( this ).data( 'label' ) } );
         } );
         props.setAttributes( { fields: fields } );
-        $contact_form.sortable( 'cancel' );
+        $contactFormFields.sortable( 'cancel' );
       }
     } );
 
@@ -46,10 +45,10 @@ export default class BlockOrderControl extends Component {
 
       return (
         <li key={ field.label } data-label={ field.label }>
-          { field.label }
           <span className="wpcw-contact-field-sortable-handle">
             <span className="dashicons dashicons-menu"></span>
           </span>
+          { field.label }
         </li>
       );
 

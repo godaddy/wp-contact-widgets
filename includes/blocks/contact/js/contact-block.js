@@ -27,152 +27,6 @@ const {
     TextControl
 } = wp.components;
 
-function renderFields( setAttributes, isSelected, fields, displayLabels, displayMapOfAddress, values ) {
-
-  var address = values.address;
-  const showAddress = ( typeof address !== 'undefined' && address.length > 0 ) ? true : false;
-  const mapAddress = showAddress ? encodeURIComponent( address.join( ' ' ).replace( ' [object Object]', '' ).trim() ) : '';
-
-  var fieldMarkup = fields.map( function( field ) {
-
-    switch( field.label ) {
-
-      case 'Title':
-
-        return <li key={ field.label }>
-          { isSelected && (
-            <div>
-              <strong>{ field.label }</strong>
-              <TextControl
-                name={ field.label.toLowerCase() }
-                placeholder={ field.label }
-                value={ values.title }
-                onChange={ title => setAttributes( { title } ) }
-              />
-            </div>
-          ) }
-          { ! isSelected && (
-            <h2>{ values.title }</h2>
-          ) }
-        </li>;
-
-      case 'Email':
-
-        return <li key={ field.label }>
-          { isSelected ? (
-            <div>
-              <strong>{ field.label }</strong>
-              <TextControl
-                name={ field.label.toLowerCase() }
-                placeholder={ field.label }
-                value={ values.email }
-                onChange={ email => setAttributes( { email } ) }
-              />
-            </div>
-          ) :
-          (
-            <div>
-              { displayLabels && values.email && (
-                <strong>
-                  { field.label }
-                </strong>
-              ) }
-              <div>{ values.email }</div>
-            </div>
-          )
-        }
-        </li>;
-
-      case 'Phone':
-
-        return <li key={ field.label }>
-          { isSelected ? (
-            <div>
-              <strong>{ field.label }</strong>
-              <TextControl
-                name={ field.label.toLowerCase() }
-                placeholder={ field.label }
-                value={ values.phone }
-                onChange={ phone => setAttributes( { phone } ) }
-              />
-            </div>
-          ) : (
-            <div>
-              { displayLabels && values.phone && (
-                <strong>
-                  { field.label }
-                </strong>
-              ) }
-              <div>{ values.phone }</div>
-            </div>
-          ) }
-        </li>;
-
-      case 'Fax':
-
-        return <li key={ field.label }>
-          { isSelected ? (
-            <div>
-              <strong>{ field.label }</strong>
-              <TextControl
-                name={ field.label.toLowerCase() }
-                placeholder={ field.label }
-                value={ values.fax }
-                onChange={ fax => setAttributes( { fax } ) }
-              />
-            </div>
-          ) : (
-            <div>
-              { displayLabels && values.fax && (
-                <strong>
-                  { field.label }
-                </strong>
-              ) }
-              <div>{ values.fax }</div>
-            </div>
-          ) }
-        </li>;
-
-      case 'Address':
-
-        return <li key={ field.label }>
-          { isSelected ? (
-            <div>
-              <strong>{ field.label }</strong>
-              <RichText
-                name={ field.label.toLowerCase() }
-                placeholder={ field.label }
-                value={ values.address }
-                onChange={ address => setAttributes( { address } ) }
-              />
-            </div>
-          ) : (
-            <div>
-              { displayLabels && values.address && (
-                <strong>
-                  { field.label }
-                </strong>
-              ) }
-              <div>{ values.address }</div>
-              { displayMapOfAddress && showAddress && (
-                <div className="has-map">
-                  <iframe
-                    src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
-                  />
-                </div>
-              ) }
-            </div>
-          ) }
-        </li>;
-
-    }
-
-  } );
-
-  return <ul className="fields">{ fieldMarkup }</ul>;
-
-}
-
 /**
  * Register block
  */
@@ -316,28 +170,202 @@ export default registerBlockType( 'contact-widgets/contact-block', {
         className={ className }
         key={ className }
       >
-        <ul
-          className="fields"
-          key="contact-widgets-content"
-        >
-          { renderFields( props.setAttributes, isSelected, fields, displayLabels, displayMapOfAddress, { 'title': title, 'email': email, 'phone': phone, 'fax': fax, 'address': address } ) }
-        </ul>
+        { renderFields( props.setAttributes, isSelected, fields, displayLabels, displayMapOfAddress, { 'title': title, 'email': email, 'phone': phone, 'fax': fax, 'address': address } ) }
       </div>
     ];
   },
 
   save: props => {
 
-    const { attributes: { textAlignment, blockAlignment, fields, title, email, phone, fax, address, displayLabels, displayMapOfAddress } } = props;
-    const labelClass = displayLabels ? 'has-label' : 'no-label';
-    const mapClass = displayMapOfAddress ? 'has-map' : labelClass;
+    const { attributes: { textAlignment, blockAlignment, fields, title, email, phone, fax, address, displayLabels, displayMapOfAddress }, className } = props;
 
     return (
-      <div>
-        <ul>
-          { renderFields( props.setAttributes, false, fields, displayLabels, displayMapOfAddress, { 'title': title, 'email': email, 'phone': phone, 'fax': fax, 'address': address } ) }
-        </ul>
+      <div
+      className={ className }
+      key={ className }
+      >
+        { renderFields( props.setAttributes, false, fields, displayLabels, displayMapOfAddress, { 'title': title, 'email': email, 'phone': phone, 'fax': fax, 'address': address } ) }
       </div>
     );
   },
 } );
+
+/**
+ * Render the contact widget fields
+ *
+ * @param  {array}    setAttributes       Block properties
+ * @param  {boolean}  isSelected          Wheter or not this field is selected
+ * @param  {array}    fields              Contact widget fields
+ * @param  {boolean}  displayLabels       Whether or not to display the field labels
+ * @param  {boolean}  displayMapOfAddress Whether or not to display the map
+ * @param  {array}    values              Current form values
+ */
+function renderFields( setAttributes, isSelected, fields, displayLabels, displayMapOfAddress, values ) {
+
+  var mapAddress = setupMapAddress( values.address );
+  const labelClass = displayLabels ? 'has-label' : 'no-label';
+  const mapClass = displayMapOfAddress ? 'has-map' : labelClass;
+
+  var fieldMarkup = fields.map( function( field ) {
+
+    switch( field.label ) {
+
+      case 'Title':
+
+        return <div>{ isSelected ? (
+            <div>
+              <strong>{ field.label }</strong>
+              <TextControl
+                name={ field.label.toLowerCase() }
+                placeholder={ field.label }
+                value={ values.title }
+                onChange={ title => setAttributes( { title } ) }
+              />
+            </div>
+          ) : (
+            <h4 className="contact-title">{ values.title }</h4>
+        ) }</div>;
+
+      case 'Email':
+
+        return <li key={ field.label } className={ labelClass }>
+          { isSelected ? (
+            <div>
+              <strong>{ field.label }</strong>
+              <TextControl
+                name={ field.label.toLowerCase() }
+                placeholder={ field.label }
+                value={ values.email }
+                onChange={ email => setAttributes( { email } ) }
+              />
+            </div>
+          ) : (
+            <div>
+              { displayLabels && values.email && (
+                <strong>{ field.label }<br /></strong>
+              ) }
+              <div className="contact-email"><a href={ "mailto:" + values.email }>{ values.email }</a></div>
+            </div>
+        ) }
+        </li>;
+
+      case 'Phone':
+
+        return <li key={ field.label } className={ labelClass }>
+          { isSelected ? (
+            <div>
+              <strong>{ field.label }</strong>
+              <TextControl
+                name={ field.label.toLowerCase() }
+                placeholder={ field.label }
+                value={ values.phone }
+                onChange={ phone => setAttributes( { phone } ) }
+              />
+            </div>
+          ) : (
+            <div>
+              { displayLabels && values.phone && (
+                <strong>{ field.label }<br /></strong>
+              ) }
+              <div className="contact-phone">{ values.phone }</div>
+            </div>
+          ) }
+        </li>;
+
+      case 'Fax':
+
+        return <li key={ field.label } className={ labelClass }>
+          { isSelected ? (
+            <div>
+              <strong>{ field.label }</strong>
+              <TextControl
+                name={ field.label.toLowerCase() }
+                placeholder={ field.label }
+                value={ values.fax }
+                onChange={ fax => setAttributes( { fax } ) }
+              />
+            </div>
+          ) : (
+            <div>
+              { displayLabels && values.fax && (
+                <strong>{ field.label }<br /></strong>
+              ) }
+              <div className="contact-fax">{ values.fax }</div>
+            </div>
+          ) }
+        </li>;
+
+      case 'Address':
+
+        return <li key={ field.label } className={ labelClass }>
+          { isSelected ? (
+            <div>
+              <strong>{ field.label }</strong>
+              <RichText
+                name={ field.label.toLowerCase() }
+                placeholder={ field.label }
+                value={ values.address }
+                onChange={ address => setAttributes( { address } ) }
+              />
+            </div>
+          ) : (
+            <div>
+              { displayLabels && ( Object.keys( values.address ).length > 0 ) && (
+                <strong>{ field.label }<br /></strong>
+              ) }
+              <div className="contact-address"><RichText.Content value={ values.address }/><br /></div>
+              { displayMapOfAddress && ( Object.keys( values.address ).length > 0 ) && (
+                <div className="has-map">
+                  <iframe
+                    frameBorder="0"
+                    style={{ width: '100%', minHeight: '205px' }}
+                    src={ "https://www.google.com/maps?q=" + mapAddress + "&output=embed&hl=%s&z=14" }
+                  />
+                </div>
+              ) }
+            </div>
+          ) }
+        </li>;
+
+    }
+
+  } );
+
+  return <ul className="fields">{ fieldMarkup }</ul>;
+
+}
+
+/**
+ * Format the mapAddress array value into a usable string
+ *
+ * @param  {array} address  Block address value
+ *
+ * @return {string}         Formatted address
+ */
+function setupMapAddress( address ) {
+
+  if ( ! address.length ) {
+
+    return;
+
+  }
+
+  var mapAddress = '';
+
+  for ( var i = 0; i < address.length; i++ ) {
+
+    if ( typeof address[ i ] !== 'string' ) {
+
+      mapAddress += ' ';
+
+      continue;
+
+    }
+
+    mapAddress += address[ i ];
+
+  }
+
+  return mapAddress;
+
+}
