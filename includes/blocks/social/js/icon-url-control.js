@@ -23,7 +23,6 @@ export default class AdminControlIconURLS extends Component {
       axis: 'y',
       tolerance: 'pointer',
       forcePlaceholderSize: true,
-      cursorAt: { top: 40 },
       scroll: false,
       start: function( e, ui ) {
         ui.placeholder.height( ui.item.height() );

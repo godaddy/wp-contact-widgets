@@ -20,7 +20,7 @@
 }
 
 .social-icon-urls {
-	overflow: auto;
+	overflow: hidden;
 }
 
 	.social-icon-urls section {
@@ -32,25 +32,33 @@
 		margin-bottom: 1em;
 	}
 
-	.social-icon-urls label span.fa {
-		margin-right: 3px;
+	.social-icon-urls label {
+		display: block;
+		font-weight: 600;
 	}
+
+		.social-icon-urls label span.fa {
+			margin-right: 3px;
+		}
 
 	.social-icon-urls .default-fields {
 		display: none;
 	}
 
 	.social-icon-urls .holder {
-		display: flex;
-		flex-direction: row;
-		align-items: flex-start;
+		width: 100%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 		.social-icon-urls .holder .editor-url-input {
-			padding: 0;
+			padding-left: 0;
 		}
 
 		.social-icon-urls .holder input[type="text"] {
+			width: 100%;
+			max-width: 100%;
 			margin: 0;
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;

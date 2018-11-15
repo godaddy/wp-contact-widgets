@@ -19,10 +19,9 @@ export default class BlockOrderControl extends Component {
       containment: 'parent',
       placeholder: 'sortable-placeholder',
       axis: 'y',
-      tolerance: 'pointer',
       forcePlaceholderSize: true,
-      cursorAt: { top: 40 },
       scroll: false,
+      tolerance: 'pointer',
       start: function( e, ui ) {
         ui.placeholder.height( ui.item.height() );
       },
@@ -32,7 +31,6 @@ export default class BlockOrderControl extends Component {
           fields.push( { label: $( this ).data( 'label' ) } );
         } );
         props.setAttributes( { fields: fields } );
-        $contactFormFields.sortable( 'cancel' );
       }
     } );
 
