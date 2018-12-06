@@ -73,7 +73,7 @@ deploy:
   on:
     tags: true
     repo: godaddy/wp-contact-widgets
-    php: '7.2'
+    php: '7.1'
     condition: "$WP_VERSION=trunk"
   skip_cleanup: true
   overwrite: true
