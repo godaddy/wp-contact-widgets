@@ -13,3 +13,23 @@
 .wp-block-contact-widgets-contact-block .has-map {
 	margin-top: 0.5em;
 }
+
+.wpcw-contact-field-sortable-handle {
+	cursor: grab;
+}
+
+ul.contact-fields-order,
+div.contact-fields-reorder {
+	width: 100%;
+	margin-top: 0;
+}
+
+ul.contact-fields-order li {
+	width: 100%;
+	margin: 0;
+	padding: 2px 0;
+}
+
+.edit-post-sidebar h2.reorder-title {
+	margin-bottom: 5px;
+}

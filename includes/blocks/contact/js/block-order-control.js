@@ -11,7 +11,7 @@ export default class BlockOrderControl extends Component {
   componentDidMount() {
 
     var $contactFormFields = $( '.contact-fields-order' ),
-        props         = this.props;
+        props              = this.props;
 
     $contactFormFields.sortable( {
       items : '> *:not(.not-sortable)',
@@ -52,7 +52,7 @@ export default class BlockOrderControl extends Component {
 
     } );
 
-    return <ul className="contact-fields-order">{ fieldMarkup }</ul>;
+    return <div className="contact-fields-reorder"><h2 className="reorder-title">{ __( 'Reorder Contact Fields', 'contact-widgets' ) }</h2><ul className="contact-fields-order">{ fieldMarkup }</ul></div>;
 
   }
 }

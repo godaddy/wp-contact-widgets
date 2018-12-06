@@ -65,7 +65,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 *
 			 * @var boolean
 			 */
-			static::$fontawesome_5 = (boolean) apply_filters( 'wpcw_social_icons_fontawesome_5', false );
+			static::$fontawesome_5 = (bool) apply_filters( 'wpcw_social_icons_fontawesome_5', false );
 
 			static::$fa_url = $this->font_awesome_url();
 
@@ -122,7 +122,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 			 *
 			 * @var boolean
 			 */
-			$use_cdn = (boolean) apply_filters( 'wpcw_social_icons_use_cdn', false );
+			$use_cdn = (bool) apply_filters( 'wpcw_social_icons_use_cdn', false );
 
 			return ! $use_cdn ? static::$assets_url . "css/font-awesome{$suffix}.css" : $fontawesome_cdn_url;
 

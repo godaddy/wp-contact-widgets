@@ -132,3 +132,7 @@
 		.wp-block-contact-widgets-social-block ul li.has-label svg {
 			margin-right: 0.25em;
 		}
+
+		.wp-block-contact-widgets-social-block .contact-widgets-social-icons h2 {
+			margin-bottom: 1rem;
+		}
