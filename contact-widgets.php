@@ -162,6 +162,3 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 	new Contact_Widgets();
 
 }
-
-// $site_url = str_ireplace( 'www.', '', esc_url( 'www.google.com' ) );
-// wp_die( $site_url );
