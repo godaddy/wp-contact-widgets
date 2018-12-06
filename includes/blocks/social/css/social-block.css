@@ -125,7 +125,8 @@
 		}
 
 		.wp-block-contact-widgets-social-block ul li.has-label a {
-			display: block;
+			display: inline-block;
+			text-decoration: none;
 		}
 
 		.wp-block-contact-widgets-social-block ul li.has-label svg {

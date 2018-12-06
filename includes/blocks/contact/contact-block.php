@@ -14,6 +14,8 @@ class Contact_Block {
 
 		add_action( 'enqueue_block_editor_assets', array( $this, 'contact_block_scripts' ) );
 
+		add_action( 'enqueue_block_assets', array( $this, 'contact_block_scripts' ) );
+
 	}
 
 
@@ -26,10 +28,9 @@ class Contact_Block {
 
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'contact-widgets-contact-block', plugins_url( "css/contact-block{$suffix}.css", __FILE__ ), array( 'wp-blocks' ), Plugin::$version );
+		wp_enqueue_style( 'contact-widgets-contact-block', plugins_url( "css/contact-block{$suffix}.css", __FILE__ ), array( 'wp-edit-blocks' ), Plugin::$version );
 
 	}
-
 }
 
 new Contact_Block();
