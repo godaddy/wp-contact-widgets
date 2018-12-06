@@ -12,6 +12,7 @@ notifications:
 php:
   - 5.6
   - 7.1
+  - 7.2
 
 env:
   - WP_VERSION=4.4 WP_MULTISITE=0
@@ -73,7 +74,7 @@ deploy:
   on:
     tags: true
     repo: godaddy/wp-contact-widgets
-    php: '7.1'
+    php: '7.2'
     condition: "$WP_VERSION=trunk"
   skip_cleanup: true
   overwrite: true
