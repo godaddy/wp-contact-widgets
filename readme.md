@@ -51,7 +51,7 @@ Development of this plugin is done [on GitHub](https://github.com/godaddy/wp-con
 1. Contact widget
 2. Social widget
 3. Twenty Sixteen theme showing both widgets
-4. Social widget block
+4. Social widget block settings and icons
 5. Contact widget block settings
 6. Contact widget block rendered
 
