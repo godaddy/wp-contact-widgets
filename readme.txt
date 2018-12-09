@@ -135,7 +135,7 @@ add_filter( 'wpcw_social_icons_use_cdn', '__return_true' );
 
 == Changelog ==
 
-= 1.6.1 - December 9th, 2018
+= 1.6.1 - December 9th, 2018 =
 * Tweak: URI Encode the contact map address.
 
 Props [@EvanHerman](https://github.com/evanherman)
