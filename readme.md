@@ -139,11 +139,11 @@ add_filter( 'wpcw_social_icons_use_cdn', '__return_true' );
 
 ## Changelog ##
 
-### 1.6.1 - December 9th, 2018
+### 1.6.1 - December 9th, 2018 ###
 * Tweak: URI Encode the contact map address.
 
 Props [@EvanHerman](https://github.com/evanherman)
-###
+
 ### 1.6.0 - December 6th, 2018 ###
 * New: Introduce Contact Details block.
 * New: Introduce Social Profiles block.
