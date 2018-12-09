@@ -398,6 +398,6 @@ function setupMapAddress( address ) {
 
   }
 
-  return mapAddress;
+  return encodeURIComponent( mapAddress );
 
 }
