@@ -19,8 +19,8 @@ spl_autoload_register(
 
 			$resource = strtolower(
 				str_replace(
-					[ __NAMESPACE__ . '\\', '_' ],
-					[ '', '-' ],
+					array( __NAMESPACE__ . '\\', '_' ),
+					array( '', '-' ),
 					$resource
 				)
 			);
@@ -38,4 +38,4 @@ spl_autoload_register(
 	}
 );
 
-add_action( 'plugins_loaded', [ __NAMESPACE__ . '\Plugin', 'init' ] );
+add_action( 'plugins_loaded', array( __NAMESPACE__ . '\Plugin', 'init' ) );

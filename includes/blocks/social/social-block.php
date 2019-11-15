@@ -28,7 +28,7 @@ class Social_Block {
 		$dependency = is_admin() ? 'wp-edit-blocks' : '';
 		$suffix     = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, array(), '4.7.0' );
 
 		wp_enqueue_style( 'contact-widgets-social-block', plugins_url( "css/social-block{$suffix}.css", __FILE__ ), array( $dependency ), Plugin::$version );
 

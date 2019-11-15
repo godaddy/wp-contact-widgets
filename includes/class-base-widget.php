@@ -15,7 +15,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 *
 	 * @var array
 	 */
-	protected $field_defaults = [
+	protected $field_defaults = array(
 		'key'            => '',
 		'icon'           => '',
 		'class'          => 'widefat',
@@ -35,8 +35,8 @@ abstract class Base_Widget extends \WP_Widget {
 		'atts'           => '', // Input attributes
 		'show_front_end' => true, // Are we showing this field on the front end?
 		'show_empty'     => false, // Show the field even if value is empty
-		'select_options' => [], // Only used if type=select & form_callback=render_form_select
-	];
+		'select_options' => array(), // Only used if type=select & form_callback=render_form_select
+	);
 
 	/**
 	 * Widget base constructor
@@ -49,7 +49,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		parent::__construct( $id_base, $name, $widget_options );
 
-		if ( has_action( 'wp_enqueue_scripts', [ $this, 'front_end_enqueue_scripts' ] ) ) {
+		if ( has_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ) ) ) {
 
 			return;
 
@@ -58,7 +58,7 @@ abstract class Base_Widget extends \WP_Widget {
 		// Enqueue style if widget is active (appears in a sidebar) or if in Customizer preview.
 		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
 
-			add_action( 'wp_enqueue_scripts', [ $this, 'front_end_enqueue_scripts' ] );
+			add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ) );
 
 		}
 
@@ -73,8 +73,8 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function form( $instance ) {
 
-		add_action( 'admin_footer', [ $this, 'enqueue_scripts' ] );
-		add_action( 'customize_controls_print_footer_scripts', [ $this, 'print_customizer_scripts' ] );
+		add_action( 'admin_footer', array( $this, 'enqueue_scripts' ) );
+		add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_customizer_scripts' ) );
 
 		?>
 		<script>
@@ -106,7 +106,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
 
-				$new_instance[ $key ] = [ 'value' => 'no' ]; // @codingStandardsIgnoreLine
+				$new_instance[ $key ] = array( 'value' => 'no' ); // @codingStandardsIgnoreLine
 
 			}
 
@@ -153,20 +153,20 @@ abstract class Base_Widget extends \WP_Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = [], $ordered = true ) {
+	protected function get_fields( array $instance, array $fields = array(), $ordered = true ) {
 
 		$order = 0;
 
 		foreach ( $fields as $key => &$field ) {
 
-			$common_properties = [
+			$common_properties = array(
 				'key'   => $key,
 				'icon'  => $key,
 				'order' => ! empty( $instance[ $key ]['order'] ) ? absint( $instance[ $key ]['order'] ) : $order,
 				'id'    => $this->get_field_id( $key ),
 				'name'  => $this->get_field_name( $key ) . '[value]',
 				'value' => ! empty( $instance[ $key ]['value'] ) ? $instance[ $key ]['value'] : '',
-			];
+			);
 
 			$common_properties = wp_parse_args( $common_properties, $this->field_defaults );
 			$field             = wp_parse_args( $field, $common_properties );
@@ -175,7 +175,7 @@ abstract class Base_Widget extends \WP_Widget {
 				return $value;
 			};
 
-			foreach ( [ 'escaper', 'sanitizer' ] as $key ) {
+			foreach ( array( 'escaper', 'sanitizer' ) as $key ) {
 
 				$field[ $key ] = ! is_callable( $field[ $key ] ) ? $default_closure : $field[ $key ];
 
@@ -284,7 +284,7 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	protected function before_form_field( array $field ) {
 
-		$classes = [ $field['type'], $field['key'] ];
+		$classes = array( $field['type'], $field['key'] );
 
 		if ( ! $field['sortable'] ) {
 
@@ -477,13 +477,13 @@ abstract class Base_Widget extends \WP_Widget {
 			$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 			$edit_url = add_query_arg(
-				[
+				array(
 					'url'       => rawurlencode( $current_url ),
-					'autofocus' => [
+					'autofocus' => array(
 						'section' => 'sidebar-widgets-' . $args['id'],
 						'control' => 'widget_' . preg_replace( '/-(\d)/', '[$1]', $args['widget_id'] ),
-					],
-				],
+					),
+				),
 				wp_customize_url()
 			);
 
@@ -531,17 +531,17 @@ abstract class Base_Widget extends \WP_Widget {
 		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", [], Plugin::$version );
+		wp_enqueue_style( 'wpcw-admin', \Contact_Widgets::$assets_url . "css/admin{$rtl}{$suffix}.css", array(), Plugin::$version );
 
-		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, array(), '4.7.0' );
 
-		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
+		wp_enqueue_script( 'wpcw-admin', \Contact_Widgets::$assets_url . "js/admin{$suffix}.js", array( 'jquery' ), Plugin::$version, true );
 
 		include 'social-networks.php';
 
 		if ( $GLOBALS['is_IE'] ) {
 
-			wp_enqueue_style( 'wpcw-admin-ie', \Contact_Widgets::$assets_url . "css/admin-ie{$rtl}{$suffix}.css", [ 'wpcw-admin' ], Plugin::$version );
+			wp_enqueue_style( 'wpcw-admin-ie', \Contact_Widgets::$assets_url . "css/admin-ie{$rtl}{$suffix}.css", array( 'wpcw-admin' ), Plugin::$version );
 
 		}
 
@@ -554,7 +554,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$this->enqueue_scripts();
 
-		wp_print_styles( [ 'font-awesome', 'wpcw-admin', 'wpcw-admin-ie' ] );
+		wp_print_styles( array( 'font-awesome', 'wpcw-admin', 'wpcw-admin-ie' ) );
 		wp_print_scripts( 'wpcw-admin' );
 
 	}
@@ -569,9 +569,9 @@ abstract class Base_Widget extends \WP_Widget {
 		$rtl    = is_rtl() ? '-rtl' : '';
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", [], Plugin::$version );
+		wp_enqueue_style( 'wpcw', \Contact_Widgets::$assets_url . "css/style{$rtl}{$suffix}.css", array(), Plugin::$version );
 
-		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, [], '4.7.0' );
+		wp_enqueue_style( 'font-awesome', \Contact_Widgets::$fa_url, array(), '4.7.0' );
 
 		if ( is_customize_preview() ) {
 
@@ -581,7 +581,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 			}
 
-			wp_enqueue_script( 'wpcw-helper', \Contact_Widgets::$assets_url . "js/customize-preview-helper{$suffix}.js", [ 'jquery' ], Plugin::$version, true );
+			wp_enqueue_script( 'wpcw-helper', \Contact_Widgets::$assets_url . "js/customize-preview-helper{$suffix}.js", array( 'jquery' ), Plugin::$version, true );
 
 		}
 
