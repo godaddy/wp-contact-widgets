@@ -24,11 +24,11 @@ final class Contact extends Base_Widget {
 	 */
 	public function __construct() {
 
-		$widget_options = [
+		$widget_options = array(
 			'classname'                   => 'wpcw-widgets wpcw-widget-contact',
 			'description'                 => __( 'Display your contact information.', 'contact-widgets' ),
 			'customize_selective_refresh' => true,
-		];
+		);
 
 		parent::__construct(
 			'wpcw_contact',
@@ -78,7 +78,7 @@ final class Contact extends Base_Widget {
 
 			$method = $field['form_callback'];
 
-			if ( is_callable( [ $this, $method ] ) ) {
+			if ( is_callable( array( $this, $method ) ) ) {
 
 				$this->$method( $field );
 
@@ -137,9 +137,9 @@ final class Contact extends Base_Widget {
 
 		if ( 'yes' === $instance['map']['value'] && ! empty( $fields['address']['value'] ) ) {
 
-			if ( $this->defer_map_iframes && ! has_action( 'wp_footer', [ $this, 'defer_map_iframes_js' ] ) ) {
+			if ( $this->defer_map_iframes && ! has_action( 'wp_footer', array( $this, 'defer_map_iframes_js' ) ) ) {
 
-				add_action( 'wp_footer', [ $this, 'defer_map_iframes_js' ] );
+				add_action( 'wp_footer', array( $this, 'defer_map_iframes_js' ) );
 
 			}
 
@@ -166,16 +166,16 @@ final class Contact extends Base_Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = [], $ordered = true ) {
+	protected function get_fields( array $instance, array $fields = array(), $ordered = true ) {
 
-		$fields = [
-			'title'   => [
+		$fields = array(
+			'title'   => array(
 				'label'       => __( 'Title:', 'contact-widgets' ),
 				'description' => __( 'The title of widget. Leave empty for no title.', 'contact-widgets' ),
 				'value'       => ! empty( $instance['title'] ) ? $instance['title'] : '',
 				'sortable'    => false,
-			],
-			'email'   => [
+			),
+			'email'   => array(
 				'label'       => __( 'Email:', 'contact-widgets' ),
 				'type'        => 'email',
 				'sanitizer'   => 'sanitize_email',
@@ -184,18 +184,18 @@ final class Contact extends Base_Widget {
 					return sprintf( '<a href="mailto:%1$s">%1$s</a>', antispambot( $value ) );
 				},
 				'description' => __( 'An email address where website visitors can contact you.', 'contact-widgets' ),
-			],
-			'phone'   => [
+			),
+			'phone'   => array(
 				'label'       => __( 'Phone:', 'contact-widgets' ),
 				'type'        => 'text',
 				'description' => __( 'A phone number that website visitors can call if they have questions.', 'contact-widgets' ),
-			],
-			'fax'     => [
+			),
+			'fax'     => array(
 				'label'       => __( 'Fax:', 'contact-widgets' ),
 				'type'        => 'text',
 				'description' => __( 'A fax number that website visitors can use to send important documents.', 'contact-widgets' ),
-			],
-			'address' => [
+			),
+			'address' => array(
 				'label'         => __( 'Address:', 'contact-widgets' ),
 				'type'          => 'textarea',
 				'sanitizer'     => function( $value ) {
@@ -206,8 +206,8 @@ final class Contact extends Base_Widget {
 				},
 				'form_callback' => 'render_form_textarea',
 				'description'   => __( 'A physical address where website visitors can go to visit you in person.', 'contact-widgets' ),
-			],
-			'labels'  => [
+			),
+			'labels'  => array(
 				'label'          => __( 'Display labels?', 'contact-widgets' ),
 				'class'          => '',
 				'label_after'    => true,
@@ -216,8 +216,8 @@ final class Contact extends Base_Widget {
 				'value'          => 'yes',
 				'atts'           => $this->checked( 'yes', isset( $instance['labels']['value'] ) ? $instance['labels']['value'] : 'yes' ),
 				'show_front_end' => false,
-			],
-			'map'     => [
+			),
+			'map'     => array(
 				'label'          => __( 'Display map of address?', 'contact-widgets' ),
 				'class'          => '',
 				'label_after'    => true,
@@ -236,8 +236,8 @@ final class Contact extends Base_Widget {
 				'zoom'           => absint( apply_filters( 'wpcw_widget_contact_map_zoom', 14, $instance ) ),
 				'atts'           => $this->checked( 'yes', isset( $instance['map']['value'] ) ? $instance['map']['value'] : 'yes' ),
 				'show_front_end' => false,
-			],
-		];
+			),
+		);
 
 		$fields = apply_filters( 'wpcw_widget_contact_custom_fields', $fields, $instance );
 		$fields = parent::get_fields( $instance, $fields );

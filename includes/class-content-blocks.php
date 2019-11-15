@@ -39,10 +39,10 @@ class Content_Blocks {
 		wp_localize_script(
 			'contact-widgets-blocks',
 			'wpcw_social',
-			[
+			array(
 				'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
 				'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
-			]
+			)
 		);
 
 	}

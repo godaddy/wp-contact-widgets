@@ -17,11 +17,11 @@ final class Social extends Base_Widget {
 	 */
 	public function __construct() {
 
-		$widget_options = [
+		$widget_options = array(
 			'classname'                   => 'wpcw-widgets wpcw-widget-social',
 			'description'                 => __( 'Display links to your social media profiles.', 'contact-widgets' ),
 			'customize_selective_refresh' => true,
-		];
+		);
 
 		parent::__construct(
 			'wpcw_social',
@@ -103,7 +103,7 @@ final class Social extends Base_Widget {
 			$method = $field['form_callback'];
 
 			if (
-				is_callable( [ $this, $method ] )
+				is_callable( array( $this, $method ) )
 				&&
 				( ! empty( $field['value'] ) || $field['show_empty'] )
 			) {
@@ -138,7 +138,7 @@ final class Social extends Base_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		$fields = $this->get_fields( $instance, [], true );
+		$fields = $this->get_fields( $instance, array(), true );
 
 		if ( $this->is_widget_empty( $fields ) ) {
 
@@ -205,37 +205,37 @@ final class Social extends Base_Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = [], $ordered = false ) {
+	protected function get_fields( array $instance, array $fields = array(), $ordered = false ) {
 
 		include 'social-networks.php';
 
 		foreach ( $fields as $key => &$field ) {
 
-			$default = [
+			$default = array(
 				'sanitizer' => 'esc_url_raw',
 				'escaper'   => 'esc_url',
 				'select'    => '',
 				'social'    => true,
 				'target'    => '_blank',
-			];
+			);
 
 			$field = wp_parse_args( $field, $default );
 
 		}
 
-		$title = [
-			'title' => [
+		$title = array(
+			'title' => array(
 				'label'       => __( 'Title:', 'contact-widgets' ),
 				'description' => __( 'The title of widget. Leave empty for no title.', 'contact-widgets' ),
 				'value'       => ! empty( $instance['title'] ) ? $instance['title'] : '',
 				'sortable'    => false,
-			],
-		];
+			),
+		);
 
 		// Prepend title field to the array
 		$fields = $title + $fields;
 
-		$fields['labels'] = [
+		$fields['labels'] = array(
 			'label'          => __( 'Display labels?', 'contact-widgets' ),
 			'class'          => '',
 			'label_after'    => true,
@@ -244,7 +244,7 @@ final class Social extends Base_Widget {
 			'value'          => 'yes',
 			'atts'           => $this->checked( 'yes', isset( $instance['labels']['value'] ) ? $instance['labels']['value'] : 'no' ),
 			'show_front_end' => false,
-		];
+		);
 
 		$fields = apply_filters( 'wpcw_widget_social_custom_fields', $fields, $instance );
 		$fields = parent::get_fields( $instance, $fields, $ordered );
