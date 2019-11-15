@@ -10,7 +10,7 @@ export default class BlockOrderControl extends Component {
 
   componentDidMount() {
 
-    var $contactFormFields = $( '.contact-fields-order' ),
+    var $contactFormFields = jQuery( '.contact-fields-order' ),
         props              = this.props;
 
     $contactFormFields.sortable( {
@@ -27,8 +27,8 @@ export default class BlockOrderControl extends Component {
       },
       stop: function( e, ui ) {
         var fields = [];
-        $( '.contact-fields-order' ).children().each( function() {
-          fields.push( { label: $( this ).data( 'label' ) } );
+        jQuery( '.contact-fields-order' ).children().each( function() {
+          fields.push( { label: jQuery( this ).data( 'label' ) } );
         } );
         props.setAttributes( { fields: fields } );
       }
