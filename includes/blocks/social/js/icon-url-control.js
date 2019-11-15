@@ -12,7 +12,7 @@ export default class AdminControlIconURLS extends Component {
 
   componentDidMount() {
 
-    var $socialIcons = $( '.social-icon-urls' ),
+    var $socialIcons = jQuery( '.social-icon-urls' ),
         props         = this.props;
 
     $socialIcons.sortable( {
@@ -29,8 +29,8 @@ export default class AdminControlIconURLS extends Component {
       },
       stop: function( e, ui ) {
         var icons = [];
-        $( '.social-icon-urls' ).children().not( '.default-fields' ).each( function() {
-          icons.push( $( this ).attr( 'class' ) );
+        jQuery( '.social-icon-urls' ).children().not( '.default-fields' ).each( function() {
+          icons.push( jQuery( this ).attr( 'class' ) );
         } );
         props.setAttributes( { icons: icons } );
         $socialIcons.sortable( 'cancel' );
@@ -43,8 +43,8 @@ export default class AdminControlIconURLS extends Component {
     const { attributes: { icons, iconURLS }, setAttributes, getIconData  } = this.props;
     const updateIconURLS = () => {
       var newURLS = {};
-      $( '.holder input[type="text"]' ).each( function() {
-        newURLS[ $( this ).closest( 'span' ).data( 'icon' ) ] = $( this ).val();
+      jQuery( '.holder input[type="text"]' ).each( function() {
+        newURLS[ jQuery( this ).closest( 'span' ).data( 'icon' ) ] = jQuery( this ).val();
       } );
       setAttributes( { iconURLS: newURLS } );
     };

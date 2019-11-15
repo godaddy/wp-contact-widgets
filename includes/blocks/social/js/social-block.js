@@ -221,6 +221,6 @@ export default registerBlockType( 'contact-widgets/social-block', {
   },
 } );
 
-$( document ).on( 'click', '.social-icons a', function( event ) {
+jQuery( document ).on( 'click', '.social-icons a', function( event ) {
   event.preventDefault();
 } );

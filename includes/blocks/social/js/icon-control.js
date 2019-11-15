@@ -12,7 +12,7 @@ export default class AdminControlIcons extends Component {
 
       e.preventDefault();
 
-      var $btn     = $( e.target ).closest( 'a' ),
+      var $btn     = jQuery( e.target ).closest( 'a' ),
           newIcons = [ ...icons ];
 
       $btn.toggleClass( 'inactive' );
@@ -40,7 +40,7 @@ export default class AdminControlIcons extends Component {
           iconLabel  = wpcw_social.icons[ key ].label,
           iconURL    = wpcw_social.icons[ key ].default,
           iconSelect = wpcw_social.icons[ key ].select,
-          activeIconClass = ( $.inArray( iconClass, icons ) >= 0 ) ? 'active' : 'inactive';
+          activeIconClass = ( jQuery.inArray( iconClass, icons ) >= 0 ) ? 'active' : 'inactive';
 
       return (
         <a key={ key } href="#" onClick={ ( e ) => toggleSelectedIcons( e, iconClass ) } className={ activeIconClass } title={ iconLabel } data-key={ iconClass } data-value={ iconURL } data-select={ iconSelect } data-label={ iconLabel }>
