@@ -28,14 +28,14 @@ abstract class Base_Widget extends \WP_Widget {
 		'sanitizer'      => 'sanitize_text_field',
 		'escaper'        => 'esc_html',
 		'form_callback'  => 'render_form_input',
-		'default'        => '', // Used mainly for social fields to add default value
+		'default'        => '',       // Used mainly for social fields to add default value.
 		'value'          => '',
 		'placeholder'    => '',
 		'sortable'       => true,
-		'atts'           => '', // Input attributes
-		'show_front_end' => true, // Are we showing this field on the front end?
-		'show_empty'     => false, // Show the field even if value is empty
-		'select_options' => array(), // Only used if type=select & form_callback=render_form_select
+		'atts'           => '',       // Input attributes.
+		'show_front_end' => true,     // Are we showing this field on the front end?
+		'show_empty'     => false,    // Show the field even if value is empty.
+		'select_options' => array(),  // Only used if type=select & form_callback=render_form_select.
 	);
 
 	/**
@@ -65,7 +65,7 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Add common ressources needed for the form
+	 * Add common resources needed for the form
 	 *
 	 * @param array $instance
 	 *
@@ -80,7 +80,7 @@ abstract class Base_Widget extends \WP_Widget {
 		<script>
 			( function ( $ ) {
 
-				// This let us know that we appended a new widget to reset sortables
+				// This let us know that we appended a new widget to reset sortables.
 				$( document ).trigger( 'wpcw.change' );
 
 			} )( jQuery );
@@ -101,7 +101,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$fields = $this->get_fields( $old_instance );
 
-		// Force value for checkbox since they are not posted
+		// Force value for checkbox since they are not posted.
 		foreach ( $fields as $key => $field ) {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
@@ -117,7 +117,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		foreach ( $new_instance as $key => &$instance ) {
 
-			// Skip unrecognized fields added by other plugins
+			// Skip unrecognized fields added by other plugins.
 			if ( ! array_key_exists( $key, $fields ) ) {
 
 				continue;
@@ -208,7 +208,7 @@ abstract class Base_Widget extends \WP_Widget {
 			$fields,
 			function( $a, $b ) use ( $fields ) {
 
-				// We want title first and order of non sortable fields doesn't matter
+				// We want title first and order of non sortable fields doesn't matter.
 				if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
 
 					return 1;

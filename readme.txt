@@ -1,5 +1,5 @@
 === Contact Widgets ===
-Contributors:      godaddy, jonathanbardo, fjarrett, eherman24
+Contributors:      godaddy, jonathanbardo, fjarrett, eherman24, passoniate
 Tags:              widget, contact, social, social icons, social media, facebook, twitter, instagram, linkedin, pinterest
 Requires at least: 4.4
 Tested up to:      5.3
