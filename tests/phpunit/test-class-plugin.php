@@ -30,7 +30,7 @@ final class TestPlugin extends TestCase {
 
 		global $wp_widget_factory;
 
-		// Check contact widget presence
+		// Check contact widget presence.
 		$this->assertTrue(
 			class_exists( 'WPCW\Contact' ),
 			'Class WPCW\Contact is not found'
@@ -39,7 +39,7 @@ final class TestPlugin extends TestCase {
 		$this->assertTrue( isset( $wp_widget_factory->widgets['WPCW\Contact'] ) );
 
 
-		// Check social widget class presence
+		// Check social widget class presence.
 		$this->assertTrue(
 			class_exists( 'WPCW\Social' ),
 			'Class WPCW\Social is not found'

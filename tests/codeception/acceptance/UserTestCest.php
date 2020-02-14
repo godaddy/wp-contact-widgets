@@ -10,7 +10,7 @@ class AdminTestCest {
 	 */
 	protected function login( AcceptanceTester $I ) {
 
-		//Check if cookie first
+		// Check if cookie first.
 		static $cookie = null;
 
 		if ( ! is_null( $cookie ) ) {
@@ -23,21 +23,21 @@ class AdminTestCest {
 
 		$I->wantTo( 'Log into WordPress admin' );
 
-		// Let's start on the login page
+		// Let's start on the login page.
 		$I->amOnUrl( wp_login_url() );
 
 		$I->wait( 3 );
 
-		// Populate the login form's user id field
+		// Populate the login form's user id field.
 		$I->fillField( [ 'id' => 'user_login' ], 'admin' );
 
-		// Populate the login form's password field
+		// Populate the login form's password field.
 		$I->fillField( [ 'id' => 'user_pass' ], 'password' );
 
 		// Submit the login form
 		$I->click( [ 'name' => 'wp-submit' ] );
 
-		// Wait for page to load [Hack for Safari and IE]
+		// Wait for page to load [Hack for Safari and IE].
 		$I->waitForElementVisible( [ 'css' => 'body.index-php' ] );
 
 		$cookie = $I->grabCookie( AUTH_COOKIE );
@@ -84,7 +84,7 @@ class AdminTestCest {
 		 */
 		$I->click( [ 'css' => "{$selector} form input.button-primary" ] );
 
-		// Wait for all ajax request to finish
+		// Wait for all ajax request to finish.
 		$I->waitForJS( 'return jQuery.active == 0;' );
 
     }
@@ -102,7 +102,7 @@ class AdminTestCest {
 
 		$I->waitForElementVisible( [ 'class' => 'wpcw-widget-contact' ] );
 
-		// Let's validate what we submitted earlier
+		// Let's validate what we submitted earlier.
 		$I->see( 'Acceptance tests contact', [ 'css' => '.wpcw-widget-contact .widget-title' ] );
 		$I->see( 'info@local.dev', [ 'css' => '.wpcw-widget-contact ul li' ] );
 		$I->see( '555-555-5555', [ 'css' => '.wpcw-widget-contact ul li' ] );
@@ -153,7 +153,7 @@ class AdminTestCest {
 
 		$I->wait( 1 );
 
-		// Let's test reordering so facebook should be first
+		// Let's test reordering so facebook should be first.
 		$I->dragAndDrop( [ 'css' => "{$selector} form p.facebook .wpcw-widget-sortable-handle" ], [ 'css' => "{$selector} .wpcw-widget-social .icons" ] );
 
 		$I->wait( 1 );
@@ -163,7 +163,7 @@ class AdminTestCest {
 		 */
 		$I->click( [ 'css' => "{$selector} form input.button-primary" ] );
 
-		// Wait for all ajax request to finish
+		// Wait for all ajax request to finish.
 		$I->waitForJS( 'return jQuery.active == 0;' );
 
 	}
@@ -202,7 +202,7 @@ class AdminTestCest {
 
 		$I->executeJS('jQuery(".wpcw-widget-social ul li:first-child")[0].scrollIntoView();');
 
-		// Facebook should be first after reordering
+		// Facebook should be first after reordering.
 		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:first-child span[class*="facebook"]' ] );
 		$I->seeElementInDOM( [ 'css' => '.wpcw-widget-social ul li:last-child span[class*="twitter"]' ] );
 
@@ -229,7 +229,7 @@ class AdminTestCest {
 
 		$I->seeInCurrentUrl( '/wp-admin/customize.php' );
 
-		$I->wait( 3 ); // The animation takes a little bit of time
+		$I->wait( 3 ); // The animation takes a little bit of time.
 
 		$I->seeElement( [ 'class' => 'wpcw-widget-social' ] );
 

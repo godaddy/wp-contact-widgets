@@ -114,14 +114,14 @@ final class Social extends Base_Widget {
 
 		}
 
-		// Workaround customizer refresh @props @westonruter
+		// Workaround customizer refresh @props @westonruter.
 		echo '<input class="customizer_update" type="hidden" value="">';
 
 		echo '</div>'; // End form
 
 		echo '<div class="default-fields">';
 
-		// Template form for JS use
+		// Template form for JS use.
 		$this->render_form_input( $this->field_defaults + [ 'social' => true ] ); // @codingStandardsIgnoreLine
 
 		echo '</div>'; // End default-fields
@@ -232,7 +232,7 @@ final class Social extends Base_Widget {
 			),
 		);
 
-		// Prepend title field to the array
+		// Prepend title field to the array.
 		$fields = $title + $fields;
 
 		$fields['labels'] = array(

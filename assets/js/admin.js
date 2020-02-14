@@ -52,7 +52,7 @@
 				ui.placeholder.height( ui.helper.height() );
 			},
 			stop: function ( e, ui ) {
-				// Trigger change for customizer
+				// Trigger change for customizer.
 				$contact_form.find( '.customizer_update' ).val( ui.item.index() ).trigger( 'change' );
 			}
 		} );
@@ -74,7 +74,7 @@
 			self.$btn    = $( this );
 			self.$widget = self.$btn.parents( '.wpcw-widget' );
 
-			// Make sure we don't trigger the animation again on double-click
+			// Make sure we don't trigger the animation again on double-click.
 			if ( self.$widget.find( '.' + self.$btn.data('key') ).is( ':animated' ) ) {
 
 				return false;

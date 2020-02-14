@@ -61,12 +61,12 @@ final class TestContact extends TestCase {
 		$this->expectOutputRegex( '/<div class="widget wpcw-widget-contact"><div class="widget-content">/' );
 		$this->expectOutputRegex( '/<h3 class="widget-title">/' );
 
-		// Check that we sprint the right google url
+		// Check that we sprint the right Google url.
 		$this->expectOutputRegex( '~//www\.google\.com\/maps\?q=123%20Santa%20Monica&output=embed~' );
 
 		$this->plugin->widget( $args, $instance );
 
-		// Tests that script & styles are enqueued enqueued
+		// Tests that script & styles are enqueued enqueued.
 		do_action( 'wp_enqueue_scripts' );
 
 		$wp_styles = wp_styles();

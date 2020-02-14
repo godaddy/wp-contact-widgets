@@ -59,13 +59,13 @@ final class TestSocial extends TestCase {
 
 		$this->plugin->widget( $args, $instance );
 
-		// Tests that script & styles are enqueued enqueued
+		// Tests that script & styles are enqueued enqueued.
 		do_action( 'wp_enqueue_scripts' );
 
 		$wp_styles  = wp_styles();
 		$wp_scripts = wp_scripts();
 
-		// Make sure the CSS files are enqueued
+		// Make sure the CSS files are enqueued.
 		$this->assertContains( 'wpcw', $wp_styles->queue );
 		$this->assertContains( 'font-awesome', $wp_styles->queue );
 

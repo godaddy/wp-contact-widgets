@@ -15,7 +15,7 @@ self::$config['modules'] = [
 	],
 ];
 
-// Activate twenty_sixteen for our test purpose
+// Activate twenty_sixteen for our test purpose.
 $current_theme = get_stylesheet();
 
 switch_theme( 'twentysixteen' );
@@ -23,7 +23,7 @@ switch_theme( 'twentysixteen' );
 $contact_widgets = get_option( 'widget_wpcw_contact' );
 $social_widgets  = get_option( 'widget_wpcw_social' );
 
-// Let's delete any present widget
+// Let's delete any present widget.
 delete_option( 'widget_wpcw_contact' );
 delete_option( 'widget_wpcw_social' );
 
