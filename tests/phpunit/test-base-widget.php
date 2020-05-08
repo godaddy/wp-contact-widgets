@@ -8,11 +8,11 @@ final class TestBaseWidget extends TestCase {
 
 		parent::setUp();
 
-		$args = [
+		$args = array(
 			'wpcw_test',
 			'TEST',
-			[],
-		];
+			array(),
+		);
 
 		$this->plugin = $this->getMockForAbstractClass( __NAMESPACE__ . '\Base_Widget', $args );
 
@@ -22,12 +22,12 @@ final class TestBaseWidget extends TestCase {
 
 		ob_start();
 
-		$this->plugin->form( [] );
+		$this->plugin->form( array() );
 
 		ob_end_clean();
 
-		$this->do_action_validation( 'admin_footer', [ $this->plugin, 'enqueue_scripts' ] );
-		$this->do_action_validation( 'customize_controls_print_footer_scripts', [ $this->plugin, 'print_customizer_scripts' ] );
+		$this->do_action_validation( 'admin_footer', array( $this->plugin, 'enqueue_scripts' ) );
+		$this->do_action_validation( 'customize_controls_print_footer_scripts', array( $this->plugin, 'print_customizer_scripts' ) );
 
 	}
 

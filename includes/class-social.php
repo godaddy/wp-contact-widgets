@@ -111,7 +111,6 @@ final class Social extends Base_Widget {
 				$this->$method( $field );
 
 			}
-
 		}
 
 		// Workaround customizer refresh @props @westonruter

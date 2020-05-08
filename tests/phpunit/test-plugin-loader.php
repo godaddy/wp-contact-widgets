@@ -17,9 +17,9 @@ final class TestPluginLoader extends TestCase {
 	 */
 	function test_construct() {
 
-		$this->do_action_validation( 'plugins_loaded', [ $this->plugin, 'i18n' ] );
+		$this->do_action_validation( 'plugins_loaded', array( $this->plugin, 'i18n' ) );
 
-		$this->do_action_validation( 'plugins_loaded', [ __NAMESPACE__ . '\Plugin', 'init' ] );
+		$this->do_action_validation( 'plugins_loaded', array( __NAMESPACE__ . '\Plugin', 'init' ) );
 
 	}
 
@@ -27,7 +27,7 @@ final class TestPluginLoader extends TestCase {
 
 		$this->plugin = new \Contact_Widgets( '5.3' );
 
-		$this->do_action_validation( 'shutdown', [ $this->plugin, 'notice' ] );
+		$this->do_action_validation( 'shutdown', array( $this->plugin, 'notice' ) );
 
 	}
 

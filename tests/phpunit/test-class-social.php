@@ -34,25 +34,25 @@ final class TestSocial extends TestCase {
 		$this->expectOutputRegex( '/class="customizer_update"/' );
 		$this->expectOutputRegex( '/class="default-fields"/' );
 
-		$this->plugin->form( [] );
+		$this->plugin->form( array() );
 
 	}
 
 	function test_widget() {
 
-		$instance = [
+		$instance = array(
 			'title'  => 'test',
-			'labels' => [
+			'labels' => array(
 				'value' => 'yes',
-			],
-		];
+			),
+		);
 
-		$args = [
+		$args = array(
 			'before_widget' => '<div class="widget wpcw-widget-social"><div class="widget-content">',
-			'after_widget' => '</div><div class="clear"></div></div>',
+			'after_widget'  => '</div><div class="clear"></div></div>',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
-		];
+		);
 
 		$this->expectOutputRegex( '/<div class="widget wpcw-widget-social"><div class="widget-content">/' );
 		$this->expectOutputRegex( '/<h3 class="widget-title">/' );

@@ -4,11 +4,11 @@ define( 'WP_USE_THEMES', false );
 
 if ( getenv( 'TRAVIS' ) ) {
 
-	require( '/tmp/wordpress/wp-load.php' );
+	require '/tmp/wordpress/wp-load.php';
 
 } else {
 
-	require( '../../../wp-load.php' );
+	require '../../../wp-load.php';
 
 }
 

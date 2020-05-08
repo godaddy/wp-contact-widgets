@@ -12,17 +12,17 @@ class TestCase extends \WP_UnitTestCase {
 	/**
 	 * Helper function to check validity of action
 	 *
-	 * @param string $action
+	 * @param string       $action
 	 * @param array|string $callback
-	 * @param string $function_call
+	 * @param string       $function_call
 	 */
 	protected function do_action_validation( $action, $callback, $function_call = 'has_action' ) {
 
-		//Default WP priority
+		// Default WP priority
 		$priority = isset( $test[3] ) ? $test[3] : 10;
 
-		//Default function call
-		$function_call = ( in_array( $function_call, [ 'has_action', 'has_filter' ] ) ) ? $function_call : 'has_action';
+		// Default function call
+		$function_call = ( in_array( $function_call, array( 'has_action', 'has_filter' ) ) ) ? $function_call : 'has_action';
 
 		if ( is_array( $callback ) ) {
 
@@ -34,7 +34,7 @@ class TestCase extends \WP_UnitTestCase {
 
 		}
 
-		//Run assertion here
+		// Run assertion here
 		$this->assertEquals(
 			$priority,
 			$function_call( $action, $callback ),
@@ -50,7 +50,8 @@ class TestCase extends \WP_UnitTestCase {
 
 	/**
 	 * Helper function to check validity of filters
-	 * @param string $action
+	 *
+	 * @param string       $action
 	 * @param array|string $callback
 	 */
 	protected function do_filter_validation( $action, $callback ) {

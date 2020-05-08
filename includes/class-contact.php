@@ -83,7 +83,6 @@ final class Contact extends Base_Widget {
 				$this->$method( $field );
 
 			}
-
 		}
 
 		// Workaround customizer refresh @props @westonruter

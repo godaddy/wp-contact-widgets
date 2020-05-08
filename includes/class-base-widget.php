@@ -109,7 +109,6 @@ abstract class Base_Widget extends \WP_Widget {
 				$new_instance[ $key ] = array( 'value' => 'no' ); // @codingStandardsIgnoreLine
 
 			}
-
 		}
 
 		// Starting at 1 since title order is 0
@@ -255,7 +254,6 @@ abstract class Base_Widget extends \WP_Widget {
 				return false;
 
 			}
-
 		}
 
 		return true;
@@ -280,6 +278,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 	/**
 	 * Print label and wrapper
+	 *
 	 * @param array $field
 	 */
 	protected function before_form_field( array $field ) {
@@ -504,9 +503,9 @@ abstract class Base_Widget extends \WP_Widget {
 	 * Helper to output only 'checked' and not checked='checked'
 	 * IE 9 & 10 don't support the latter
 	 *
-	 * @param mixed  $helper  One of the values to compare
-	 * @param mixed  $current (true) The other value to compare if not just true
-	 * @param bool   $echo    Whether to echo or just return the string
+	 * @param mixed $helper  One of the values to compare
+	 * @param mixed $current (true) The other value to compare if not just true
+	 * @param bool  $echo    Whether to echo or just return the string
 	 * @return string html attribute or empty string
 	 */
 	public function checked( $helper, $current, $echo = false ) {

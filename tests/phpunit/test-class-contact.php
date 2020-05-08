@@ -33,30 +33,30 @@ final class TestContact extends TestCase {
 		$this->expectOutputRegex( '/class="wpcw-widget wpcw-widget-contact"/' );
 		$this->expectOutputRegex( '/class="customizer_update"/' );
 
-		$this->plugin->form( [] );
+		$this->plugin->form( array() );
 
 	}
 
 	function test_widget() {
 
-		$instance = [
-			'title'  => 'test',
-			'labels' => [
+		$instance = array(
+			'title'   => 'test',
+			'labels'  => array(
 				'value' => 'yes',
-			],
-			'map' => [
+			),
+			'map'     => array(
 				'value' => 'yes',
-			],
-			'address' => [
-				'value' => '<br>123 Santa Monica<br>'
-			]
-		];
-		$args = [
+			),
+			'address' => array(
+				'value' => '<br>123 Santa Monica<br>',
+			),
+		);
+		$args     = array(
 			'before_widget' => '<div class="widget wpcw-widget-contact"><div class="widget-content">',
 			'after_widget'  => '</div><div class="clear"></div></div>',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
-		];
+		);
 
 		$this->expectOutputRegex( '/<div class="widget wpcw-widget-contact"><div class="widget-content">/' );
 		$this->expectOutputRegex( '/<h3 class="widget-title">/' );

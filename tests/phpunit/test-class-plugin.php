@@ -19,7 +19,7 @@ final class TestPlugin extends TestCase {
 
 		Plugin::init();
 
-		$this->do_action_validation( 'widgets_init', [ __NAMESPACE__ . '\Plugin', 'register_widgets' ] );
+		$this->do_action_validation( 'widgets_init', array( __NAMESPACE__ . '\Plugin', 'register_widgets' ) );
 
 	}
 
@@ -37,7 +37,6 @@ final class TestPlugin extends TestCase {
 		);
 
 		$this->assertTrue( isset( $wp_widget_factory->widgets['WPCW\Contact'] ) );
-
 
 		// Check social widget class presence
 		$this->assertTrue(
