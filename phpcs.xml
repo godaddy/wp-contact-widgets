@@ -55,13 +55,14 @@
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" value="contact_widgets"/>
+			<property name="text_domain" value="contact-widgets"/>
 		</properties>
 	</rule>
 
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
+				<element value="wpcw"/>
 				<element value="contact_widgets"/>
 			</property>
 		</properties>

@@ -11,6 +11,8 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * Copyright © 2016 GoDaddy Operating Company, LLC. All Rights Reserved.
+ *
+ * @package ContactWidgets.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,8 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'Contact_Widgets' ) ) {
 
+	/**
+	 * Contact Widgets plugin class.
+	 */
 	final class Contact_Widgets {
-
 		/**
 		 * Minimum PHP version
 		 *
@@ -54,7 +58,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 		/**
 		 * Class constructor
 		 *
-		 * @param string $cur_php_version
+		 * @param string $cur_php_version The current php version represented by String.
 		 */
 		public function __construct( $cur_php_version = PHP_VERSION ) {
 
@@ -73,7 +77,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 
 			if ( defined( 'WP_CLI' ) && WP_CLI && file_exists( $composer_autoloader ) ) {
 
-				// This is for enabling codeception
+				// This is for enabling codeception.
 				require_once $composer_autoloader;
 
 			}
@@ -112,7 +116,7 @@ if ( ! class_exists( 'Contact_Widgets' ) ) {
 
 			if ( self::$fontawesome_5 ) {
 
-				// Font Awesome 5 CDN URL
+				// Font Awesome 5 CDN URL.
 				return $fontawesome_cdn_url;
 
 			}

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Bootstrap for codeception.
+ *
+ * @package ContactWidgets
+ */
 
 define( 'WP_USE_THEMES', false );
 
