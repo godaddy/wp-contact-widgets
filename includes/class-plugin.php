@@ -1,4 +1,9 @@
 <?php
+/**
+ * Plugin class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Plugin class
+ */
 class Plugin {
 
 	/**

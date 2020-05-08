@@ -60,16 +60,16 @@ Adding additional fields to the Contact Information widget is as simple as addin
 Here is an example:
 
 <pre lang="php">
-add_filter( 'wpcw_widget_contact_custom_fields', function ( $fields, $instance ) {
+add_filter( 'wpcw_widget_contact_custom_fields', function ( $wpcw_fields, $instance ) {
 
-  $fields['cellphone'] = [
+  $wpcw_fields['cellphone'] = [
     'order'       => 2,
     'label'       => __( 'Cellphone:', 'YOURTEXTDOMAIN' ),
     'type'        => 'text',
     'description' => __( 'A cellphone number that website visitors can call if they have questions.', 'YOURTEXTDOMAIN' ),
   ];
 
-  return $fields;
+  return $wpcw_fields;
 
 }, 10, 2 );
 </pre>
@@ -81,9 +81,9 @@ The Social Media Profiles widget requires a different set of options but follows
 Here is an example:
 
 <pre lang="php">
-add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) {
+add_filter( 'wpcw_widget_social_custom_fields', function ( $wpcw_fields, $instance ) {
 
-  $fields['scribd'] = [
+  $wpcw_fields['scribd'] = [
     'icon'      => 'scribd', // See font-awesome icon slug
     'label'     => __( 'Scribd', 'YOURTEXTDOMAIN' ),
     'default'   => 'https://www.scribd.com/username',
@@ -94,7 +94,7 @@ add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) 
     'target'    => '_blank',
   ];
 
-  return $fields;
+  return $wpcw_fields;
 
 }, 10, 2 );
 </pre>
@@ -104,9 +104,9 @@ If using Font Awesome v5, 'solid' & 'regular' icons require a 'prefix' value whe
 Here is an example of adding a 'fas' (Solid) icon to the social profiles.
 
 <pre lang="php">
-add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) {
+add_filter( 'wpcw_widget_social_custom_fields', function ( $wpcw_fields, $instance ) {
 
-  $fields['lattes'] = [
+  $wpcw_fields['lattes'] = [
     'icon'      => 'graduation-cap', // See font-awesome icon slug
     'prefix'    => 'fas', // See font-awesome icon prefix
     'label'     => __( 'Service Name', 'YOURTEXTDOMAIN' ),
@@ -118,7 +118,7 @@ add_filter( 'wpcw_widget_social_custom_fields', function ( $fields, $instance ) 
     'target'    => '_blank',
   ];
 
-  return $fields;
+  return $wpcw_fields;
 
 }, 10, 2 );
 </pre>

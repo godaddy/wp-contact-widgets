@@ -1,4 +1,9 @@
 <?php
+/**
+ * Contact class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Contact class.
+ */
 final class Contact extends Base_Widget {
 
 	/**
@@ -53,7 +61,7 @@ final class Contact extends Base_Widget {
 	/**
 	 * Widget form fields
 	 *
-	 * @param array $instance The widget options
+	 * @param Array $instance The widget options.
 	 *
 	 * @return string|void
 	 */
@@ -61,20 +69,20 @@ final class Contact extends Base_Widget {
 
 		parent::form( $instance );
 
-		$fields = $this->get_fields( $instance );
+		$wpcw_fields = $this->get_fields( $instance );
 
 		echo '<div class="wpcw-widget wpcw-widget-contact">';
 
 		echo '<div class="title">';
 
-		// Title field
-		$this->render_form_input( array_shift( $fields ) );
+		// Title field.
+		$this->render_form_input( array_shift( $wpcw_fields ) );
 
 		echo '</div>';
 
 		echo '<div class="form">';
 
-		foreach ( $fields as $key => $field ) {
+		foreach ( $wpcw_fields as $key => $field ) {
 
 			$method = $field['form_callback'];
 
@@ -85,36 +93,36 @@ final class Contact extends Base_Widget {
 			}
 		}
 
-		// Workaround customizer refresh @props @westonruter
+		// Workaround customizer refresh @props @westonruter.
 		echo '<input class="customizer_update" type="hidden" value="">';
 
-		echo '</div>'; // End form
+		echo '</div>'; // End form.
 
-		echo '</div>'; // End wpcw-widget-contact
+		echo '</div>'; // End wpcw-widget-contact.
 
 	}
 
 	/**
-	 * Front-end display
+	 * Front-end display.
 	 *
-	 * @param array $args
-	 * @param array $instance
+	 * @param Array $args Associative array containing widget markup.
+	 * @param Array $instance  The widget options.
 	 */
 	public function widget( $args, $instance ) {
 
-		$fields = $this->get_fields( $instance );
+		$wpcw_fields = $this->get_fields( $instance );
 
-		if ( $this->is_widget_empty( $fields ) ) {
+		if ( $this->is_widget_empty( $wpcw_fields ) ) {
 
 			return;
 
 		}
 
-		$this->before_widget( $args, $fields );
+		$this->before_widget( $args, $wpcw_fields );
 
 		$display_labels = ( 'yes' === $instance['labels']['value'] );
 
-		foreach ( $fields as $field ) {
+		foreach ( $wpcw_fields as $field ) {
 
 			if ( empty( $field['value'] ) || ! $field['show_front_end'] ) {
 
@@ -134,7 +142,7 @@ final class Contact extends Base_Widget {
 
 		}
 
-		if ( 'yes' === $instance['map']['value'] && ! empty( $fields['address']['value'] ) ) {
+		if ( 'yes' === $instance['map']['value'] && ! empty( $wpcw_fields['address']['value'] ) ) {
 
 			if ( $this->defer_map_iframes && ! has_action( 'wp_footer', array( $this, 'defer_map_iframes_js' ) ) ) {
 
@@ -145,29 +153,28 @@ final class Contact extends Base_Widget {
 			printf(
 				'<li class="has-map"><iframe %s="https://www.google.com/maps?q=%s&output=embed&hl=%s&z=%d" frameborder="0" class="wpcw-widget-contact-map"></iframe></li>',
 				( $this->defer_map_iframes ) ? 'src="" data-src' : 'src',
-				rawurlencode( trim( wp_strip_all_tags( $fields['address']['value'] ) ) ),
+				rawurlencode( trim( wp_strip_all_tags( $wpcw_fields['address']['value'] ) ) ),
 				rawurlencode( $this->get_google_maps_locale() ),
-				absint( $fields['map']['zoom'] )
+				absint( $wpcw_fields['map']['zoom'] )
 			);
 
 		}
 
-		$this->after_widget( $args, $fields );
+		$this->after_widget( $args, $wpcw_fields );
 
 	}
 
 	/**
 	 * Initialize fields for use on front-end of forms
 	 *
-	 * @param array $instance
-	 * @param array $fields
-	 * @param bool  $ordered
+	 * @param Array $instance The widget options.
+	 * @param Array $wpcw_fields The widget fields.
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = array(), $ordered = true ) {
+	protected function get_fields( array $instance, array $wpcw_fields = array() ) {
 
-		$fields = array(
+		$wpcw_fields = array(
 			'title'   => array(
 				'label'       => __( 'Title:', 'contact-widgets' ),
 				'description' => __( 'The title of widget. Leave empty for no title.', 'contact-widgets' ),
@@ -179,7 +186,7 @@ final class Contact extends Base_Widget {
 				'type'        => 'email',
 				'sanitizer'   => 'sanitize_email',
 				'escaper'     => function( $value ) {
-					// Work around until https://core.trac.wordpress.org/ticket/32787
+					// Work around until https://core.trac.wordpress.org/ticket/32787.
 					return sprintf( '<a href="mailto:%1$s">%1$s</a>', antispambot( $value ) );
 				},
 				'description' => __( 'An email address where website visitors can contact you.', 'contact-widgets' ),
@@ -201,7 +208,7 @@ final class Contact extends Base_Widget {
 					return current_user_can( 'unfiltered_html' ) ? $value : wp_kses_post( stripslashes( $value ) );
 				},
 				'escaper'       => function( $value ) {
-					return nl2br( apply_filters( 'widget_text', $value ) );
+					return nl2br( apply_filters( 'widget_text', $value ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				},
 				'form_callback' => 'render_form_textarea',
 				'description'   => __( 'A physical address where website visitors can go to visit you in person.', 'contact-widgets' ),
@@ -228,7 +235,7 @@ final class Contact extends Base_Widget {
 				 *
 				 * @since 1.4.0
 				 *
-				 * @param array $instance Widget instance
+				 * @param Array $instance Widget instance
 				 *
 				 * @var int
 				 */
@@ -238,8 +245,8 @@ final class Contact extends Base_Widget {
 			),
 		);
 
-		$fields = apply_filters( 'wpcw_widget_contact_custom_fields', $fields, $instance );
-		$fields = parent::get_fields( $instance, $fields );
+		$wpcw_fields = apply_filters( 'wpcw_widget_contact_custom_fields', $wpcw_fields, $instance );
+		$wpcw_fields = parent::get_fields( $instance, $wpcw_fields );
 
 		/**
 		 * Filter the contact fields
@@ -248,7 +255,7 @@ final class Contact extends Base_Widget {
 		 *
 		 * @var array
 		 */
-		return (array) apply_filters( 'wpcw_widget_contact_fields', $fields, $instance );
+		return (array) apply_filters( 'wpcw_widget_contact_fields', $wpcw_fields, $instance );
 
 	}
 

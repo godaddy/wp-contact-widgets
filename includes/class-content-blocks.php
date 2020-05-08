@@ -1,4 +1,9 @@
 <?php
+/**
+ * Content_Blocks class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,8 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Content Blocks.
+ */
 class Content_Blocks {
 
+	/**
+	 * Contact Blocks construct function.
+	 */
 	public function __construct() {
 
 		include_once __DIR__ . '/blocks/contact/contact-block.php';
@@ -40,7 +51,7 @@ class Content_Blocks {
 			'contact-widgets-blocks',
 			'wpcw_social',
 			array(
-				'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $fields, new \stdClass() ),
+				'icons'      => (array) apply_filters( 'wpcw_widget_social_custom_fields', $wpcw_fields, new \stdClass() ),
 				'iconPrefix' => \Contact_Widgets::$fontawesome_5 ? 'fab' : 'fa',
 			)
 		);

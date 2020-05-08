@@ -99,10 +99,10 @@ abstract class Base_Widget extends \WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 
-		$fields = $this->get_fields( $old_instance );
+		$wpcw_fields = $this->get_fields( $old_instance );
 
 		// Force value for checkbox since they are not posted
-		foreach ( $fields as $key => $field ) {
+		foreach ( $wpcw_fields as $key => $field ) {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
 
@@ -117,13 +117,13 @@ abstract class Base_Widget extends \WP_Widget {
 		foreach ( $new_instance as $key => &$instance ) {
 
 			// Skip unrecognized fields added by other plugins
-			if ( ! array_key_exists( $key, $fields ) ) {
+			if ( ! array_key_exists( $key, $wpcw_fields ) ) {
 
 				continue;
 
 			}
 
-			$sanitizer_callback = $fields[ $key ]['sanitizer'];
+			$sanitizer_callback = $wpcw_fields[ $key ]['sanitizer'];
 
 			// Title can't be an array
 			if ( 'title' === $key ) {
@@ -147,16 +147,16 @@ abstract class Base_Widget extends \WP_Widget {
 	 * Initialize fields for use on front-end of forms
 	 *
 	 * @param  array $instance
-	 * @param  array $fields (optional)
+	 * @param  array $wpcw_fields (optional)
 	 * @param  bool  $ordered (optional)
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = array(), $ordered = true ) {
+	protected function get_fields( array $instance, array $wpcw_fields = array(), $ordered = true ) {
 
 		$order = 0;
 
-		foreach ( $fields as $key => &$field ) {
+		foreach ( $wpcw_fields as $key => &$field ) {
 
 			$common_properties = array(
 				'key'   => $key,
@@ -186,53 +186,53 @@ abstract class Base_Widget extends \WP_Widget {
 
 		if ( $ordered ) {
 
-			$fields = $this->order_field( $fields );
+			$wpcw_fields = $this->order_field( $wpcw_fields );
 
 		}
 
-		return $fields;
+		return $wpcw_fields;
 
 	}
 
 	/**
 	 * Order array by field order
 	 *
-	 * @param  array $fields
+	 * @param  array $wpcw_fields
 	 *
 	 * @return array
 	 */
-	protected function order_field( array $fields ) {
+	protected function order_field( array $wpcw_fields ) {
 
 		uksort(
-			$fields,
-			function( $a, $b ) use ( $fields ) {
+			$wpcw_fields,
+			function( $a, $b ) use ( $wpcw_fields ) {
 
 				// We want title first and order of non sortable fields doesn't matter
-				if ( ! $fields[ $a ]['sortable'] && 'title' !== $a ) {
+				if ( ! $wpcw_fields[ $a ]['sortable'] && 'title' !== $a ) {
 
 					return 1;
 
 				}
 
-				return ( $fields[ $a ]['order'] < $fields[ $b ]['order'] ) ? -1 : 1;
+				return ( $wpcw_fields[ $a ]['order'] < $wpcw_fields[ $b ]['order'] ) ? -1 : 1;
 
 			}
 		);
 
-		return $fields;
+		return $wpcw_fields;
 
 	}
 
 	/**
 	 * Check if all the fields we show on the front-end are empty
 	 *
-	 * @param  array $fields
+	 * @param  array $wpcw_fields
 	 *
 	 * @return bool
 	 */
-	protected function is_widget_empty( array $fields ) {
+	protected function is_widget_empty( array $wpcw_fields ) {
 
-		foreach ( $fields as $key => $field ) {
+		foreach ( $wpcw_fields as $key => $field ) {
 
 			/**
 			 * Filter to ignore the title when checking if a widget is empty
@@ -428,11 +428,11 @@ abstract class Base_Widget extends \WP_Widget {
 	 * Print beginning of front-end display
 	 *
 	 * @param array $args
-	 * @param array $fields
+	 * @param array $wpcw_fields
 	 */
-	protected function before_widget( array $args, array &$fields ) {
+	protected function before_widget( array $args, array &$wpcw_fields ) {
 
-		$title = array_shift( $fields );
+		$title = array_shift( $wpcw_fields );
 
 		echo $args['before_widget']; // @codingStandardsIgnoreLine
 
@@ -459,9 +459,9 @@ abstract class Base_Widget extends \WP_Widget {
 	 * Print end of front-end display
 	 *
 	 * @param array $args
-	 * @param array $fields
+	 * @param array $wpcw_fields
 	 */
-	protected function after_widget( array $args, array &$fields ) {
+	protected function after_widget( array $args, array &$wpcw_fields ) {
 
 		echo '</ul>';
 

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Social class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,9 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Social class.
+ */
 final class Social extends Base_Widget {
-
-	private $icon_prefix;
 
 	/**
 	 * Widget constructor
@@ -36,29 +42,27 @@ final class Social extends Base_Widget {
 	/**
 	 * Widget form fields
 	 *
-	 * @param array $instance
-	 *
-	 * @return string|void
+	 * @param Array $instance The widget options.
 	 */
 	public function form( $instance ) {
 
 		parent::form( $instance );
 
-		$fields      = $this->get_fields( $instance );
-		$title_field = array_shift( $fields );
+		$wpcw_fields = $this->get_fields( $instance );
+		$title_field = array_shift( $wpcw_fields );
 
 		echo '<div class="wpcw-widget wpcw-widget-social">';
 
 		echo '<div class="title">';
 
-		// Title field
+		// Title field.
 		$this->render_form_input( $title_field );
 
 		echo '</div>';
 
 		echo '<div class="icons">';
 
-		foreach ( $fields as $key => $field ) {
+		foreach ( $wpcw_fields as $key => $field ) {
 
 			if ( ( ! empty( $field['deprecated'] ) && empty( $field['value'] ) ) || ! isset( $field['social'] ) ) {
 
@@ -96,9 +100,9 @@ final class Social extends Base_Widget {
 
 		echo '<div class="form">';
 
-		$fields = $this->order_field( $fields );
+		$wpcw_fields = $this->order_field( $wpcw_fields );
 
-		foreach ( $fields as $key => $field ) {
+		foreach ( $wpcw_fields as $key => $field ) {
 
 			$method = $field['form_callback'];
 
@@ -113,43 +117,43 @@ final class Social extends Base_Widget {
 			}
 		}
 
-		// Workaround customizer refresh @props @westonruter
+		// Workaround customizer refresh @props @westonruter.
 		echo '<input class="customizer_update" type="hidden" value="">';
 
-		echo '</div>'; // End form
+		echo '</div>'; // End form.
 
 		echo '<div class="default-fields">';
 
-		// Template form for JS use
-		$this->render_form_input( $this->field_defaults + [ 'social' => true ] ); // @codingStandardsIgnoreLine
+		// Template form for JS use.
+		$this->render_form_input( $this->field_defaults + [ 'social' => true ] ); // @codingStandardsIgnoreLine.
 
-		echo '</div>'; // End default-fields
+		echo '</div>'; // End default-fields.
 
-		echo '</div>'; // End wpcw-widget-social
+		echo '</div>'; // End wpcw-widget-social.
 
 	}
 
 	/**
 	 * Front-end display
 	 *
-	 * @param array $args
-	 * @param array $instance
+	 * @param array $args Associative array of widget markup.
+	 * @param array $instance The widget options.
 	 */
 	public function widget( $args, $instance ) {
 
-		$fields = $this->get_fields( $instance, array(), true );
+		$wpcw_fields = $this->get_fields( $instance, array(), true );
 
-		if ( $this->is_widget_empty( $fields ) ) {
+		if ( $this->is_widget_empty( $wpcw_fields ) ) {
 
 			return;
 
 		}
 
-		$this->before_widget( $args, $fields );
+		$this->before_widget( $args, $wpcw_fields );
 
 		$display_labels = ( 'yes' === $instance['labels']['value'] );
 
-		foreach ( $fields as $field ) {
+		foreach ( $wpcw_fields as $field ) {
 
 			if ( empty( $field['value'] ) || ! $field['show_front_end'] ) {
 
@@ -162,7 +166,7 @@ final class Social extends Base_Widget {
 			printf(
 				'<li class="%s"><a href="%s" target="%s" title="%s"><span class="%s fa-%s fa-%s"></span>%s</a></li>',
 				( $display_labels ) ? 'has-label' : 'no-label',
-				$escape_callback( $field['value'] ), // @codingStandardsIgnoreLine
+				$escape_callback( $field['value'] ), // @codingStandardsIgnoreLine.
 				esc_attr( $field['target'] ),
 				sprintf(
 					/* translators: 1. Title of website (e.g. My Cat Blog), 2. Name of social network (e.g. Facebook) */
@@ -171,22 +175,22 @@ final class Social extends Base_Widget {
 					esc_html( $field['label'] )
 				),
 				esc_attr( $this->get_icon_prefix( $field ) ),
-				isset( $fields['icon_size']['value'] ) ? esc_attr( $fields['icon_size']['value'] ) : '2x', // @codingStandardsIgnoreLine
+				isset( $wpcw_fields['icon_size']['value'] ) ? esc_attr( $wpcw_fields['icon_size']['value'] ) : '2x', // @codingStandardsIgnoreLine.
 				esc_attr( $field['icon'] ),
-				( $display_labels ) ? esc_html( $field['label'] ) : '' // @codingStandardsIgnoreLine
+				( $display_labels ) ? esc_html( $field['label'] ) : '' // @codingStandardsIgnoreLine.
 			);
 
 		}
 
-		$this->after_widget( $args, $fields );
+		$this->after_widget( $args, $wpcw_fields );
 
 	}
 
 	/**
-	 * Enqueue scripts and styles for front-end use
+	 * Enqueue scripts and styles for front-end use.
 	 *
-	 * @action wp_enqueue_scripts
-	 * @codingStandardsIgnoreStart
+	 * @action wp_enqueue_scripts.
+	 * @codingStandardsIgnoreStart.
 	 */
 	public function front_end_enqueue_scripts() {
 
@@ -198,17 +202,17 @@ final class Social extends Base_Widget {
 	/**
 	 * Initialize fields for use on front-end of forms
 	 *
-	 * @param  array $instance
-	 * @param  array $fields (optional)
-	 * @param  bool  $ordered (optional)
+	 * @param  array $instance The block options.
+	 * @param  array $wpcw_fields Optional field containing widget field data.
+	 * @param  bool  $ordered Optional value to order widget data.
 	 *
 	 * @return array
 	 */
-	protected function get_fields( array $instance, array $fields = array(), $ordered = false ) {
+	protected function get_fields( array $instance, array $wpcw_fields = array(), $ordered = false ) {
 
 		include 'social-networks.php';
 
-		foreach ( $fields as $key => &$field ) {
+		foreach ( $wpcw_fields as $key => &$field ) {
 
 			$default = array(
 				'sanitizer' => 'esc_url_raw',
@@ -231,10 +235,10 @@ final class Social extends Base_Widget {
 			),
 		);
 
-		// Prepend title field to the array
-		$fields = $title + $fields;
+		// Prepend title field to the array.
+		$wpcw_fields = $title + $wpcw_fields;
 
-		$fields['labels'] = array(
+		$wpcw_fields['labels'] = array(
 			'label'          => __( 'Display labels?', 'contact-widgets' ),
 			'class'          => '',
 			'label_after'    => true,
@@ -245,24 +249,24 @@ final class Social extends Base_Widget {
 			'show_front_end' => false,
 		);
 
-		$fields = apply_filters( 'wpcw_widget_social_custom_fields', $fields, $instance );
-		$fields = parent::get_fields( $instance, $fields, $ordered );
+		$wpcw_fields = apply_filters( 'wpcw_widget_social_custom_fields', $wpcw_fields, $instance );
+		$wpcw_fields = parent::get_fields( $instance, $wpcw_fields, $ordered );
 
 		/**
-		 * Filter the social fields
+		 * Filter the social fields.
 		 *
 		 * @since 1.0.0
 		 *
 		 * @var array
 		 */
-		return (array) apply_filters( 'wpcw_widget_social_fields', $fields, $instance );
+		return (array) apply_filters( 'wpcw_widget_social_fields', $wpcw_fields, $instance );
 
 	}
 
 	/**
-	 * Print label and wrapper
+	 * Print label and wrapper.
 	 *
-	 * @param array $field
+	 * @param array $field Widget field data.
 	 */
 	protected function print_label( array $field ) {
 
@@ -286,7 +290,7 @@ final class Social extends Base_Widget {
 	/**
 	 * Determine the icon prefix.
 	 *
-	 * @param array $field
+	 * @param array $field Widget field data.
 	 */
 	private function get_icon_prefix( array $field ) {
 
