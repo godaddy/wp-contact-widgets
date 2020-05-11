@@ -1,4 +1,9 @@
 <?php
+/**
+ * Social_Block class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,8 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Social_Block class.
+ */
 class Social_Block {
-
+	/**
+	 * Social_Block class construct function.
+	 */
 	public function __construct() {
 
 		add_action( 'enqueue_block_editor_assets', array( $this, 'social_block_styles' ) );

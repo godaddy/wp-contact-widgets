@@ -1,4 +1,9 @@
 <?php
+/**
+ * Base_Widget class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,6 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets class Base Widget extends WP_Widget
+ *
+ * @var array
+ */
 abstract class Base_Widget extends \WP_Widget {
 
 	/**
@@ -28,22 +38,22 @@ abstract class Base_Widget extends \WP_Widget {
 		'sanitizer'      => 'sanitize_text_field',
 		'escaper'        => 'esc_html',
 		'form_callback'  => 'render_form_input',
-		'default'        => '', // Used mainly for social fields to add default value
+		'default'        => '', // Used mainly for social fields to add default value.
 		'value'          => '',
 		'placeholder'    => '',
 		'sortable'       => true,
-		'atts'           => '', // Input attributes
+		'atts'           => '', // Input attributes.
 		'show_front_end' => true, // Are we showing this field on the front end?
-		'show_empty'     => false, // Show the field even if value is empty
-		'select_options' => array(), // Only used if type=select & form_callback=render_form_select
+		'show_empty'     => false, // Show the field even if value is empty.
+		'select_options' => array(), // Only used if type=select & form_callback=render_form_select.
 	);
 
 	/**
 	 * Widget base constructor
 	 *
-	 * @param string $id_base
-	 * @param string $name
-	 * @param array  $widget_options
+	 * @param string $id_base Contains the widget id eg( 'wpcw_social', 'wpcw_contact' ).
+	 * @param string $name Name of widget element.
+	 * @param array  $widget_options Widget element options.
 	 */
 	public function __construct( $id_base, $name, array $widget_options ) {
 
@@ -65,13 +75,11 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Add common ressources needed for the form
-	 *
-	 * @param array $instance
+	 * Add common resources needed for the form.
 	 *
 	 * @return string|void
 	 */
-	public function form( $instance ) {
+	public function form() {
 
 		add_action( 'admin_footer', array( $this, 'enqueue_scripts' ) );
 		add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_customizer_scripts' ) );
@@ -80,7 +88,7 @@ abstract class Base_Widget extends \WP_Widget {
 		<script>
 			( function ( $ ) {
 
-				// This let us know that we appended a new widget to reset sortables
+				// This let us know that we appended a new widget to reset sortables.
 				$( document ).trigger( 'wpcw.change' );
 
 			} )( jQuery );
@@ -90,7 +98,7 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Sanitize widget form values as they are saved
+	 * Sanitize widget form values as they are saved.
 	 *
 	 * @param  array $new_instance Values just sent to be saved.
 	 * @param  array $old_instance Previously saved values from database.
@@ -101,22 +109,22 @@ abstract class Base_Widget extends \WP_Widget {
 
 		$wpcw_fields = $this->get_fields( $old_instance );
 
-		// Force value for checkbox since they are not posted
+		// Force value for checkbox since they are not posted.
 		foreach ( $wpcw_fields as $key => $field ) {
 
 			if ( 'checkbox' === $field['type'] && ! isset( $new_instance[ $key ]['value'] ) ) {
 
-				$new_instance[ $key ] = array( 'value' => 'no' ); // @codingStandardsIgnoreLine
+				$new_instance[ $key ] = array( 'value' => 'no' ); // @codingStandardsIgnoreLine.
 
 			}
 		}
 
-		// Starting at 1 since title order is 0
+		// Starting at 1 since title order is 0.
 		$order = 1;
 
 		foreach ( $new_instance as $key => &$instance ) {
 
-			// Skip unrecognized fields added by other plugins
+			// Skip unrecognized fields added by other plugins.
 			if ( ! array_key_exists( $key, $wpcw_fields ) ) {
 
 				continue;
@@ -125,7 +133,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 			$sanitizer_callback = $wpcw_fields[ $key ]['sanitizer'];
 
-			// Title can't be an array
+			// Title can't be an array.
 			if ( 'title' === $key ) {
 
 				$instance = $sanitizer_callback( $instance['value'] );
@@ -144,11 +152,11 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Initialize fields for use on front-end of forms
+	 * Initialize fields for use on front-end of forms.
 	 *
-	 * @param  array $instance
-	 * @param  array $wpcw_fields (optional)
-	 * @param  bool  $ordered (optional)
+	 * @param  array $instance The widget options.
+	 * @param  array $wpcw_fields Optional field containing widget field data.
+	 * @param  bool  $ordered Optional boolean value to order widget data.
 	 *
 	 * @return array
 	 */
@@ -195,9 +203,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Order array by field order
+	 * Order array by field order.
 	 *
-	 * @param  array $wpcw_fields
+	 * @param  array $wpcw_fields Optional field containing widget field data.
 	 *
 	 * @return array
 	 */
@@ -207,7 +215,7 @@ abstract class Base_Widget extends \WP_Widget {
 			$wpcw_fields,
 			function( $a, $b ) use ( $wpcw_fields ) {
 
-				// We want title first and order of non sortable fields doesn't matter
+				// We want title first and order of non sortable fields doesn't matter.
 				if ( ! $wpcw_fields[ $a ]['sortable'] && 'title' !== $a ) {
 
 					return 1;
@@ -224,9 +232,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Check if all the fields we show on the front-end are empty
+	 * Check if all the fields we show on the front-end are empty.
 	 *
-	 * @param  array $wpcw_fields
+	 * @param  array $wpcw_fields Optional field containing widget field data.
 	 *
 	 * @return bool
 	 */
@@ -261,9 +269,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Print current label
+	 * Print current label.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function print_label( array $field ) {
 
@@ -277,9 +285,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Print label and wrapper
+	 * Print label and wrapper.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function before_form_field( array $field ) {
 
@@ -317,9 +325,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Render input field for admin form
+	 * Render input field for admin form.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function render_form_input( array $field ) {
 
@@ -347,9 +355,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Render select field
+	 * Render select field.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function render_form_select( array $field ) {
 
@@ -386,9 +394,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Render textarea field for admin widget form
+	 * Render textarea field for admin widget form.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function render_form_textarea( array $field ) {
 
@@ -408,9 +416,9 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Close wrapper of form field
+	 * Close wrapper of form field.
 	 *
-	 * @param array $field
+	 * @param array $field Associative array containing widget configuration.
 	 */
 	protected function after_form_field( array $field ) {
 
@@ -425,10 +433,10 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Print beginning of front-end display
+	 * Print beginning of front-end display.
 	 *
-	 * @param array $args
-	 * @param array $wpcw_fields
+	 * @param array $args Associative array of widget markup.
+	 * @param array $wpcw_fields Optional field containing widget field data.
 	 */
 	protected function before_widget( array $args, array &$wpcw_fields ) {
 
@@ -458,10 +466,9 @@ abstract class Base_Widget extends \WP_Widget {
 	/**
 	 * Print end of front-end display
 	 *
-	 * @param array $args
-	 * @param array $wpcw_fields
+	 * @param array $args Associative array of widget markup.
 	 */
-	protected function after_widget( array $args, array &$wpcw_fields ) {
+	protected function after_widget( array $args ) {
 
 		echo '</ul>';
 
@@ -472,7 +479,7 @@ abstract class Base_Widget extends \WP_Widget {
 			&& isset( $args['id'] )
 		) {
 
-			// admin-bar.php -> wp_admin_bar_customize_menu()
+			// admin-bar.php -> wp_admin_bar_customize_menu().
 			$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 			$edit_url = add_query_arg(
@@ -500,13 +507,14 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Helper to output only 'checked' and not checked='checked'
-	 * IE 9 & 10 don't support the latter
+	 * Helper to output only 'checked' and not checked='checked'.
+	 * IE 9 & 10 don't support the latter.
 	 *
-	 * @param mixed $helper  One of the values to compare
-	 * @param mixed $current (true) The other value to compare if not just true
-	 * @param bool  $echo    Whether to echo or just return the string
-	 * @return string html attribute or empty string
+	 * @param mixed $helper  One of the values to compare.
+	 * @param mixed $current (true) The other value to compare if not just true.
+	 * @param bool  $echo    Whether to echo or just return the string.
+	 *
+	 * @return string html attribute or empty string.
 	 */
 	public function checked( $helper, $current, $echo = false ) {
 
@@ -514,7 +522,7 @@ abstract class Base_Widget extends \WP_Widget {
 
 		if ( $echo ) {
 
-			echo $result; // @codingStandardsIgnoreLine
+			echo $result; // @codingStandardsIgnoreLine.
 
 		}
 
@@ -523,7 +531,7 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Print footer script and styles
+	 * Print footer script and styles.
 	 */
 	public function enqueue_scripts() {
 
@@ -547,7 +555,7 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Print customizer script
+	 * Print customizer script.
 	 */
 	public function print_customizer_scripts() {
 
@@ -559,7 +567,7 @@ abstract class Base_Widget extends \WP_Widget {
 	}
 
 	/**
-	 * Enqueue scripts and styles for front-end use
+	 * Enqueue scripts and styles for front-end use.
 	 *
 	 * @action wp_enqueue_scripts
 	 */

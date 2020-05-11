@@ -1,4 +1,9 @@
 <?php
+/**
+ * Includes spl_autoload_register action.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 

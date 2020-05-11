@@ -1,5 +1,10 @@
 <?php
-
+// phpcs:ignoreFile - Used in testing only. Ignores WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound.
+/**
+ * Contact Widgets AcceptanceTester class extends \Codeception\Actor.
+ *
+ * @package ContactWidgets
+ */
 
 /**
  * Inherited Methods

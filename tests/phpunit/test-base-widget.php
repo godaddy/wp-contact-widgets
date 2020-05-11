@@ -1,10 +1,20 @@
 <?php
+/**
+ * TestBaseWidget class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
+/**
+ * Contact Widgets TestBaseWidget class.
+ */
 final class TestBaseWidget extends TestCase {
-
-	function setUp() {
+	/**
+	 * TestBaseWidget class setUp function.
+	 */
+	public function setUp() {
 
 		parent::setUp();
 
@@ -18,7 +28,10 @@ final class TestBaseWidget extends TestCase {
 
 	}
 
-	function test_form() {
+	/**
+	 * Function test_form validates actions.
+	 */
+	public function test_form() {
 
 		ob_start();
 
@@ -31,9 +44,12 @@ final class TestBaseWidget extends TestCase {
 
 	}
 
-	function enqueue_scripts() {
+	/**
+	 * Function enqueue_scripts tests for correct scripts and styles.
+	 */
+	public function enqueue_scripts() {
 
-		$GLOBALS['is_IE'] = false;
+		$GLOBALS['is_IE'] = false; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Used only in unit tests.
 
 		$wp_styles  = wp_styles();
 		$wp_scripts = wp_scripts();
@@ -46,7 +62,7 @@ final class TestBaseWidget extends TestCase {
 
 		$this->assertNotContains( 'wpcw-admin-ie', $wp_scripts->queue );
 
-		$GLOBALS['is_IE'] = true;
+		$GLOBALS['is_IE'] = true; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Used only in unit tests.
 
 		$this->plugin->enqueue_scripts();
 

@@ -42,7 +42,7 @@ final class Social extends Base_Widget {
 	/**
 	 * Widget form fields
 	 *
-	 * @param Array $instance The widget options.
+	 * @param array $instance The widget options.
 	 */
 	public function form( $instance ) {
 

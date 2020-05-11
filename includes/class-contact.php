@@ -61,7 +61,7 @@ final class Contact extends Base_Widget {
 	/**
 	 * Widget form fields
 	 *
-	 * @param Array $instance The widget options.
+	 * @param array $instance The widget options.
 	 *
 	 * @return string|void
 	 */
@@ -105,8 +105,8 @@ final class Contact extends Base_Widget {
 	/**
 	 * Front-end display.
 	 *
-	 * @param Array $args Associative array containing widget markup.
-	 * @param Array $instance  The widget options.
+	 * @param array $args Associative array containing widget markup.
+	 * @param array $instance  The widget options.
 	 */
 	public function widget( $args, $instance ) {
 
@@ -167,8 +167,8 @@ final class Contact extends Base_Widget {
 	/**
 	 * Initialize fields for use on front-end of forms
 	 *
-	 * @param Array $instance The widget options.
-	 * @param Array $wpcw_fields The widget fields.
+	 * @param array $instance The widget options.
+	 * @param array $wpcw_fields The widget fields.
 	 *
 	 * @return array
 	 */
@@ -235,7 +235,7 @@ final class Contact extends Base_Widget {
 				 *
 				 * @since 1.4.0
 				 *
-				 * @param Array $instance Widget instance
+				 * @param array $instance Widget instance
 				 *
 				 * @var int
 				 */

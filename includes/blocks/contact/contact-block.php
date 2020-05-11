@@ -1,4 +1,9 @@
 <?php
+/**
+ *  Contact_Block class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
@@ -8,8 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 }
 
+/**
+ * Contact Widgets Contact_Block class.
+ */
 class Contact_Block {
 
+	/**
+	 * Contact_Block class construct function.
+	 */
 	public function __construct() {
 
 		add_action( 'enqueue_block_editor_assets', array( $this, 'contact_block_scripts' ) );

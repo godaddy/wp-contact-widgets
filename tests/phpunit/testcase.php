@@ -1,28 +1,39 @@
 <?php
+/**
+ * TestPlugin class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
+/**
+ * Contact Widgets TestCase class.
+ * Provides helper functions to test classes.
+ */
 class TestCase extends \WP_UnitTestCase {
-
 	/**
-	 * @var object Holds the plugin instance
+	 * Protected variable $plugin.
+	 *
+	 * @var object Holds the plugin instance.
 	 */
 	protected $plugin;
 
 	/**
-	 * Helper function to check validity of action
+	 * Helper function to check validity of action.
 	 *
-	 * @param string       $action
-	 * @param array|string $callback
-	 * @param string       $function_call
+	 * @param string       $action String representing an action function.
+	 * @param array|string $callback String or Array representing callback function.
+	 * @param string       $function_call Optional string representing the type of function call.
+	 *                     eg( 'has_action', 'has_filter' ).
 	 */
 	protected function do_action_validation( $action, $callback, $function_call = 'has_action' ) {
 
-		// Default WP priority
+		// Default WP priority.
 		$priority = isset( $test[3] ) ? $test[3] : 10;
 
-		// Default function call
-		$function_call = ( in_array( $function_call, array( 'has_action', 'has_filter' ) ) ) ? $function_call : 'has_action';
+		// Default function call.
+		$function_call = ( in_array( $function_call, array( 'has_action', 'has_filter' ), true ) ) ? $function_call : 'has_action';
 
 		if ( is_array( $callback ) ) {
 
@@ -34,7 +45,7 @@ class TestCase extends \WP_UnitTestCase {
 
 		}
 
-		// Run assertion here
+		// Run assertion here.
 		$this->assertEquals(
 			$priority,
 			$function_call( $action, $callback ),
@@ -49,10 +60,10 @@ class TestCase extends \WP_UnitTestCase {
 	}
 
 	/**
-	 * Helper function to check validity of filters
+	 * Helper function to check validity of filters.
 	 *
-	 * @param string       $action
-	 * @param array|string $callback
+	 * @param string       $action String representing an action function.
+	 * @param array|string $callback String or Array representing callback function.
 	 */
 	protected function do_filter_validation( $action, $callback ) {
 

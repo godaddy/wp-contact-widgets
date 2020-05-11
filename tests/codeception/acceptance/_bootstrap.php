@@ -1,6 +1,11 @@
 <?php
+// phpcs:ignoreFile - Dev only testing file. Ignores warnings related to variable prefix.
+/**
+ * Apply filters for browserstack credentials since we don't want to version it.
+ *
+ * @package ContactWidgets
+ */
 
-// Apply filters for browserstack credentials since we don't want to version it
 self::$config['modules'] = array(
 	'config' => array(
 		'WebDriver'    => array(
@@ -15,26 +20,26 @@ self::$config['modules'] = array(
 	),
 );
 
-// Activate twenty_sixteen for our test purpose
-$current_theme = get_stylesheet();
+// Activate twenty_sixteen for our test purpose.
+$wpcw_current_theme = get_stylesheet();
 
 switch_theme( 'twentysixteen' );
 
-$contact_widgets = get_option( 'widget_wpcw_contact' );
-$social_widgets  = get_option( 'widget_wpcw_social' );
+$wpcw_contact_widgets = get_option( 'widget_wpcw_contact' );
+$wpcw_social_widgets  = get_option( 'widget_wpcw_social' );
 
-// Let's delete any present widget
+// Let's delete any present widget.
 delete_option( 'widget_wpcw_contact' );
 delete_option( 'widget_wpcw_social' );
 
 add_action(
 	'shutdown',
-	function() use ( $current_theme, $contact_widgets, $social_widgets ) {
+	function() use ( $wpcw_current_theme, $wpcw_contact_widgets, $wpcw_social_widgets ) {
 
-		switch_theme( $current_theme );
+		switch_theme( $wpcw_current_theme );
 
-		update_option( 'widget_wpcw_contact', $contact_widgets );
-		update_option( 'widget_wpcw_social', $social_widgets );
+		update_option( 'widget_wpcw_contact', $wpcw_contact_widgets );
+		update_option( 'widget_wpcw_social', $wpcw_social_widgets );
 
 	}
 );

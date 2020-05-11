@@ -1,9 +1,20 @@
 <?php
+/**
+ * TestPluginLoader class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
+/**
+ * Contact Widgets TestPluginLoader class.
+ */
 final class TestPluginLoader extends TestCase {
 
+	/**
+	 * TestPluginLoader class setUp function.
+	 */
 	public function setUp() {
 
 		parent::setUp();
@@ -13,9 +24,9 @@ final class TestPluginLoader extends TestCase {
 	}
 
 	/**
-	 * Test that all required actions and filters are added as expected
+	 * Test that all required actions and filters are added as expected.
 	 */
-	function test_construct() {
+	public function test_construct() {
 
 		$this->do_action_validation( 'plugins_loaded', array( $this->plugin, 'i18n' ) );
 
@@ -23,7 +34,10 @@ final class TestPluginLoader extends TestCase {
 
 	}
 
-	function test_construct_invalid_php_version() {
+	/**
+	 * Test plugin shutdown if invalid php version running.
+	 */
+	public function test_construct_invalid_php_version() {
 
 		$this->plugin = new \Contact_Widgets( '5.3' );
 
@@ -32,9 +46,9 @@ final class TestPluginLoader extends TestCase {
 	}
 
 	/**
-	 * Test subset of output of php notice
+	 * Test subset of output of php notice.
 	 */
-	function test_notice_output_wrong_php_version() {
+	public function test_notice_output_wrong_php_version() {
 
 		$this->expectOutputRegex( '/class="error"/' );
 

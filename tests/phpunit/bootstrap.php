@@ -1,22 +1,30 @@
 <?php
+/**
+ * Includes bootstrap.
+ *
+ * @package ContactWidgets
+ */
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
+$wpcw_tests_dir = getenv( 'WP_TESTS_DIR' );
 
-if ( ! $_tests_dir ) {
+if ( ! $wpcw_tests_dir ) {
 
-	$_tests_dir = '/tmp/wordpress-tests-lib';
+	$wpcw_tests_dir = '/tmp/wordpress-tests-lib';
 
 }
 
-require_once $_tests_dir . '/includes/functions.php';
+require_once $wpcw_tests_dir . '/includes/functions.php';
 
-function _manually_load_plugin() {
+/**
+ * Function to require main plugin file.
+ */
+function wpcw_manually_load_plugin() {
 
 	require dirname( dirname( dirname( __FILE__ ) ) ) . '/contact-widgets.php';
 
 }
 
-tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
+tests_add_filter( 'muplugins_loaded', 'wpcw_manually_load_plugin' );
 
-require $_tests_dir . '/includes/bootstrap.php';
+require $wpcw_tests_dir . '/includes/bootstrap.php';
 require __DIR__ . '/testcase.php';

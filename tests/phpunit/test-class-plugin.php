@@ -1,10 +1,21 @@
 <?php
+/**
+ * TestPlugin class.
+ *
+ * @package ContactWidgets
+ */
 
 namespace WPCW;
 
+/**
+ * Contact Widgets TestPlugin class.
+ * Tests actions and filters. Tests for availability of local classes.
+ */
 final class TestPlugin extends TestCase {
-
-	function setUp() {
+	/**
+	 * TestPlugin class setUp function.
+	 */
+	public function setUp() {
 
 		parent::setUp();
 
@@ -13,9 +24,9 @@ final class TestPlugin extends TestCase {
 	}
 
 	/**
-	 * Test that all required actions and filters are added as expected
+	 * Test that all required actions and filters are added as expected.
 	 */
-	function test_init() {
+	public function test_init() {
 
 		Plugin::init();
 
@@ -24,13 +35,13 @@ final class TestPlugin extends TestCase {
 	}
 
 	/**
-	 * Test for register_widget function
+	 * Test for register_widget function.
 	 */
-	function test_register_widget() {
+	public function test_register_widget() {
 
 		global $wp_widget_factory;
 
-		// Check contact widget presence
+		// Check contact widget presence.
 		$this->assertTrue(
 			class_exists( 'WPCW\Contact' ),
 			'Class WPCW\Contact is not found'
@@ -38,7 +49,7 @@ final class TestPlugin extends TestCase {
 
 		$this->assertTrue( isset( $wp_widget_factory->widgets['WPCW\Contact'] ) );
 
-		// Check social widget class presence
+		// Check social widget class presence.
 		$this->assertTrue(
 			class_exists( 'WPCW\Social' ),
 			'Class WPCW\Social is not found'
