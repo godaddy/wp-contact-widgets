@@ -6,6 +6,7 @@
     <arg name="basepath" value="./" />
     <file>./</file>
 
+	<exclude-pattern>*/dev-lib/*</exclude-pattern>
     <exclude-pattern>*/build/*</exclude-pattern>
     <exclude-pattern>*/dist/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
