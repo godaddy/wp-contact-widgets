@@ -78,22 +78,6 @@ module.exports = function( grunt ) {
 			},
 		},
 
-		devUpdate: {
-			packages: {
-				options: {
-					packageJson: null,
-					packages: {
-						devDependencies: true,
-						dependencies: false
-					},
-					reportOnlyPkgs: [],
-					reportUpdated: false,
-					semver: true,
-					updateType: 'force'
-				}
-			}
-		},
-
 		imagemin: {
 			options: {
 				optimizationLevel: 3
@@ -286,7 +270,6 @@ module.exports = function( grunt ) {
 	require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
 
 	grunt.registerTask( 'default',    [ 'cssjanus', 'cssmin', 'jshint', 'uglify', 'imagemin', 'readme' ] );
-	grunt.registerTask( 'check',      [ 'devUpdate' ] );
 	grunt.registerTask( 'build',      [ 'default', 'shell:blocks_prod', 'clean:build', 'copy:build' ] );
 	grunt.registerTask( 'deploy',     [ 'build', 'wp_deploy', 'clean:build' ] );
 	grunt.registerTask( 'readme',     [ 'wp_readme_to_markdown' ] );
