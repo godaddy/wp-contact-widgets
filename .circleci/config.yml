@@ -24,6 +24,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Disable xdebug PHP extension
+          command: sudo rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - run:
           name: Update npm
           command: sudo npm install -g npm@latest
       - restore_cache:
@@ -48,6 +51,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Disable xdebug PHP extension
+          command: sudo rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - run:
           name: Update npm
           command: sudo npm install -g npm@latest
       - restore_cache:
@@ -71,6 +77,9 @@ jobs:
       - image: circleci/golang:latest-node-browsers-legacy
     steps:
       - checkout
+      - run:
+          name: Disable xdebug PHP extension
+          command: sudo rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - run:
           name: Update npm
           command: sudo npm install -g npm@latest
