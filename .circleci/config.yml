@@ -1,0 +1,139 @@
+workflows:
+  version: 2.1
+  main:
+    jobs:
+      # Support PHP Versions
+      # http://php.net/supported-versions.php
+      - php56
+      - php73
+      - deploy:
+          requires:
+            - php56
+            - php73
+          filters:
+            tags:
+              only: /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9][0-9]*)(\.(0|[1-9][0-9]*))*)?(\+[0-9-]+(\.[0-9]+)*)?/ # Run on semantic version tags only
+            branches:
+              ignore: /.*/
+
+version: 2.1
+jobs:
+  php56:
+    docker:
+      - image: circleci/php:5.6-node
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: sudo npm install -g npm@latest
+      - restore_cache:
+          key: php56-build-dependency-cache--{{ checksum "composer.json" }}
+      - run:
+          name: Install composer packages
+          command: composer install
+      - save_cache:
+          key: php56-build-dependency-cache--{{ checksum "composer.json" }}
+          paths:
+            - vendor
+      - run:
+          name: "Validate Composer configuration"
+          command: composer validate --strict
+      - run:
+          name: "Run PHPCS"
+          command: composer run lint -- -v
+
+  php73:
+    docker:
+      - image: circleci/php:7.3-node
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: sudo npm install -g npm@latest
+      - restore_cache:
+          key: php73-build-dependency-cache--{{ checksum "composer.json" }}
+      - run:
+          name: Install composer packages
+          command: composer install
+      - save_cache:
+          key: php73-build-dependency-cache--{{ checksum "composer.json" }}
+          paths:
+            - vendor
+      - run:
+          name: "Validate Composer configuration"
+          command: composer validate --strict
+      - run:
+          name: "Run PHPCS"
+          command: composer run lint -- -v
+
+  deploy:
+    docker:
+      - image: circleci/golang:latest-node-browsers-legacy
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: sudo npm install -g npm@latest
+      - run:
+          name: Install Grunt.js
+          command: sudo npm install -g grunt-cli
+      - run:
+          name: Install PHP
+          command: sudo apt-get install php libapache2-mod-php php-mbstring php-xml php-curl
+      - run:
+          name: Disable xdebug PHP extension
+          command: |
+            sudo rm -f /etc/php/*/mods-available/xdebug.ini
+            sudo rm -f /etc/php/*/mods-enabled/xdebug.ini
+            sudo rm -f /etc/php/*/conf.d/*xdebug.ini
+            sudo rm -f /usr/local/etc/php/conf.d/*xdebug.ini
+      - run:
+          name: Install Composer
+          command: |
+            wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer -O composer-setup.php
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+            sudo mv composer.phar /usr/local/bin/composer
+      - run:
+          name: Install ghr
+          command: |
+            go get -u github.com/tcnksm/ghr
+      - restore_cache:
+          keys:
+            - npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - npm-deps-{{ .Branch }}
+      - run:
+          name: Install node dependencies
+          command: |
+            npm install
+      - save_cache:
+          key: npm-deps-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - /home/circleci/project/node_modules
+            - /home/circleci/.npm
+      - restore_cache:
+          keys:
+            - composer-deps-{{ .Branch }}-{{ checksum "composer.lock" }}
+            - composer-deps-{{ .Branch }}
+      - run:
+          name: Install composer dependencies
+          command: |
+            composer config -g github-oauth.github.com $GH_ACCESS_TOKEN
+            composer install
+      - save_cache:
+          key: composer-deps-{{ .Branch }}-{{ checksum "composer.lock" }}
+          paths:
+            - /home/circleci/project/vendor
+      - run:
+          name: Build the plugin
+          command: |
+            mkdir -p /tmp/artifacts
+            npx grunt build
+            zip -r /tmp/artifacts/contact-widgets.zip ./build
+      - deploy:
+          name: Create a release on GitHub
+          command: |
+            CHANGELOG=$(sed -n -e '/== Changelog ==/,$p' $HOME/project/readme.txt | tail -n +4)
+            ghr -t ${GH_ACCESS_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -b "${CHANGELOG}" -delete ${CIRCLE_TAG} /tmp/artifacts/contact-widgets.zip
+      - store_artifacts:
+          path: /tmp/artifacts
