@@ -4,8 +4,7 @@
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "require": {
-    "codeception/codeception": "*",
-    "phpunit/phpunit": "^5",
+    "codeception/codeception": "^4",
     "se/selenium-server-standalone": "^3.12"
   },
   "scripts": {
