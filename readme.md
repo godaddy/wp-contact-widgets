@@ -4,7 +4,7 @@
 **Contributors:** [godaddy](https://profiles.wordpress.org/godaddy), [jonathanbardo](https://profiles.wordpress.org/jonathanbardo), [fjarrett](https://profiles.wordpress.org/fjarrett), [eherman24](https://profiles.wordpress.org/eherman24)  
 **Tags:**              [widget](https://wordpress.org/plugins/tags/widget/), [contact](https://wordpress.org/plugins/tags/contact/), [social](https://wordpress.org/plugins/tags/social/), [social icons](https://wordpress.org/plugins/tags/social icons/), [social media](https://wordpress.org/plugins/tags/social media/), [facebook](https://wordpress.org/plugins/tags/facebook/), [twitter](https://wordpress.org/plugins/tags/twitter/), [instagram](https://wordpress.org/plugins/tags/instagram/), [linkedin](https://wordpress.org/plugins/tags/linkedin/), [pinterest](https://wordpress.org/plugins/tags/pinterest/)  
 **Requires at least:** 4.4  
-**Tested up to:**      5.3  
+**Tested up to:**      5.7  
 **Stable tag:**        1.6.2  
 **License:**           GPL-2.0  
 **License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
