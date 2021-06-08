@@ -4,11 +4,11 @@ workflows:
     jobs:
       # Support PHP Versions
       # http://php.net/supported-versions.php
-      - php56
+      - php71
       - php73
       - deploy:
           requires:
-            - php56
+            - php71
             - php73
           filters:
             tags:
@@ -18,9 +18,9 @@ workflows:
 
 version: 2.1
 jobs:
-  php56:
+  php71:
     docker:
-      - image: circleci/php:5.6-node
+      - image: circleci/php:7.1-node
     steps:
       - checkout
       - run:
@@ -30,12 +30,12 @@ jobs:
           name: Update npm
           command: sudo npm install -g npm@latest
       - restore_cache:
-          key: php56-build-dependency-cache--{{ checksum "composer.json" }}
+          key: php71-build-dependency-cache--{{ checksum "composer.json" }}
       - run:
           name: Install composer packages
           command: composer install
       - save_cache:
-          key: php56-build-dependency-cache--{{ checksum "composer.json" }}
+          key: php71-build-dependency-cache--{{ checksum "composer.json" }}
           paths:
             - vendor
       - run:
